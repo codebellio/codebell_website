@@ -219,7 +219,7 @@ class AppDiv extends CodBellElement {
                         <p>Page will automatically get refreshed after payment got successful</p>
                     </div>
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
-                        <img src="/assets/img/Rectangle1.png"/>
+                        <div ref="qrcodejs"></div>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
                         <a class="button w-inline-block" type="button" :href="paymentLink">
@@ -326,7 +326,13 @@ class AppDiv extends CodBellElement {
             if(data && data.Status == 2 && data.Result.Order){
                 this.data.Order = data.Result.Order
                 if(this.data.Order && this.data.Order.Total > 0){
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell_Technologies_Private_Limited&tr="+this.data.Order.UUID+"&am="+this.data.Order.Total+"&cu=INR"
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr="+this.data.Order.UUID+"&am="+this.data.Order.Total+"&cu=INR"
+                    this.qrcode = new QRCode(this.refs.qrcodejs, {
+                        width: 259,
+                        height: 259,
+                        colorDark: "#042638",
+                        text : this.data.paymentLink,
+                    });
                 }
             }
         }).catch((error) => {
