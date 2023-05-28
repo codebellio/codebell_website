@@ -172,7 +172,7 @@ class AppDiv extends CodBellElement {
                         <div class="text-button" style="color: #f8f8f8">Continue</div>
                     </button>
                 </form>
-                <div if="Order" class="orderPopUp" style="width: fit-content; max-width:90vw; flex-direction: row; gap:1em; " >
+                <div if="Order" class="orderPopUp" style="width: fit-content; max-width:90vw; flex-direction: row; gap:1em; flex-wrap: wrap; " >
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh;">
                         <h4><span :text="Order.Name"></span> You are just 1 step away from geting codebell</h4>
 
