@@ -222,7 +222,7 @@ class AppDiv extends CodBellElement {
                         <img src="/assets/img/Rectangle1.png"/>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
-                        <a class="button w-inline-block" type="button" href="upi://pay?pa=9763429023@upi&pn=VIKRAM%20UTTAM%20MALI&am=65.00&cu=INR&mode=02&purpose=00&tn=Codebell%20Home%20QR%20code%20Card&orgid=189999&sign=MEQCICWl+7UVtRMSeIk2esqAyYGtJ5f0XAt55fSlKAV/0PzZAiA4O5nvOeZAYLZADsgl4OxalW4GKqCFG9XLg/StVFbTLA==">
+                        <a class="button w-inline-block" type="button" :href="paymentLink">
                             <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
                         </a>
                     </div>
@@ -258,6 +258,7 @@ class AppDiv extends CodBellElement {
             country_error: "",
             Products : {},
             SelectedProducts : {},
+            paymentLink : "",
         }
     }
     add_to_cart(){
@@ -324,6 +325,9 @@ class AppDiv extends CodBellElement {
         window.call_api("place_order", request_data).then((data) => {
             if(data && data.Status == 2 && data.Result.Order){
                 this.data.Order = data.Result.Order
+                if(this.data.Order && this.data.Order.Total > 0){
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell_Technologies_Private_Limited&tr="+this.data.Order.UUID+"&am="+this.data.Order.Total+"&cu=INR"
+                }
             }
         }).catch((error) => {
             console.log(error)
