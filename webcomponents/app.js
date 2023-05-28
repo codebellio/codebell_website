@@ -222,7 +222,7 @@ class AppDiv extends CodBellElement {
                         <img src="/assets/img/Rectangle1.png"/>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
-                        <button class="button w-inline-block" style="width: 13em;align-self: flex-end;" type="button" @click="makePayment">
+                        <button class="button w-inline-block" type="button" @click="makePayment">
                             <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
                         </button>
                     </div>
