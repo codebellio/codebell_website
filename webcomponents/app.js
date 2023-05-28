@@ -222,9 +222,9 @@ class AppDiv extends CodBellElement {
                         <img src="/assets/img/Rectangle1.png"/>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
-                        <button class="button w-inline-block" type="button" @click="makePayment">
+                        <a class="button w-inline-block" type="button" href="upi://pay?pa=9763429023@upi&pn=VIKRAM%20UTTAM%20MALI&am=65.00&cu=INR&mode=02&purpose=00&tn=Codebell%20Home%20QR%20code%20Card&orgid=189999&sign=MEQCICWl+7UVtRMSeIk2esqAyYGtJ5f0XAt55fSlKAV/0PzZAiA4O5nvOeZAYLZADsgl4OxalW4GKqCFG9XLg/StVFbTLA==">
                             <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </loading-view>
