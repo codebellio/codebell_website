@@ -105,6 +105,11 @@ class AppDiv extends CodBellElement {
                     max-width: 97vw;
                     max-height: 97vh;
                 }
+        
+                .form_grid {
+                    display: flex;
+                    gap: 1em;
+                }
             }
         </style>
         <div if="Show" class="orderPopUpOverlay">
