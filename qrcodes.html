@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codebell Admin Panel</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet"> -->
+    <link type="text/css" rel="stylesheet" href="/style.css?v=7" media="screen,projection" />
+    <meta name="theme-color" content="#FE7d1E" />
+</head>
+
+<body class="teal flex-column">
+    <script src="/assets/js/helper.js?v=7"></script>
+    <script src="/assets/webcomponents/cod_bell_element.js?v=7"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script type="text/javascript" src="/assets/qrcodejs/qrcode.js"></script>
+    <script src="/assets/jspdf/polyfills.umd.js"></script>
+    <script src="/assets/jspdf/jspdf.umd.js"></script>
+    <script type="module" src="/api.js?v=7" defer></script>
+    <script type="module" src="/assets/webcomponents/router_view.js?v=7" defer></script>
+    <script type="module" src="/assets/webcomponents/pagination_view.js?v=7" defer></script>
+    <script type="module" src="/assets/webcomponents/notification_view.js" defer></script>
+    <script type="module" src="/assets/webcomponents/modal_view.js" defer></script>
+    <script src="/users.js"></script>
+    <script type="module">
+        class QrList extends CodBellElement {
+            constructor() {
+                super();
+                this.getImage(this.data.record)
+            }
+            getContent() {
+                return `
+        <style>
+            canvas{
+                background: aliceblue;
+            }
+            .box{
+                position: relative;
+                max-height: 100vh;
+                max-width: 100vw;
+                overflow: auto;
+                float: left;
+            }
+            .sample_box{
+                position: absolute;
+                background: #00000000;
+                left: 336px;
+                top: 456px;
+                height: 635px;
+                width: 629px;
+            }
+        </style>
+        <div class="box">
+            <img :data_src="record.Photo" :src="record.Photo" alt="Avatar">
+            <div class="sample_box"></div>
+        </div>
+        <div ref="qrcodejs" style></div>
+        `
+            }
+            generateZIP() {
+                console.log('TEST');
+                var zip = new JSZip();
+                var count = 0;
+                var zipFilename = "qrcodes_size" + this.data.perPage + "_page" + this.data.currentPage + ".zip";
+                for (var i = 0; i < this.data.records[this.data.currentPage].length; i++) {
+                    debugger
+                    var record = this.data.records[this.data.currentPage][i]
+                    var filename = record.Code + '.png';
+                    var url = record.Photo
+                    JSZipUtils.getBinaryContent(url, (err, data) => {
+                        if (err) {
+                            throw err; // or handle the error
+                        }
+                        zip.file(filename, data, { binary: true });
+                        count++;
+                        if (count == this.data.records[this.data.currentPage].length) {
+                            zip.generateAsync({ type: 'blob' }).then((content) => {
+                                saveAs(content, zipFilename);
+                            });
+                        }
+                    });
+                }
+            }
+            saveAs(filecontent, filename) {
+                var link = document.createElement("a");
+                link.id = filename;
+                link.download = filename;
+                link.href = filecontent;
+                link.click();
+            }
+            print_all() {
+                console.log('TEST');
+                var zip = new JSZip();
+                var count = 0;
+                var zipFilename = "qrcodes_size" + this.data.perPage + "_page" + this.data.currentPage + ".zip";
+                for (var i = 0; i < this.data.records[this.data.currentPage].length; i++) {
+                    var record = this.data.records[this.data.currentPage][i]
+                    var filename = record.Code + '.png';
+                    var pdgfilename = record.Code + '.pdf';
+                    var url = record.Photo
+                    var doc = new jspdf.jsPDF();
+                    doc.deletePage(1)
+                    doc.addPage([this.qr_width, this.qr_height], "p")
+                    doc.addImage(record.Photo, 'PNG', 0, 0, this.qr_width, this.qr_height);
+                    var pdf_data_url = doc.output('blob');
+                    //doc.save(pdgfilename);
+                    zip.file(pdgfilename, pdf_data_url, { binary: true });
+                    count++;
+                    if (count == this.data.records[this.data.currentPage].length) {
+                        zip.generateAsync({ type: 'blob' }).then((content) => {
+                            saveAs(content, zipFilename);
+                        });
+                    }
+                }
+            }
+            getData() {
+                return {
+                    qrCodeSize : 342,
+                    qrCodeLeft : 655,
+                    qrCodeTop : 62,
+                    cornerSize: 49,
+                    record : {
+                        Code : "8e07599c-152d-46a4-8956-219fe5d26a53",
+                        Photo : "",
+                    }
+                }
+            }
+            getImage(element) {
+                // https://device.codebell.io/visit_to/152
+                var data = location.protocol + '//device.' + location.host + '/visit_to/' + element.Code
+                data = "https://device.codebell.io/visit_to/"+ element.Code
+                this.toQrcodeImageByQrcodeJS(data, element)
+                //this.toQrcodeImage(url, element)
+                // 'https://chart.googleapis.com/chart?cht=qr&chs=200&chl=https://device.codebell.io/visit_to/152&chco=000000'
+                //var imageURL ='https://chart.googleapis.com/chart?cht=qr&chs=200&chl='+ url +'&chco=000000'
+            }
+            toQrcodeImageByQrcodeJS(data, element){
+                debugger
+                if(!this.qrcode){
+                    this.qrcode = new QRCode(this.refs.qrcodejs, {
+                        width : this.data.qrCodeSize,
+                        height : this.data.qrCodeSize,
+                        colorDark : "#1C6F9B",
+                    });
+                    this.qrcode.makeCode(data);
+                    setTimeout(() => {
+                        var dataURL = this.refs.qrcodejs.childNodes[1].src
+                        this.refs.qrcodejs.innerHTML = ""
+                        this.toDataURL(dataURL, element)
+                    }, 300);
+                }
+            }
+            toQrcodeImage(url, element) {
+                const qrCode = new QRCodeStyling({
+                    "width": this.data.qrCodeSize,
+                    "height": this.data.qrCodeSize,
+                    "data": url,
+                    "margin": 0,
+                    "qrOptions": {
+                        "typeNumber": "0",
+                        "mode": "Byte",
+                        "errorCorrectionLevel": "H"
+                    },
+                    "imageOptions": {
+                        "hideBackgroundDots": true,
+                        "imageSize": 0.4,
+                        "margin": 0
+                    },
+                    "dotsOptions": {
+                        "type": "square",
+                        "color": "#003856"
+                    },
+                    "backgroundOptions": {
+                        "color": "#ffffff"
+                    },
+                    "image": location.origin + "/assets/img/bell1.png",
+                    "dotsOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        },
+                        "gradient": {
+                            "linear": true,
+                            "radial": false,
+                            "color1": "#6a1a4c",
+                            "color2": "#6a1a4c",
+                            "rotation": "0"
+                        }
+                    },
+                    "cornersSquareOptions": {
+                        "type": "square",
+                        "color": "#003856"
+                    },
+                    "cornersSquareOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        },
+                        "gradient": {
+                            "linear": true,
+                            "radial": false,
+                            "color1": "#000000",
+                            "color2": "#000000",
+                            "rotation": "0"
+                        }
+                    },
+                    "cornersDotOptions": {
+                        "type": "square",
+                        "color": "#003856"
+                    },
+                    "cornersDotOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        },
+                        "gradient": {
+                            "linear": true,
+                            "radial": false,
+                            "color1": "#000000",
+                            "color2": "#000000",
+                            "rotation": "0"
+                        }
+                    },
+                    "backgroundOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        },
+                        "gradient": {
+                            "linear": true,
+                            "radial": false,
+                            "color1": "#ffffff",
+                            "color2": "#ffffff",
+                            "rotation": "0"
+                        }
+                    }
+                });
+                qrCode.getRawData('png').then((data) => {
+                    this.blobToDataURL(data, (dataURL) => {
+                        this.toDataURL(dataURL, element)
+                    })
+                });
+            }
+            blobToDataURL(blob, callback) {
+                var a = new FileReader();
+                a.onload = function (e) { callback(e.target.result); }
+                a.readAsDataURL(blob);
+            }
+            qr_height = 341
+            qr_width = 341
+            async toDataURL(src, element) {
+                var component = this
+                var baseimage = new Image();
+                baseimage.crossOrigin = 'Anonymous';
+                var component = this
+                baseimage.onload = function () {
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    component.qr_height = baseimage.height
+                    component.qr_width = baseimage.width
+                    canvas.height = baseimage.height // ;
+                    canvas.width = baseimage.width //;
+                    context.drawImage(this, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
+                    const image = new Image();
+                    image.crossOrigin = 'Anonymous';
+                    image.onload = function () {
+                        context.drawImage(image, 0, 0, component.data.qrCodeSize, component.data.qrCodeSize, component.data.qrCodeLeft, component.data.qrCodeTop, component.data.qrCodeSize, component.data.qrCodeSize);
+
+
+
+                        const logo = new Image();
+                        logo.crossOrigin = 'Anonymous';
+                        logo.onload = function () {
+                            context.drawImage(logo, 0, 0, logo.width, logo.height, component.data.qrCodeLeft+(component.data.qrCodeSize/2)-((logo.width/5)/2), component.data.qrCodeTop+(component.data.qrCodeSize/2)-((logo.height/5)/2), logo.width/5, logo.height/5);
+                            
+                            // var dataURL = canvas.toDataURL('image/png');
+                            // element.Photo = dataURL
+
+                            
+                            const corner1 = new Image();
+                            corner1.crossOrigin = 'Anonymous';
+                            corner1.onload = function () {
+                                context.drawImage(corner1, 0, 0, corner1.width, corner1.height, component.data.qrCodeLeft, component.data.qrCodeTop, component.data.cornerSize, component.data.cornerSize);
+                                const corner2 = new Image();
+                                corner2.crossOrigin = 'Anonymous';
+                                corner2.onload = function () {
+                                    context.drawImage(corner2, 0, 0, corner1.width, corner2.height,( component.data.qrCodeLeft + component.data.qrCodeSize - component.data.cornerSize) , component.data.qrCodeTop, component.data.cornerSize, component.data.cornerSize);
+                                    const corner3 = new Image();
+                                    corner3.crossOrigin = 'Anonymous';
+                                    corner3.onload = function () {
+                                        context.drawImage(corner3, 0, 0, corner1.width, corner3.height,component.data.qrCodeLeft , ( component.data.qrCodeTop + component.data.qrCodeSize - component.data.cornerSize), component.data.cornerSize, component.data.cornerSize);
+                                        var dataURL = canvas.toDataURL('image/png');
+                                        element.Photo = dataURL
+                                    };
+                                    corner3.src = location.origin + "/assets/img/corner3.jpg";
+                                };
+                                corner2.src = location.origin + "/assets/img/corner2.jpg";
+                            };
+                            corner1.src = location.origin + "/assets/img/corner1.jpg";
+
+                            
+
+                            
+                        };
+                        logo.src = location.origin + "/assets/img/bell1.png";
+
+
+                    };
+                    image.src = src;
+                };
+
+                baseimage.src = location.origin + "/assets/img/car_3.75x2.25.png";
+            }
+            save_record(request_data) {
+                if (!request_data) request_data = {}
+                this.data.loading = true
+                window.call_api("qrimage", request_data).then((data) => {
+                    if (data.Message) {
+                        this.data.message = data.Message
+                    }
+                    if (data.Status == 2) {
+                        this.data.error = false
+                    } else {
+                        this.data.error = true
+                    }
+                    return data
+                }).catch((error) => {
+                    console.error('Error:', error)
+                }).finally(() => {
+                    this.data.loading = false
+                })
+            }
+            loadData = debounce((request_data) => {
+                if (!request_data || !request_data.page) {
+                    alert("wrong request")
+                    return
+                }
+                request_data.sort = this.data.sort_by
+                request_data.sortdesc = this.data.desc
+                request_data.limit = this.data.perPage
+                if (this.data.conditions) {
+                    request_data.fix_condition = this.data.conditions
+                }
+                this.data.search = this.data.search.trim()
+                if (this.data.search) {
+                    request_data.search = this.data.search.replace(": ", '":"')
+                }
+                this.data.loading = true;
+                window.call_api(this.data.api, request_data).then((data) => {
+                    if (data.Message) {
+                        this.data.message = data.Message
+                    }
+                    if (data.Status == 2) {
+                        data.data.forEach(element => {
+                            this.getImage(element)
+                        });
+                        setTimeout(() => {
+                            this.data.records[request_data.page] = data.data
+                            this.data.recordsTotal = data.recordsTotal
+                            this.data.recordsFiltered = data.recordsFiltered
+                            this.data.searched = this.data.search.trim()
+                        }, 1000);
+                    } else {
+                        this.data.error = true
+                    }
+                    return data
+                }).catch((error) => {
+                    console.log(error)
+                    this.data.error = true
+                    this.data.message = error.message
+                }).finally(() => {
+                    this.data.loading = false;
+                });
+            }, 300)
+        }
+        window.customElements.define('qr-list', QrList);
+    </script>
+    <qr-list></qr-list>
+</body>
+
+</html>

@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codebell</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+
+    <link rel="manifest" href="/site.webmanifest">
+    <link type="text/css" rel="stylesheet" href="/style.css" media="screen,projection" />
+    <style>
+
+        .banner {
+            background-image: url(/assets/img/bannerbg.png);
+            border-radius: 20px;
+            color: #FFFFFF;
+            display: flex;
+            position: relative;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .banner h2 {
+            font-family: 'Roboto Flex';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 48px;
+            line-height: 130%;
+            /* or 62px */
+
+            text-transform: capitalize;
+        }
+
+        .banner-text {
+            padding-left: 20%;
+        }
+
+        .btn {
+            background: #0C87C9;
+            border-radius: 63px;
+            align-items: center;
+            padding: 15px 40px;
+            display: block;
+            width: max-content;
+        }
+
+        .muted {
+            margin: 0;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 180%;
+            /* or 43px */
+
+
+            /* Dark grey */
+
+            color: #777586;
+        }
+
+        h3 {
+            margin: 0;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 180%;
+            /* identical to box height, or 72px */
+        }
+
+        .how_to_use_box {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .how_to_use {
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .how_to_use_item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: min-content;
+
+            font-family: 'Poppins';
+            font-style: normal;
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .how_to_use_item label {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 180%;
+            /* or 43px */
+            margin: 2.5em;
+        }
+
+        .how_to_use_item p {
+            font-weight: 500;
+            font-size: 21.119px;
+            line-height: 32px;
+        }
+
+        .why_codbell {
+            background: linear-gradient(111deg, rgba(255, 247, 243, 0.5) 0.6%, rgba(255, 247, 243, 0.29) 100.62%);
+            backdrop-filter: blur(10px);
+            /* Note: backdrop-filter has minimal browser support */
+            border-radius: 20px;
+            padding: 4em;
+        }
+
+        .short_feature_holder {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .short_feature {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+        }
+
+        .short_feature_left {
+            max-width: 400px;
+            margin-left: 4em;
+        }
+
+        .short_feature_box {
+            width: 241px;
+            height: 196px;
+            background: linear-gradient(111deg, rgba(255, 247, 243, 0.5) 0.6%, rgba(255, 247, 243, 0.29) 100.62%);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1em;
+            display: flex;
+        }
+
+        .short_feature_box div {
+            margin: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .short_feature_box img {
+            height: 45px;
+        }
+
+        .short_feature_box label {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 21px;
+            line-height: 28px;
+            /* or 133% */
+
+
+            color: #36499D;
+        }
+
+        .features_title {
+            margin-left: 5%;
+            width: 410px;
+            max-width: 100%;
+        }
+
+        .features {
+            margin: auto;
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            gap: 5em;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1164px;
+            margin-top: -92px;
+        }
+
+        .features .second_div {
+            margin-top: -40px;
+        }
+
+        .feature_box {
+            width: 448px;
+            max-width: 90%;
+            background: linear-gradient(111deg, rgba(255, 247, 243, 0.5) 0.6%, rgba(255, 247, 243, 0.29) 100.62%);
+            backdrop-filter: blur(10px);
+            /* Note: backdrop-filter has minimal browser support */
+
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto;
+            margin-top: 150px;
+        }
+
+        .feature_box div {
+            margin: 2em;
+        }
+
+        .feature_box label {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            /* identical to box height */
+
+            /* Primary */
+            color: #077C7E;
+        }
+
+        .feature_box p {
+            /* Paragraph/P1 / Regular */
+
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 26px;
+            /* or 144% */
+
+            /* gray/600 */
+
+            color: #52525B;
+        }
+
+
+        #features .hidden {
+            display: none;
+        }
+
+        #features:focus-within .hidden {
+            display: flex;
+        }
+
+        #ViewAll,
+        #Hide {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: fit-content;
+
+            align-items: center;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            /* identical to box height */
+
+            text-align: center;
+
+            /* Primary */
+
+            color: #0C87C9;
+        }
+
+        #features+div #ViewAll {
+            display: flex;
+        }
+
+        #features+div #Hide {
+            display: none;
+        }
+
+        #features:focus-within,
+        #features:focus {
+            outline: none;
+        }
+
+        #features:focus-within+div #ViewAll {
+            display: none;
+        }
+
+        #features:focus-within+div #Hide {
+            display: flex;
+        }
+
+
+        section.download {
+            background: linear-gradient(111deg, rgba(255, 247, 243, 0.5) 0.6%, rgba(255, 247, 243, 0.29) 100.62%);
+            backdrop-filter: blur(10px);
+            /* Note: backdrop-filter has minimal browser support */
+            overflow: visible;
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        section.download div {
+            flex: 1 1 50%;
+        }
+
+        section.download .download_now {
+            width: auto;
+            max-width: 450px;
+            margin: 4em;
+            margin-right: 0;
+        }
+
+        section.download .download_now div {
+            display: flex;
+            justify-content: stretch;
+            max-width: 450px;
+            display: flex;
+            gap: 1em;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        section.download .download_now div>div {
+            flex: 1 1 50%;
+        }
+
+        section.download .second_div {
+            position: relative;
+            margin: -3.5em auto;
+            width: fit-content;
+            max-width: 90%;
+        }
+
+        section.download h3 {
+            color: #494949;
+        }
+
+        section.download p {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 30px;
+            /* or 167% */
+
+            display: flex;
+            align-items: center;
+
+            /* gray/900 */
+
+            color: #18181B;
+        }
+
+        section.download img {
+            z-index: 2;
+            position: relative;
+            max-width: 100%;
+        }
+
+        .playstore_btns {
+            width: 190px;
+            height: 56px;
+            background-color: black;
+            border-radius: 14px;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .playstore_btns.google {
+            background-image: url(/assets/img/play_store.png);
+        }
+
+        .playstore_btns.apple {
+            background-image: url(/assets/img/app_store.png);
+        }
+
+        .ellipse_28 {
+            position: absolute;
+            width: 235px;
+            height: 235px;
+            left: calc(50% - 117px);
+            top: 13%;
+            background: #FFBC57;
+            filter: blur(67.5px);
+        }
+
+        .ellipse_27 {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            left: calc(50% - 125px);
+            bottom: 3%;
+            background: #0C87C9;
+            filter: blur(51.5px);
+        }
+
+        /* Medium devices (desktops, 992px and up) */
+        @media (max-width: 992px) {
+
+            .how_to_use svg {
+                display: none;
+            }
+
+            .how_to_use_box * {
+                margin: 7px;
+                text-align: center;
+            }
+
+            .why_codbell {
+                padding: 1em;
+            }
+
+            .short_feature_left {
+                margin-left: 0;
+            }
+
+            .features_title {
+                text-align: center;
+                margin-left: 0;
+            }
+
+            .feature_box {
+                width: auto;
+                margin-top: 260px;
+                text-align: justify;
+            }
+
+            section.download .download_now {
+                margin: 1em;
+            }
+
+            section.download .second_div {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="banner">
+        <header style="position: absolute; top: 0; margin: 3em;">
+            <a href="/">
+                <img src="/assets/img/codebell_white.png" />
+            </a>
+            <nav>
+                <a href="/products">Products</a>
+                <a href="/plans">Plans</a>
+            </nav>
+            <a style="display: flex; gap: 1em;">
+                <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9 21V19H16V18H12V10H16V9C16 7.06667 15.3167 5.41667 13.95 4.05C12.5833 2.68333 10.9333 2 9 2C7.06667 2 5.41667 2.68333 4.05 4.05C2.68333 5.41667 2 7.06667 2 9V10H6V18H2C1.45 18 0.979 17.8043 0.587 17.413C0.195667 17.021 0 16.55 0 16V9C0 7.76667 0.237333 6.604 0.712 5.512C1.18733 4.42067 1.83333 3.46667 2.65 2.65C3.46667 1.83333 4.42067 1.18733 5.512 0.712C6.604 0.237333 7.76667 0 9 0C10.2333 0 11.396 0.237333 12.488 0.712C13.5793 1.18733 14.5333 1.83333 15.35 2.65C16.1667 3.46667 16.8127 4.42067 17.288 5.512C17.7627 6.604 18 7.76667 18 9V19C18 19.55 17.8043 20.021 17.413 20.413C17.021 20.8043 16.55 21 16 21H9ZM2 16H4V12H2V16ZM14 16H16V12H14V16Z"
+                        fill="currentColor" />
+                </svg>
+                Contact Us
+            </a>
+        </header>
+        <div style="flex: 1 1 auto !important; display: flex; justify-content: center; align-items: center;">
+            <div class="banner-text">
+                <h2> Codebell. <br />The smartest doorbell on the planet
+                </h2>
+                <p>Now answer the door from any corner of your home. In fact, from anywhere in the world.</p>
+                <a class="btn" href="/order"> Order Now </a>
+            </div>
+        </div>
+        <img src="/assets/img/bannerimg1.png" style="flex: 1">
+    </section>
+    <section>
+        <div class="how_to_use_box">
+            <p class="muted">Max Privacy. Ultimate Security. </p>
+            <h3>Let’s tell you, how it works:</h3>
+            <div class="how_to_use">
+                <div class="how_to_use_item">
+                    <label>Scan</label>
+                    <img src="/assets/img/HwoToUse1.png" />
+                    <p>Visitors scan your Codebell at your door from their smartphones.</p>
+                </div>
+                <svg width="139" height="165" viewBox="0 0 139 165" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M2.14697 0.669922C1.31855 0.669922 0.646973 1.34149 0.646973 2.16992C0.646973 2.99835 1.31855 3.66992 2.14697 3.66992V0.669922ZM92.2455 68.0161L90.7632 68.2461L92.2455 68.0161ZM108.283 137.252L109.497 136.371L108.283 137.252ZM138.273 159.419L125.912 147.285L121.585 164.056L138.273 159.419ZM12.0778 4.16798C12.9022 4.24998 13.6369 3.64818 13.7189 2.82382C13.8009 1.99947 13.1991 1.26471 12.3748 1.18271L12.0778 4.16798ZM32.4433 5.11586C31.6488 4.88133 30.8146 5.33531 30.58 6.12985C30.3455 6.92438 30.7995 7.7586 31.594 7.99313L32.4433 5.11586ZM50.0333 15.4117C50.7678 15.7949 51.6738 15.5101 52.057 14.7756C52.4402 14.0411 52.1554 13.1351 51.4209 12.7519L50.0333 15.4117ZM68.4628 24.1227C67.8303 23.5878 66.8838 23.6669 66.3489 24.2995C65.8139 24.932 65.8931 25.8785 66.5256 26.4134L68.4628 24.1227ZM79.8489 40.9825C80.32 41.6639 81.2544 41.8344 81.9358 41.3633C82.6172 40.8922 82.7877 39.9579 82.3166 39.2764L79.8489 40.9825ZM91.3841 57.7342C91.1353 56.944 90.293 56.5051 89.5028 56.7539C88.7127 57.0027 88.2738 57.845 88.5226 58.6352L91.3841 57.7342ZM91.885 77.0975C91.9706 77.9215 92.7079 78.5202 93.5319 78.4346C94.3559 78.3491 94.9545 77.6117 94.869 76.7877L91.885 77.0975ZM96.4784 94.7236C96.3986 93.899 95.6655 93.2953 94.8409 93.3751C94.0163 93.4549 93.4126 94.188 93.4924 95.0126L96.4784 94.7236ZM96.1569 112.988C96.3381 113.796 97.1403 114.305 97.9486 114.124C98.757 113.943 99.2655 113.14 99.0843 112.332L96.1569 112.988ZM104.91 128.906C104.532 128.169 103.628 127.879 102.891 128.257C102.154 128.635 101.863 129.54 102.242 130.277L104.91 128.906ZM113.147 145.785C113.694 146.408 114.641 146.47 115.264 145.923C115.887 145.377 115.949 144.429 115.403 143.806L113.147 145.785ZM129.693 155.689C128.952 155.32 128.051 155.621 127.681 156.363C127.312 157.104 127.613 158.005 128.355 158.374L129.693 155.689ZM2.14697 3.66992C5.43048 3.66992 8.74925 3.83686 12.0778 4.16798L12.3748 1.18271C8.94983 0.84201 5.53194 0.669922 2.14697 0.669922V3.66992ZM31.594 7.99313C37.9647 9.87358 44.1739 12.3547 50.0333 15.4117L51.4209 12.7519C45.3824 9.60143 38.9921 7.04888 32.4433 5.11586L31.594 7.99313ZM66.5256 26.4134C71.6018 30.7062 76.108 35.5716 79.8489 40.9825L82.3166 39.2764C78.413 33.6303 73.7235 28.5715 68.4628 24.1227L66.5256 26.4134ZM88.5226 58.6352C89.4933 61.7184 90.2475 64.9228 90.7632 68.2461L93.7277 67.7861C93.1888 64.3131 92.4001 60.9613 91.3841 57.7342L88.5226 58.6352ZM90.7632 68.2461C91.2181 71.1779 91.5769 74.1304 91.885 77.0975L94.869 76.7877C94.5574 73.7872 94.1926 70.7821 93.7277 67.7861L90.7632 68.2461ZM93.4924 95.0126C94.0772 101.055 94.8339 107.084 96.1569 112.988L99.0843 112.332C97.8012 106.606 97.0587 100.719 96.4784 94.7236L93.4924 95.0126ZM102.242 130.277C103.615 132.951 105.21 135.574 107.07 138.134L109.497 136.371C107.731 133.94 106.216 131.449 104.91 128.906L102.242 130.277ZM107.07 138.134C108.771 140.476 110.822 143.134 113.147 145.785L115.403 143.806C113.154 141.243 111.16 138.661 109.497 136.371L107.07 138.134Z"
+                        fill="#626262" />
+                </svg>
+                <div class="how_to_use_item">
+                    <label>Ring</label>
+                    <img src="/assets/img/HwoToUse2.png" />
+                    <p>You receive a video/audio call alert on your Codebell app. No matter, where you are.</p>
+                </div>
+                <svg width="141" height="176" viewBox="0 0 141 176" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3.34164 170.619C2.97116 169.878 2.07015 169.577 1.32918 169.948C0.588212 170.318 0.287875 171.219 0.658359 171.96L3.34164 170.619ZM37.2049 172.593L36.8319 171.141L37.2049 172.593ZM79.3204 108.964L77.8209 108.924L79.3204 108.964ZM94.967 30.7307L96.1527 31.6496L94.967 30.7307ZM140.473 7L124.462 0.391405L126.744 17.5609L140.473 7ZM10.027 175.929C10.8515 176.01 11.5856 175.408 11.6667 174.583C11.7478 173.759 11.1452 173.025 10.3208 172.944L10.027 175.929ZM28.103 172.47C27.2793 172.558 26.6833 173.298 26.7717 174.121C26.8602 174.945 27.5996 175.541 28.4233 175.453L28.103 172.47ZM47.4956 170.438C48.2416 170.078 48.5543 169.181 48.194 168.435C47.8338 167.689 46.937 167.376 46.191 167.737L47.4956 170.438ZM61.8371 155.638C61.2969 156.266 61.3683 157.213 61.9964 157.753C62.6245 158.293 63.5716 158.222 64.1117 157.594L61.8371 155.638ZM74.8125 139.596C75.1192 138.826 74.744 137.954 73.9744 137.647C73.2049 137.34 72.3324 137.716 72.0257 138.485L74.8125 139.596ZM77.0199 118.997C76.91 119.818 77.4866 120.572 78.3077 120.682C79.1288 120.792 79.8835 120.216 79.9934 119.395L77.0199 118.997ZM80.9625 98.7937C80.9673 97.9653 80.2997 97.2898 79.4713 97.285C78.6429 97.2802 77.9674 97.9478 77.9626 98.7762L80.9625 98.7937ZM78.3232 78.3562C78.2826 79.1836 78.9204 79.8873 79.7478 79.928C80.5753 79.9686 81.279 79.3308 81.3196 78.5033L78.3232 78.3562ZM83.7792 58.5742C83.9594 57.7656 83.4498 56.9641 82.6412 56.784C81.8326 56.6039 81.0311 57.1134 80.851 57.922L83.7792 58.5742ZM88.0578 38.5013C87.6574 39.2265 87.9207 40.1391 88.646 40.5395C89.3712 40.9399 90.2837 40.6765 90.6841 39.9513L88.0578 38.5013ZM105.09 22.2844C105.72 21.7468 105.796 20.8001 105.258 20.1698C104.72 19.5395 103.774 19.4643 103.143 20.0019L105.09 22.2844ZM126.963 7.29464C126.163 7.50779 125.687 8.32954 125.9 9.13008C126.113 9.93061 126.935 10.4068 127.735 10.1936L126.963 7.29464ZM0.658359 171.96C1.36974 173.383 2.8408 174.244 4.37529 174.798C5.95884 175.369 7.91568 175.721 10.027 175.929L10.3208 172.944C8.32461 172.747 6.64451 172.427 5.39299 171.975C4.09241 171.506 3.53028 170.996 3.34164 170.619L0.658359 171.96ZM28.4233 175.453C32.5386 175.011 35.9943 174.453 37.5779 174.046L36.8319 171.141C35.4676 171.491 32.1898 172.031 28.103 172.47L28.4233 175.453ZM37.5779 174.046C41.1193 173.137 44.4227 171.922 47.4956 170.438L46.191 167.737C43.2999 169.133 40.1839 170.28 36.8319 171.141L37.5779 174.046ZM64.1117 157.594C68.6595 152.305 72.1911 146.173 74.8125 139.596L72.0257 138.485C69.5087 144.8 66.1384 150.636 61.8371 155.638L64.1117 157.594ZM79.9934 119.395C80.4559 115.938 80.7277 112.46 80.8199 109.004L77.8209 108.924C77.7315 112.277 77.4679 115.649 77.0199 118.997L79.9934 119.395ZM80.8199 109.004C80.911 105.587 80.9428 102.179 80.9625 98.7937L77.9626 98.7762C77.9429 102.157 77.9112 105.539 77.8209 108.924L80.8199 109.004ZM81.3196 78.5033C81.654 71.6941 82.3395 65.0383 83.7792 58.5742L80.851 57.922C79.3613 64.6101 78.6624 71.4489 78.3232 78.3562L81.3196 78.5033ZM90.6841 39.9513C92.2394 37.1342 94.0481 34.3652 96.1527 31.6496L93.7814 29.8119C91.581 32.6511 89.6873 35.5499 88.0578 38.5013L90.6841 39.9513ZM96.1527 31.6496C98.7936 28.2419 101.798 25.0923 105.09 22.2844L103.143 20.0019C99.695 22.9431 96.5483 26.2417 93.7814 29.8119L96.1527 31.6496Z"
+                        fill="#626262" />
+                </svg>
+
+                <div class="how_to_use_item">
+                    <label>Answer</label>
+                    <img src="/assets/img/HwoToUse3.png" />
+                    <p>Speak to them before opening the door, or let them know if you’re away</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="why_codbell">
+        <div class="short_feature_holder">
+            <div class="short_feature_left">
+                <h3>Why Codebell?</h3>
+                <p class="muted">It is free, forever. </p>
+                <p>Get the best of Accessibility, Availability and Affordability No more electricity, wiring,
+                    maintenance, camera or any other fancy shit required.</p>
+            </div>
+            <div class="short_feature">
+                <div class="short_feature_box">
+                    <div>
+                        <img src="/assets/img/image13.png" />
+                        <label>Enhanced safety</label>
+                    </div>
+                </div>
+                <div class="short_feature_box">
+                    <div>
+                        <img src="/assets/img/image 102.png" />
+                        <label>Answer from anywhere</label>
+                    </div>
+                </div>
+                <div class="short_feature_box">
+                    <div>
+                        <img src="/assets/img/image 101.png" />
+                        <label>No missed visitors</label>
+                    </div>
+                </div>
+                <div class="short_feature_box">
+                    <div>
+                        <img src="/assets/img/image 100.png" />
+                        <label>No wiring required</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h3 class="features_title">What can Codebell do?</h3>
+        <div id="features" class="features" tabindex="1">
+            <div>
+                <div class="feature_box">
+                    <img src="/assets/img/image17.png" style="margin-top: -155px;">
+                    <div>
+                        <label>Video Alert</label>
+                        <p>When someone scans your Codebell, you get a video call alert with a preview of the visitor.
+                            Only
+                            let
+                            people in if you want to. Attend to a visitor even when you're not home. live preview before
+                            answering calls Get alerted whenever someone scans your Codebell. Get a live preview and
+                            talk to
+                            the
+                            visitor before you let them in. Or let them know if you are away.</p>
+                    </div>
+                </div>
+                <div class="feature_box">
+                    <img src="/assets/img/image18.png" style="margin-top: -162px;">
+                    <div>
+                        <label>Real time Chats</label>
+                        <p>Can't take the video call? Chat with your visitors in real time. Ask what you need to know or
+                            let
+                            them know what you want. Never miss anything important.</p>
+                    </div>
+                </div>
+                <div class="feature_box hidden">
+                    <img src="/assets/img/image 103.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Live Preview before answering calls</label>
+                        <p>Get alerted whenever someone scans your codebell. Get live preview and talk to the visitor
+                            before you let them in. Or let them knnow if you are away.</p>
+                    </div>
+                </div>
+                <div class="feature_box hidden">
+                    <img src="/assets/img/image 103.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Call back missed visitors</label>
+                        <p>Missed an alert from a visitor at your door? Call them back to check in and do what’s needed
+                            – no room for missing a thing.</p>
+                    </div>
+                </div>
+                <div class="feature_box hidden" style="margin-top:266px">
+                    <img src="/assets/img/image22.png" style="margin-top: -248px;">
+                    <div>
+                        <label>One Home for All Your Codebells</label>
+                        <p>Stay connected to your home, office, and vehicle from one place. Manage all your Codebells
+                            from one account and stay miles away from hassles.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="second_div">
+                <div class="feature_box">
+                    <img src="/assets/img/image20.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Screenshot/Call logs of all Visitors</label>
+                        <p>Whenever someone uses Codebell at your door, a screenshot and message of the visitor is
+                            stored in
+                            your Codebell app. Keep track of all your visitors for extra safety,All the call recordings
+                            will
+                            be
+                            securely stored in your device. This will give you unlimited access to your history of
+                            visitors.
+                        </p>
+                    </div>
+                </div>
+                <div class="feature_box hidden">
+                    <img src="/assets/img/image 103.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Call Recordings (Audio/Video)</label>
+                        <p>All the call recordings will be securely stored in your device. This will give you unlimited
+                            access to your history of visitors</p>
+                    </div>
+                </div>
+                <div class="feature_box" style="margin-top:266px">
+                    <img src="/assets/img/image22.png" style="margin-top: -248px;">
+                    <div>
+                        <label>Real time Chats</label>
+                        <p>Worried someone may misuse your Codebell? Equipped with geofencing, it only works within a 2-
+                            meter
+                            radius of your home. No one can send you an alert, except a visitor.</p>
+                    </div>
+                </div>
+                <div class="feature_box hidden">
+                    <img src="/assets/img/image 103.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Forward to Family</label>
+                        <p>Busy in a meeting? Can’t attend a visitor because of something important? Forward calls to a
+                            family member or trusted one who can respond.</p>
+                    </div>
+                </div>
+                <div class="feature_box hidden">
+                    <img src="/assets/img/image 103.png" style="margin-top: -161px;">
+                    <div>
+                        <label>Call back missed visitors</label>
+                        <p>Missed an alert from a visitor at your door? Call them back to check in and do what’s needed
+                            – no room for missing a thing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a id="ViewAll" href="#features">
+                View all
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 13.9996L0 7.99961L1.4 6.59961L6 11.1746L10.6 6.59961L12 7.99961L6 13.9996ZM6 7.99961L0 1.99961L1.4 0.599609L6 5.17461L10.6 0.599609L12 1.99961L6 7.99961Z"
+                        fill="#0C87C9" />
+                </svg>
+            </a>
+            <a id="Hide" href="#NextSection">
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 0.000391006L0 6.00039L1.4 7.40039L6 2.82539L10.6 7.40039L12 6.00039L6 0.000391006ZM6 6.00039L0 12.0004L1.4 13.4004L6 8.82539L10.6 13.4004L12 12.0004L6 6.00039Z"
+                        fill="#0C87C9" />
+                </svg>
+                Hide
+            </a>
+        </div>
+    </section>
+    <section id="NextSection">
+        <h2>Codebell Premium: Smarts leveled up</h2>
+        <p>Upgrade to experience the better than the best from the smartest doorbell! Go a step beyond the free
+            features, It costs just ₹1 / day! </p>
+    </section>
+    <section class="download">
+        <div class="download_now">
+            <h3>Download Our App Now! </h3>
+            <p>Get started with the smartest doorbell on the planet. Download the app now and check out how Codebell
+                changes your life. It is free and super easy to use.</p>
+            <div style="display: flex; gap: 1em;">
+                <a class="playstore_btns google"
+                    href="https://play.google.com/store/apps/details?id=io.codebell.codebell_android">
+
+                </a>
+                <a class="playstore_btns apple"
+                    href="https://play.google.com/store/apps/details?id=io.codebell.codebell_android">
+
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="second_div">
+                <div class="ellipse_27"></div>
+                <div class="ellipse_28"></div>
+                <img src="/assets/img/Dual_iPhone14_bgless_Floating_1.png" />
+            </div>
+        </div>
+    </section>
+    <footer  style="padding-top: 31px;">
+        <div>
+            <div class="footer-div">
+                <div>
+                    <img src="/assets/img/codebell_blue.png" />
+                    <p style="max-width: 450px; text-align: left;">
+                        We pledge to keep your family safe, secure and at convenience. Bringing you the smartest
+                        doorbell right at your fingertips
+                    </p>
+                </div>
+                <div>
+                    <label style="font-size: 24px; font-weight: 600;">Contact us</label>
+                    <form class="contact_us_form"   style="margin-top: 31px;">
+                        <input placeholder="Enter your email address"/>
+                        <button>Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.35); display: flex; justify-content: space-around;">
+                <div style="display: flex; justify-content: space-between; max-width: 1450px;">
+                    <p class="bottom_text" style="font-weight: 700;">Copyright Lorem Ipsum All Right Reserved </p>
+                </div>
+                <div style="display: flex; justify-content: space-between; max-width: 450px; align-items: center; gap:1em";>
+                    <p class="bottom_text">For queries, call us at:</p>
+                    <div style="display: flex; gap: 1.5em; width: fit-content;">
+                        <a href="#" style="height: 23px;">
+                            <svg width="24" height="23" viewBox="0 0 24 23" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M23.5 11.5704C23.5 5.1801 18.3515 0 12.0014 0C5.64848 0.00143732 0.5 5.1801 0.5 11.5719C0.5 17.3456 4.7056 22.1319 10.2019 23V14.9151H7.28415V11.5719H10.2048V9.02062C10.2048 6.12155 11.9224 4.52037 14.5484 4.52037C15.8075 4.52037 17.1226 4.74603 17.1226 4.74603V7.59193H15.6724C14.2451 7.59193 13.7995 8.4845 13.7995 9.40008V11.5704H16.9875L16.4787 14.9136H13.7981V22.9986C19.2944 22.1304 23.5 17.3441 23.5 11.5704Z"
+                                    fill="#201F1B" />
+                            </svg>
+                        </a>
+                        <a href="#" style="height: 23px;">
+                            <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.5 0C8.51488 0 8.1395 0.01375 6.96663 0.066C5.79375 0.121 4.99487 0.30525 4.295 0.5775C3.56088 0.853626 2.89593 1.28676 2.34663 1.84663C1.7871 2.39621 1.35402 3.06108 1.0775 3.795C0.80525 4.4935 0.619625 5.29375 0.566 6.4625C0.51375 7.63812 0.5 8.01213 0.5 11.0014C0.5 13.9879 0.51375 14.3619 0.566 15.5347C0.621 16.7062 0.80525 17.5051 1.0775 18.205C1.35938 18.9282 1.73475 19.5415 2.34663 20.1534C2.95713 20.7652 3.57037 21.142 4.29363 21.4225C4.99487 21.6947 5.79238 21.8804 6.96388 21.934C8.13813 21.9862 8.51213 22 11.5 22C14.4879 22 14.8605 21.9862 16.0347 21.934C17.2049 21.879 18.0065 21.6947 18.7064 21.4225C19.44 21.1462 20.1045 20.7131 20.6534 20.1534C21.2652 19.5415 21.6406 18.9282 21.9225 18.205C22.1934 17.5051 22.379 16.7062 22.434 15.5347C22.4862 14.3619 22.5 13.9879 22.5 11C22.5 8.01213 22.4862 7.63813 22.434 6.46388C22.379 5.29375 22.1934 4.4935 21.9225 3.795C21.646 3.06106 21.2129 2.39618 20.6534 1.84663C20.1042 1.28655 19.4392 0.853387 18.705 0.5775C18.0037 0.30525 17.2035 0.119625 16.0334 0.066C14.8591 0.01375 14.4865 0 11.4973 0H11.5014H11.5ZM10.5141 1.98275H11.5014C14.4384 1.98275 14.7862 1.99238 15.9454 2.046C17.0179 2.09413 17.6009 2.27425 17.9886 2.42412C18.5015 2.6235 18.8686 2.86275 19.2536 3.24775C19.6386 3.63275 19.8765 3.9985 20.0759 4.51275C20.2271 4.89913 20.4059 5.48213 20.454 6.55463C20.5076 7.71375 20.5186 8.06163 20.5186 10.9973C20.5186 13.9329 20.5076 14.2821 20.454 15.4412C20.4059 16.5138 20.2258 17.0954 20.0759 17.4831C19.8995 17.9607 19.618 18.3926 19.2522 18.7467C18.8672 19.1318 18.5015 19.3696 17.9873 19.569C17.6023 19.7203 17.0192 19.899 15.9454 19.9485C14.7862 20.0007 14.4384 20.0131 11.5014 20.0131C8.56437 20.0131 8.21513 20.0007 7.056 19.9485C5.9835 19.899 5.40188 19.7203 5.01412 19.569C4.53631 19.3929 4.10405 19.1119 3.74913 18.7467C3.38303 18.392 3.10112 17.9598 2.92412 17.4818C2.77425 17.0954 2.59413 16.5124 2.546 15.4399C2.49375 14.2807 2.48275 13.9329 2.48275 10.9945C2.48275 8.0575 2.49375 7.711 2.546 6.55187C2.5955 5.47937 2.77425 4.89638 2.9255 4.50863C3.12488 3.99575 3.36413 3.62862 3.74913 3.24362C4.13412 2.85862 4.49987 2.62075 5.01412 2.42138C5.40188 2.27012 5.9835 2.09138 7.056 2.04188C8.07075 1.99513 8.464 1.98137 10.5141 1.98V1.98275ZM17.3726 3.80875C17.1993 3.80875 17.0276 3.84289 16.8675 3.90923C16.7073 3.97557 16.5618 4.0728 16.4392 4.19537C16.3167 4.31794 16.2194 4.46346 16.1531 4.62361C16.0868 4.78376 16.0526 4.9554 16.0526 5.12875C16.0526 5.30209 16.0868 5.47374 16.1531 5.63389C16.2194 5.79404 16.3167 5.93956 16.4392 6.06213C16.5618 6.1847 16.7073 6.28193 16.8675 6.34827C17.0276 6.41461 17.1993 6.44875 17.3726 6.44875C17.7227 6.44875 18.0585 6.30968 18.306 6.06213C18.5536 5.81458 18.6926 5.47884 18.6926 5.12875C18.6926 4.77866 18.5536 4.44292 18.306 4.19537C18.0585 3.94782 17.7227 3.80875 17.3726 3.80875ZM11.5014 5.3515C10.7521 5.33981 10.008 5.47729 9.31234 5.75594C8.61671 6.0346 7.98346 6.44885 7.44946 6.97458C6.91546 7.50032 6.49138 8.12703 6.20191 8.81823C5.91244 9.50944 5.76336 10.2513 5.76336 11.0007C5.76336 11.7501 5.91244 12.4919 6.20191 13.1831C6.49138 13.8743 6.91546 14.5011 7.44946 15.0268C7.98346 15.5525 8.61671 15.9668 9.31234 16.2454C10.008 16.5241 10.7521 16.6616 11.5014 16.6499C12.9844 16.6267 14.3988 16.0214 15.4393 14.9645C16.4799 13.9076 17.0631 12.4839 17.0631 11.0007C17.0631 9.51751 16.4799 8.09382 15.4393 7.03691C14.3988 5.97999 12.9844 5.37464 11.5014 5.3515ZM11.5014 7.33288C12.474 7.33288 13.4067 7.71923 14.0944 8.40695C14.7821 9.09467 15.1685 10.0274 15.1685 11C15.1685 11.9726 14.7821 12.9053 14.0944 13.593C13.4067 14.2808 12.474 14.6671 11.5014 14.6671C10.5288 14.6671 9.59605 14.2808 8.90833 13.593C8.22061 12.9053 7.83425 11.9726 7.83425 11C7.83425 10.0274 8.22061 9.09467 8.90833 8.40695C9.59605 7.71923 10.5288 7.33288 11.5014 7.33288Z"
+                                    fill="#201F1B" />
+                            </svg>
+                        </a>
+                        <a href="#" style="height: 23px;">
+                            <svg width="23" height="18" viewBox="0 0 23 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.41075 18C15.713 18 20.2546 11.0731 20.2546 5.07669C20.2546 4.88285 20.2546 4.68625 20.2464 4.49241C21.1306 3.84789 21.8937 3.04993 22.5 2.13592C21.6741 2.50262 20.7988 2.7443 19.9026 2.85312C20.8466 2.28495 21.5536 1.391 21.8923 0.337403C21.0054 0.86647 20.0346 1.23787 19.0226 1.43534C18.3423 0.705724 17.4419 0.222372 16.4611 0.0601592C15.4803 -0.102054 14.4737 0.0659244 13.5973 0.538075C12.7209 1.01023 12.0236 1.7602 11.6134 2.67182C11.2031 3.58345 11.1029 4.60585 11.3281 5.58066C9.53339 5.49005 7.77762 5.02057 6.17468 4.20269C4.57175 3.3848 3.15744 2.23678 2.0235 0.833069C1.44784 1.83421 1.27216 3.01843 1.53214 4.14526C1.79211 5.27209 2.46825 6.25705 3.42325 6.90013C2.70762 6.87565 2.00772 6.68215 1.38 6.33524V6.39754C1.38123 7.44631 1.74205 8.46247 2.40145 9.27429C3.06086 10.0861 3.9784 10.6438 4.999 10.853C4.61161 10.9605 4.21144 11.014 3.80963 11.0122C3.52635 11.0131 3.24365 10.9867 2.96537 10.9333C3.25383 11.8361 3.8155 12.6254 4.57171 13.1908C5.32793 13.7561 6.24081 14.0691 7.1825 14.0859C5.58276 15.3511 3.60668 16.0373 1.5725 16.034C1.21407 16.0355 0.855882 16.0147 0.5 15.9716C2.56458 17.297 4.96228 18.0008 7.41075 18Z"
+                                    fill="#201F1B" />
+                            </svg>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="bottom_text">Stay updated with Codebell updates, offers, and promotional events.</p>
+    </footer>
+</body>
+
+</html>
