@@ -356,7 +356,7 @@ class AppDiv extends CodBellElement {
         // brevity.
         const methods = [
             {
-              supportedMethods: "https://pay.google.com/pay",
+              supportedMethods: "upi://pay?pa=9763429023@upi&pn=VIKRAM%20UTTAM%20MALI&am=65.00&cu=INR&mode=02&purpose=00&tn=Codebell%20Home%20QR%20code%20Card&orgid=189999&sign=MEQCICWl+7UVtRMSeIk2esqAyYGtJ5f0XAt55fSlKAV/0PzZAiA4O5nvOeZAYLZADsgl4OxalW4GKqCFG9XLg/StVFbTLA==",
             },
           ];
           
