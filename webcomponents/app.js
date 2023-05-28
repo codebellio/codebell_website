@@ -108,7 +108,11 @@ class AppDiv extends CodBellElement {
         
                 .form_grid {
                     display: flex;
-                    gap: 1em;
+                    flex-direction: column;
+                }
+                .form_grid  label{
+                    line-height: 1em;
+                    margin-bottom: 0;
                 }
             }
         </style>
