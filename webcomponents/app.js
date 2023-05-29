@@ -102,7 +102,7 @@ class AppDiv extends CodBellElement {
         
             @media (max-width: 740px) {
                 .orderPopUp {
-                    padding: 1em;
+                    padding: 2em 1em;
                     max-width: 97vw;
                     max-height: 97vh;
                 }
@@ -223,7 +223,7 @@ class AppDiv extends CodBellElement {
                         <div ref="qrcodejs"></div>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
-                        <a class="button w-inline-block" type="button" :href="paymentLink">
+                        <a class="button w-inline-block" type="button" @click="makePayment" :href="paymentLink">
                             <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
                         </a>
                     </div>
@@ -357,5 +357,58 @@ class AppDiv extends CodBellElement {
             this.data.loading = false;          
         });
     }
+    makePayment(event){
+        event.preventDefault()
+        event.stopPropagation()
+        this.startPayment()
+        /*
+        let paymentWindow = window.open( upiwcIntent( paymentLink, type ) );
+                    timeoutIntent = setTimeout( function() {
+                        if ( ! paymentWindow.closed ) {
+                            paymentWindow.close();
+                            self.$content.find( '.upiwc-payment-intent-error' ).text( 'No specified UPI App on this device. Select other UPI option to proceed.' ).show();
+                        }  
+                    }, 2500 );
+                    */
+    }
+    async startPayment(){
+        // Initialization of PaymentRequest arguments are excerpted for the sake of
+        // brevity.
+        const methods = [
+            {
+                supportedMethods: ['https://tez.google.com/pay'],
+                data: {
+                    pa: '9958004505.eazypay@icici',
+                    pn: 'Codebell Technologies Private Limited',
+                    tr: this.data.Order.UUID,  // your custom transaction reference ID
+                    url: 'https://codebell.io/orders/'+ this.data.Order.UUID,
+                    mc: '1234', // your merchant category code
+                    // tn: 'Purchase in Merchant',
+                    // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
+                    // invoiceNo: 'BillRef123', // your invoice number
+                    // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
+                    gstIn: '07AAKCC6333R1Z1', // your GSTIN
+                }
+            }
+          ]
+          
+        const details = {
+            total: {
+              label: "Total",
+              amount: { value: this.data.Order.Total, currency: "INR" },
+            },
+          };
+        const payment = new PaymentRequest(methods, details, {});
+        try {
+          const response = await payment.show();
+          // Process response here, including sending payment instrument
+          // (e.g., credit card) information to the server.
+          // paymentResponse.methodName contains the selected payment method
+          // paymentResponse.details contains a payment method specific response
+          await response.complete("success");
+        } catch (err) {
+          console.error("Uh oh, something bad happened", err.message);
+        }
+    };
 }
 window.customElements.define('app-div', AppDiv);
