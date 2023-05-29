@@ -54,6 +54,7 @@ class AppDiv extends CodBellElement {
                 width: 300px;
                 border: 2px solid #2F8AB2;
                 margin-bottom: 1em !important;
+                line-height: 1.2em !important;
             }
         
             .error {
