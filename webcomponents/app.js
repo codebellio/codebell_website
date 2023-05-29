@@ -222,7 +222,8 @@ class AppDiv extends CodBellElement {
                         <div ref="qrcodejs"></div>
                         <p>QR code expire in 5:00 minutes</p>
                         <p>OR</p>
-                        <a class="button w-inline-block" type="button" :href="paymentLink">
+                        <a class="button w-inline-block" type="button"
+                        @click="makePayment" :href="paymentLink">
                             <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
                         </a>
                     </div>
@@ -360,15 +361,28 @@ class AppDiv extends CodBellElement {
         event.preventDefault()
         event.stopPropagation()
         this.startPayment()
+        /*
+        let paymentWindow = window.open( upiwcIntent( paymentLink, type ) );
+                    timeoutIntent = setTimeout( function() {
+                        if ( ! paymentWindow.closed ) {
+                            paymentWindow.close();
+                            self.$content.find( '.upiwc-payment-intent-error' ).text( 'No specified UPI App on this device. Select other UPI option to proceed.' ).show();
+                        }  
+                    }, 2500 );
+                    */
     }
     async startPayment(){
         // Initialization of PaymentRequest arguments are excerpted for the sake of
         // brevity.
         const methods = [
             {
-              supportedMethods: "upi://pay?pa=9763429023@upi&pn=VIKRAM%20UTTAM%20MALI&am=65.00&cu=INR&mode=02&purpose=00&tn=Codebell%20Home%20QR%20code%20Card&orgid=189999&sign=MEQCICWl+7UVtRMSeIk2esqAyYGtJ5f0XAt55fSlKAV/0PzZAiA4O5nvOeZAYLZADsgl4OxalW4GKqCFG9XLg/StVFbTLA==",
-            },
-          ];
+              supportedMethods: ['basic-card', 'upi'],
+              data: {
+                supportedNetworks: ['visa', 'mastercard', 'discover'],
+                supportedTypes: ['credit']
+              }
+            }
+          ]
           
         const details = {
             total: {
