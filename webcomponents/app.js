@@ -376,7 +376,7 @@ class AppDiv extends CodBellElement {
         // brevity.
         const methods = [
             {
-              supportedMethods: ['basic-card', 'upi'],
+              supportedMethods: ['basic-card'],
               data: {
                 supportedNetworks: ['visa', 'mastercard', 'discover'],
                 supportedTypes: ['credit']
@@ -390,7 +390,7 @@ class AppDiv extends CodBellElement {
               amount: { value: this.data.Order.Total, currency: "INR" },
             },
           };
-        const payment = new PaymentRequest(methods, details, []);
+        const payment = new PaymentRequest(methods, details, {});
         try {
           const response = await payment.show();
           // Process response here, including sending payment instrument
