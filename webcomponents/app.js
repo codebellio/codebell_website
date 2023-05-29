@@ -376,11 +376,7 @@ class AppDiv extends CodBellElement {
         // brevity.
         const methods = [
             {
-              supportedMethods: ['basic-card'],
-              data: {
-                supportedNetworks: ['visa', 'mastercard', 'discover'],
-                supportedTypes: ['credit']
-              }
+              supportedMethods: ['upi'],
             }
           ]
           
