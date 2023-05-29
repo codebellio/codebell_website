@@ -376,7 +376,7 @@ class AppDiv extends CodBellElement {
         // brevity.
         const methods = [
             {
-              supportedMethods: ['upi'],
+                supportedMethods: "basic-card"
             }
           ]
           
