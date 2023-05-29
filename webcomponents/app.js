@@ -376,7 +376,7 @@ class AppDiv extends CodBellElement {
         // brevity.
         const methods = [
             {
-                supportedMethods: "basic-card"
+                supportedMethods: "https://google.com/pay"
             }
           ]
           
