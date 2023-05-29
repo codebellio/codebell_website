@@ -326,7 +326,7 @@ class AppDiv extends CodBellElement {
             if(data && data.Status == 2 && data.Result.Order){
                 this.data.Order = data.Result.Order
                 if(this.data.Order && this.data.Order.Total > 0){
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr="+this.data.Order.UUID+"&am="+this.data.Order.Total+"&cu=INR"
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr="+this.data.Order.ID+"&am="+this.data.Order.Total+"&cu=INR"
                     this.qrcode = new QRCode(this.refs.qrcodejs, {
                         width: 259,
                         height: 259,
