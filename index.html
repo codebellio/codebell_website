@@ -50,6 +50,7 @@
         .navbar.active {
             background-color: rgba(240, 240, 240, 0.6);
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             height: 5em;
             padding-top: 1.5em;
@@ -97,6 +98,10 @@
         }
 
         @media (max-width:767px) {
+            .grid-hero.hero {
+                grid-gap: 0 !important;
+            }
+
             .app-hero---wrapper {
                 width: 12em !important;
             }
@@ -134,11 +139,23 @@
             }
 
             #slideRightBtn {
-                display: none;
+                /* display: none; */
+                width: 3em;
+                height: 3em;
+                right: -0.5em !important;
+                background-color: #f8f8f8 !important;
+                border-radius: 100%;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             }
 
             #slideLeftBtn {
-                display: none;
+                /* display: none; */
+                width: 3em;
+                height: 3em;
+                left: -0.5em !important;
+                background-color: #f8f8f8 !important;
+                border-radius: 100%;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             }
 
             .content.plans {
@@ -237,13 +254,17 @@
     </div> -->
     <div data-w-id="c636bd80-a8e8-7ca5-e24f-032b659a852f" class="section-hero wf-section" style="min-height: 100vh;">
         <div class="content">
-            <div class="w-layout-grid grid-hero" style="grid-gap: 0;">
+            <div class="w-layout-grid grid-hero hero" style="grid-gap: 5em;">
                 <div id="w-node-_3bce429c-06f2-53cc-882e-3e390d408fec-379d5480" class="block-hero"
                     style="min-width: 100%;">
                     <h1 data-w-id="9ca6e8f7-a4c2-0a56-88da-c5d695c5b1be"
-                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
-                        class="heading-hero"> <span style="color: #0A5B75;">
-                            Connection, reimagined. </span></h1>
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; color: #0A5B75; font-size: 2.8rem;"
+                        class="heading-hero">
+                        Revolutionize Communication
+                        <p style="font-size: 1.2rem; color: #565656;">
+                            with QR Code Calling Solutions.
+                        </p>
+                    </h1>
                     <p data-w-id="399786d8-9b63-0c6f-2d2a-350f4a978791"
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                         class="paragraph-hero">
@@ -313,12 +334,12 @@
                 class="functions-large corousel-large">
 
                 <div id="testimonial-carousel"
-                    style="min-height: max-content; min-width: 100%; display: flex; overflow: hidden; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1.8em;">
+                    style="min-height: max-content; min-width: 100%; display: flex; overflow: hidden; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1.8em">
 
                     <div style="min-height: max-content; min-width: max-content; scroll-snap-align: start; padding: 1em 4em 3em 4em;"
                         class="functions">
 
-                        <img src="./assets/img/virtual-doorbell.png" loading="eager"
+                        <img src="./assets/img/codebell-home.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/1.2; margin: 0 auto;"
                             alt="" class="image-functions">
                         <h3 style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
@@ -333,8 +354,8 @@
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 4em 3em 4em;"
                         class="functions">
 
-                        <img src="./assets/img/vehicle.png" loading="eager"
-                            style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/1.2; margin: 0 auto;"
+                        <img src="./assets/img/cccproduct2.png" loading="eager"
+                            style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.8; margin: 2.5em auto;"
                             alt="" class="image-functions">
                         <h3 style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                             class="heading-functions">Vehicle <span class="text-transparent">Safety Tag</span></h3>
@@ -348,8 +369,8 @@
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 4em 3em 4em;"
                         class="functions">
 
-                        <img src="./assets/img/office-assistance.png" loading="eager"
-                            style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/1.2; margin: 0 auto;"
+                        <img src="./assets/img/office.svg" loading="eager"
+                            style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.8; margin: 2.5em auto;"
                             alt="" class="image-functions">
                         <h3 style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                             class="heading-functions">Virtual <span class="text-transparent">Receptionist</span></h3>
@@ -361,7 +382,7 @@
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 4em 3em 4em;"
                         class="functions">
 
-                        <img src="./assets/img/luggage-tag.png" loading="eager"
+                        <img src="./assets/img/Frame 1000003856.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/1.2; margin: 0 auto;"
                             alt="" class="image-functions">
                         <h3 style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
@@ -374,11 +395,13 @@
                     </div>
                 </div>
                 <button id="slideRightBtn" onclick="slideRight()"
-                    style="background-color: transparent; position: absolute; right: -3em;"><img
-                        src="./assets/img/right-icon.png" alt="move-right" style="width: 3em; height: 3em;"></button>
+                    style="background-color: transparent; position: absolute; right: -2.5em;"><img
+                        src="./assets/img/reshot-icon-arrow-chevron-right-WDGHUKQ634.svg" alt="move-right"
+                        style="width: 3em; height: 3em;"></button>
                 <button id="slideLeftBtn" onclick="slideLeft()"
-                    style="background-color: transparent; position: absolute; left: -4em; display: none;"><img
-                        src="./assets/img/left-icon.png" alt="move-right" style="width: 3em; height: 3em;"></button>
+                    style="background-color: transparent; position: absolute; left: -3em; display: none;"><img
+                        src="./assets/img/reshot-icon-arrow-chevron-left-975UQXVKZF.svg" alt="move-right"
+                        style="width: 3em; height: 3em;"></button>
             </div>
         </div>
     </div>
@@ -650,18 +673,18 @@
                     <p data-w-id="17a85c95-fa82-5746-71bf-c8af53109a79" class="paragraph"
                         style="opacity: 0; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         Explore the freedom of privacy with us.
-                        Order your Codebell today and experience the future at just <strong>Re. 1</strong> per day.
-                    </p>
+                        Order your Codebell today and experience the future at just <strong>Re. 1</strong> per day.</p>
                 </div>
                 <div id="w-node-_17a85c95-fa82-5746-71bf-c8af53109a7b-53109a73"
                     data-w-id="17a85c95-fa82-5746-71bf-c8af53109a7b" class="footer-right"
                     style="opacity: 0; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; display: block; margin: auto;">
-                    <a href="https://apps.apple.com/app/codebell/id6448067105" class="button" style="padding: 0; height: max-content; margin-bottom: 1em;"><img
-                            src="./assets/img/ios-btn.svg" loading="eager" alt="" class="icon-button-footer"
-                            style="width: 13.5em; height: 4em;"></a>
-                    <a href="https://play.google.com/store/apps/details?id=io.codebell.codebell_android" class="button"
-                        style="padding: 0; height: max-content; margin-bottom: 1em;"><img src="./assets/img/google.svg"
-                            loading="eager" alt="" class="icon-button-footer" style="height: 4em;"></a>
+                    <a href="https://apps.apple.com/app/codebell/id6448067105" target="_blank" class="button"
+                        style="padding: 0; height: max-content; margin-bottom: 1em;"><img src="./assets/img/ios-btn.svg"
+                            loading="eager" alt="" class="icon-button-footer" style="width: 13.5em; height: 4em;"></a>
+                    <a href="https://play.google.com/store/apps/details?id=io.codebell.codebell_android" target="_blank"
+                        class="button" style="padding: 0; height: max-content; margin-bottom: 1em;"><img
+                            src="./assets/img/google.svg" loading="eager" alt="" class="icon-button-footer"
+                            style="height: 4em;"></a>
                 </div>
             </div>
         </div>
@@ -790,7 +813,9 @@
             slideLeftBtn.style.display = "flex"
             scrollableElement.scrollLeft += scrollableElement.scrollWidth / 4;
 
-            var isEndReached = scrollableElement.scrollLeft + scrollableElement.clientWidth + (scrollableElement.scrollWidth / 4) + 5 >= scrollableElement.scrollWidth;
+            var isEndReached = scrollableElement.scrollLeft + scrollableElement.clientWidth + (scrollableElement.scrollWidth / 4) + 10 >= scrollableElement.scrollWidth;
+
+            console.log(scrollableElement.scrollLeft + scrollableElement.clientWidth + (scrollableElement.scrollWidth / 4) + 5, scrollableElement.scrollWidth);
 
 
             if (isEndReached) {
