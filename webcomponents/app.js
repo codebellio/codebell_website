@@ -384,7 +384,7 @@ class AppDiv extends CodBellElement {
     makePaymentBy(event, method) {
         event.preventDefault()
         event.stopPropagation()
-        switch (key) {
+        switch (method) {
             case "GooglePay":
                 this.startPayment([{
                     supportedMethods: ['https://tez.google.com/pay'],
