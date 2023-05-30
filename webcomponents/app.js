@@ -236,9 +236,9 @@ class AppDiv extends CodBellElement {
         </div>
     `)
     }
-    showQRCode(){
+    showQRCode() {
         this.data.showingQRCode = !this.data.showingQRCode
-        if(this.data.showingQRCode && !this.qrcode){
+        if (this.data.showingQRCode && !this.qrcode) {
             this.qrcode = new QRCode(this.refs.qrcodejs, {
                 width: 259,
                 height: 259,
@@ -275,7 +275,7 @@ class AppDiv extends CodBellElement {
             Products: {},
             SelectedProducts: {},
             paymentLink: "",
-            showingQRCode : false,
+            showingQRCode: false,
         }
     }
     add_to_cart() {
@@ -388,7 +388,27 @@ class AppDiv extends CodBellElement {
         debugger
         var methods = [
             {
-                supportedMethods: ['https://upi.org/pay'],
+                label: "Amazon Pay",
+                method: "amazon-pay"
+            },
+            {
+                label: "PhonePe",
+                method: "phonepe"
+            },
+            {
+                label: "Paytm",
+                method: "paytm"
+            },
+            {
+                label: "Bhim",
+                method: "bhim"
+            },
+            {
+                label: "Upi",
+                method: "upi"
+            },
+            {
+                supportedMethods: ['https://tez.google.com/pay'],
                 data: {
                     pa: '9958004505.eazypay@icici',
                     pn: 'Codebell Technologies Private Limited',
