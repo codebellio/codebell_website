@@ -222,13 +222,27 @@ class AppDiv extends CodBellElement {
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
                         <div if="showingQRCode" ref="qrcodejs"></div>
                         <button class="button w-inline-block" type="button" @click="showQRCode">
-                            <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Show QR code to make payment</div>
+                            <div if="!showingQRCode" class="text-button" style="color: #f8f8f8">Show QR code to make payment</div>
                             <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Hide QR code</div>
                         </button>
-                        <p>OR</p>
-                        <a if="!showingQRCode" class="button w-inline-block" type="button" @click="makePayment" :href="paymentLink">
-                            <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
+                        <a if="!showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                         </a>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'GooglePay')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Google Pay </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'AmazonPay')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Amazon Pay </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'PhonePe')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using PhonePe </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'Paytm')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Paytm </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'Bhim')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Bhim </div>
+                        </button>
                         <p>QR code expire in 5:00 minutes</p>
                     </div>
                 </div>
@@ -367,10 +381,75 @@ class AppDiv extends CodBellElement {
             this.data.loading = false;
         });
     }
-    makePayment(event) {
+    makePaymentBy(event, method) {
         event.preventDefault()
         event.stopPropagation()
-        this.startPayment()
+        switch (key) {
+            case "GooglePay":
+                this.startPayment([{
+                    supportedMethods: ['https://tez.google.com/pay'],
+                    data: {
+                        pa: '9958004505.eazypay@icici',
+                        pn: 'Codebell Technologies Private Limited',
+                        mc: "5732",
+                        tn: this.data.SelectedProducts[0].Name,
+                        tr: this.data.Order.UUID,  // your custom transaction reference ID
+                        url: 'https://codebell.io/orders/' + this.data.Order.UUID,
+                        //mc: '1234', // your merchant category code
+                        // tn: 'Purchase in Merchant',
+                        // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
+                        // invoiceNo: 'BillRef123', // your invoice number
+                        // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
+                        gstIn: '07AAKCC6333R1Z1', // your GSTIN
+                    }
+                }
+                ])
+                break;
+            case "AmazonPay":
+                this.startPayment([
+                    {
+                        label: "Amazon Pay",
+                        method: "amazon-pay"
+                    },
+                ])
+                break;
+            case "PhonePe":
+                this.startPayment([
+                    {
+                        label: "PhonePe",
+                        method: "phonepe"
+                    },
+                ])
+                break;
+            case "Paytm":
+                this.startPayment([
+                    {
+                        label: "Paytm",
+                        method: "paytm"
+                    },
+                ])
+                break;
+            case "Bhim":
+                this.startPayment([
+                    {
+                        label: "Bhim",
+                        method: "bhim"
+                    },
+                ])
+                break;
+            case "upi":
+                this.startPayment([
+                    {
+                        label: "Upi",
+                        method: "upi"
+                    },
+                ])
+                break;
+
+            default:
+                break;
+        }
+
         /*
         let paymentWindow = window.open( upiwcIntent( paymentLink, type ) );
                     timeoutIntent = setTimeout( function() {
@@ -381,51 +460,11 @@ class AppDiv extends CodBellElement {
                     }, 2500 );
                     */
     }
-    async startPayment() {
+    async startPayment(methods) {
         // Initialization of PaymentRequest arguments are excerpted for the sake of
         // brevity.
         // supportedMethods: ['https://tez.google.com/pay'],
         debugger
-        var methods = [
-            {
-                label: "Amazon Pay",
-                method: "amazon-pay"
-            },
-            {
-                label: "PhonePe",
-                method: "phonepe"
-            },
-            {
-                label: "Paytm",
-                method: "paytm"
-            },
-            {
-                label: "Bhim",
-                method: "bhim"
-            },
-            {
-                label: "Upi",
-                method: "upi"
-            },
-            {
-                supportedMethods: ['https://tez.google.com/pay'],
-                data: {
-                    pa: '9958004505.eazypay@icici',
-                    pn: 'Codebell Technologies Private Limited',
-                    mc: "5732",
-                    tn: this.data.SelectedProducts[0].Name,
-                    tr: this.data.Order.UUID,  // your custom transaction reference ID
-                    url: 'https://codebell.io/orders/' + this.data.Order.UUID,
-                    //mc: '1234', // your merchant category code
-                    // tn: 'Purchase in Merchant',
-                    // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
-                    // invoiceNo: 'BillRef123', // your invoice number
-                    // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
-                    gstIn: '07AAKCC6333R1Z1', // your GSTIN
-                }
-            }
-        ]
-
         const details = {
             total: {
                 label: "Total",
