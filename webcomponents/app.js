@@ -7,9 +7,9 @@ class AppDiv extends CodBellElement {
             request_data = {}
         }
         var url = "/api/" + api
-        if(location.hostname == "localhost"){
+        if (location.hostname == "localhost") {
             url = "http://api.localhost/api/" + api
-        }else{
+        } else {
             url = "https://api.codebell.io/api/" + api
         }
         this.startTimeToConnectToServer = Date.now()
@@ -220,36 +220,65 @@ class AppDiv extends CodBellElement {
                         <p>Page will automatically get refreshed after payment got successful</p>
                     </div>
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
-                        <div ref="qrcodejs"></div>
-                        <p>QR code expire in 5:00 minutes</p>
-                        <p>OR</p>
-                        <a class="button w-inline-block" type="button" @click="makePayment" :href="paymentLink">
-                            <div class="text-button" style="color: #f8f8f8">Make Payment from this device </div>
+                        <div if="showingQRCode" ref="qrcodejs"></div>
+                        <button class="button w-inline-block" type="button" @click="showQRCode">
+                            <div if="!showingQRCode" class="text-button" style="color: #f8f8f8">Show QR code to make payment</div>
+                            <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Hide QR code</div>
+                        </button>
+                        <a if="!showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                         </a>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'GooglePay')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Google Pay </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'AmazonPay')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Amazon Pay </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'PhonePe')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using PhonePe </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'Paytm')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Paytm </div>
+                        </button>
+                        <button if="!showingQRCode" class="button w-inline-block" type="button" @click="makePaymentBy(event,'Bhim')">
+                            <div class="text-button" style="color: #f8f8f8">Make Payment Using Bhim </div>
+                        </button>
+                        <p>QR code expire in 5:00 minutes</p>
                     </div>
                 </div>
             </loading-view>
         </div>
     `)
     }
+    showQRCode() {
+        this.data.showingQRCode = !this.data.showingQRCode
+        if (this.data.showingQRCode && !this.qrcode) {
+            this.qrcode = new QRCode(this.refs.qrcodejs, {
+                width: 259,
+                height: 259,
+                colorDark: "#042638",
+                text: this.data.paymentLink,
+            });
+        }
+    }
     setValue(prop, event) {
-        localStorage.setItem(prop,event.target.value)
+        localStorage.setItem(prop, event.target.value)
         this.data[prop] = event.target.value
     }
     getData() {
         return {
-            Name : localStorage.getItem("Name"),
-            Email : localStorage.getItem("Email"),
-            Mobile : localStorage.getItem("Mobile"),
-            AgentCode : localStorage.getItem("AgentCode"),
-            Address : localStorage.getItem("Address"),
-            Pin : localStorage.getItem("Pin"),
-            City : localStorage.getItem("City"),
-            Country : localStorage.getItem("Country"),
-            Show : false,
-            Order : false,
-            loading : false,
-            name_error : "",
+            Name: localStorage.getItem("Name"),
+            Email: localStorage.getItem("Email"),
+            Mobile: localStorage.getItem("Mobile"),
+            AgentCode: localStorage.getItem("AgentCode"),
+            Address: localStorage.getItem("Address"),
+            Pin: localStorage.getItem("Pin"),
+            City: localStorage.getItem("City"),
+            Country: localStorage.getItem("Country"),
+            Show: false,
+            Order: false,
+            loading: false,
+            name_error: "",
             email_error: "",
             mobile_error: "",
             agent_code_error: "",
@@ -257,24 +286,25 @@ class AppDiv extends CodBellElement {
             pincode_error: "",
             city_error: "",
             country_error: "",
-            Products : {},
-            SelectedProducts : {},
-            paymentLink : "",
+            Products: {},
+            SelectedProducts: {},
+            paymentLink: "",
+            showingQRCode: false,
         }
     }
-    add_to_cart(){
+    add_to_cart() {
 
     }
-    buyNow(id){
+    buyNow(id) {
         debugger
-        if(this.data.SelectedProducts[id]){
+        if (this.data.SelectedProducts[id]) {
             this.data.SelectedProducts[id].Count++
             this.data.Show = true
-        }else if(this.data.Products[id]){
+        } else if (this.data.Products[id]) {
             this.data.SelectedProducts[id] = this.data.Products[id]
             this.data.SelectedProducts[id].Count = 1
             this.data.Show = true
-        }else{
+        } else {
             window.show_error("Invalid Product")
         }
     }
@@ -282,10 +312,10 @@ class AppDiv extends CodBellElement {
         window.call_api = (api, request_data = {}) => {
             return this.call_api(api, request_data)
         }
-        window.buyNow = (product_id)=>{
+        window.buyNow = (product_id) => {
             this.buyNow(product_id)
-        } 
-        
+        }
+
         window.show_error = (message) => {
             Snackbar.show({
                 text: message, pos: 'top-center', actionText: 'Ok', backgroundColor: "#dc3545", actionTextColor: "#FFF"
@@ -305,47 +335,41 @@ class AppDiv extends CodBellElement {
         }
         this.getProducts()
     }
-    checkout(event){
+    checkout(event) {
         event.preventDefault()
         event.stopPropagation()
-        if(this.data.loading){
+        if (this.data.loading) {
             return
         }
         this.data.loading = true
         var request_data = {
-            Name : this.data.Name,
-            Email : this.data.Email,
-            Mobile : this.data.Mobile,
-            AgentCode : this.data.AgentCode,
-            Address : this.data.Address,
+            Name: this.data.Name,
+            Email: this.data.Email,
+            Mobile: this.data.Mobile,
+            AgentCode: this.data.AgentCode,
+            Address: this.data.Address,
             Pin: this.data.Pin,
             City: this.data.City,
-            Country : this.data.Country,
+            Country: this.data.Country,
             products: Object.values(this.data.SelectedProducts)
         }
         window.call_api("place_order", request_data).then((data) => {
-            if(data && data.Status == 2 && data.Result.Order){
+            if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
-                if(this.data.Order && this.data.Order.Total > 0){
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr="+this.data.Order.ID+"&am="+this.data.Order.Total+"&cu=INR"
-                    this.qrcode = new QRCode(this.refs.qrcodejs, {
-                        width: 259,
-                        height: 259,
-                        colorDark: "#042638",
-                        text : this.data.paymentLink,
-                    });
+                if (this.data.Order && this.data.Order.Total > 0) {
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr=" + this.data.Order.ID + "&am=" + this.data.Order.Total + "&cu=INR"
                 }
             }
         }).catch((error) => {
             console.log(error)
         }).finally(() => {
-            this.data.loading = false;          
+            this.data.loading = false;
         });
     }
-    getProducts(){
+    getProducts() {
         this.data.loading = true
         window.call_api("products", {}).then((data) => {
-            if(data && data.Status == 2 && data.data){
+            if (data && data.Status == 2 && data.data) {
                 this.data.Products = {}
                 data.data.forEach(Product => {
                     this.data.Products[Product.ProductID] = Product
@@ -354,13 +378,78 @@ class AppDiv extends CodBellElement {
         }).catch((error) => {
             console.log(error)
         }).finally(() => {
-            this.data.loading = false;          
+            this.data.loading = false;
         });
     }
-    makePayment(event){
+    makePaymentBy(event, method) {
         event.preventDefault()
         event.stopPropagation()
-        this.startPayment()
+        switch (method) {
+            case "GooglePay":
+                this.startPayment([{
+                    supportedMethods: ['https://tez.google.com/pay'],
+                    data: {
+                        pa: '9958004505.eazypay@icici',
+                        pn: 'Codebell Technologies Private Limited',
+                        mc: "5732",
+                        tn: this.data.SelectedProducts[0].Name,
+                        tr: this.data.Order.UUID,  // your custom transaction reference ID
+                        url: 'https://codebell.io/orders/' + this.data.Order.UUID,
+                        //mc: '1234', // your merchant category code
+                        // tn: 'Purchase in Merchant',
+                        // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
+                        // invoiceNo: 'BillRef123', // your invoice number
+                        // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
+                        gstIn: '07AAKCC6333R1Z1', // your GSTIN
+                    }
+                }
+                ])
+                break;
+            case "AmazonPay":
+                this.startPayment([
+                    {
+                        label: "Amazon Pay",
+                        method: "amazon-pay"
+                    },
+                ])
+                break;
+            case "PhonePe":
+                this.startPayment([
+                    {
+                        label: "PhonePe",
+                        method: "phonepe"
+                    },
+                ])
+                break;
+            case "Paytm":
+                this.startPayment([
+                    {
+                        label: "Paytm",
+                        method: "paytm"
+                    },
+                ])
+                break;
+            case "Bhim":
+                this.startPayment([
+                    {
+                        label: "Bhim",
+                        method: "bhim"
+                    },
+                ])
+                break;
+            case "upi":
+                this.startPayment([
+                    {
+                        label: "Upi",
+                        method: "upi"
+                    },
+                ])
+                break;
+
+            default:
+                break;
+        }
+
         /*
         let paymentWindow = window.open( upiwcIntent( paymentLink, type ) );
                     timeoutIntent = setTimeout( function() {
@@ -371,43 +460,28 @@ class AppDiv extends CodBellElement {
                     }, 2500 );
                     */
     }
-    async startPayment(){
+    async startPayment(methods) {
         // Initialization of PaymentRequest arguments are excerpted for the sake of
         // brevity.
-        const methods = [
-            {
-                supportedMethods: ['https://tez.google.com/pay'],
-                data: {
-                    pa: '9958004505.eazypay@icici',
-                    pn: 'Codebell Technologies Private Limited',
-                    tr: this.data.Order.UUID,  // your custom transaction reference ID
-                    url: 'https://codebell.io/orders/'+ this.data.Order.UUID,
-                    mc: '1234', // your merchant category code
-                    // tn: 'Purchase in Merchant',
-                    // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
-                    // invoiceNo: 'BillRef123', // your invoice number
-                    // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
-                    gstIn: '07AAKCC6333R1Z1', // your GSTIN
-                }
-            }
-          ]
-          
+        // supportedMethods: ['https://tez.google.com/pay'],
+        debugger
         const details = {
             total: {
-              label: "Total",
-              amount: { value: this.data.Order.Total, currency: "INR" },
+                label: "Total",
+                amount: { value: this.data.Order.Total, currency: "INR" },
             },
-          };
+        };
         const payment = new PaymentRequest(methods, details, {});
         try {
-          const response = await payment.show();
-          // Process response here, including sending payment instrument
-          // (e.g., credit card) information to the server.
-          // paymentResponse.methodName contains the selected payment method
-          // paymentResponse.details contains a payment method specific response
-          await response.complete("success");
+            const response = await payment.show();
+            debugger
+            // Process response here, including sending payment instrument
+            // (e.g., credit card) information to the server.
+            // paymentResponse.methodName contains the selected payment method
+            // paymentResponse.details contains a payment method specific response
+            await response.complete("success");
         } catch (err) {
-          console.error("Uh oh, something bad happened", err.message);
+            console.error("Uh oh, something bad happened", err.message);
         }
     };
 }
