@@ -350,7 +350,7 @@
                     style="min-height: max-content; min-width: 100%; display: flex; overflow: hidden; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1.8em">
 
                     <div style="min-height: max-content; min-width: max-content; width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions">
+                        class="functions child">
 
                         <img src="./assets/img/codebell-home.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.9; margin: 0 auto;"
@@ -365,7 +365,7 @@
                     </div>
 
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions">
+                        class="functions child">
 
                         <img src="./assets/img/cccproduct2.png" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.6; margin: 1.95em auto;"
@@ -380,7 +380,7 @@
 
 
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions">
+                        class="functions child">
 
                         <img src="./assets/img/office.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.6; margin: 1.95em auto;"
@@ -393,7 +393,7 @@
                     </div>
 
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions">
+                        class="functions child">
 
                         <img src="./assets/img/Frame 1000003856.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.9; margin: 0 auto;"
@@ -407,13 +407,14 @@
                             parking, accident, or roadside assistance</p>
                     </div>
                 </div>
-                <button id="slideRightBtn" onclick="slideRight()"
-                    style="background-color: transparent; position: absolute; right: -3em;"><img
+
+                <button id="slideRightBtn" class="child" onclick="slideRight()"
+                    style="background-color: transparent; position: absolute; right: -3em;"><img class="child"
                         src="./assets/img/reshot-icon-arrow-chevron-right-WDGHUKQ634.svg" alt="move-right"
                         style="width: 3em; height: 3em;"></button>
-                <button id="slideLeftBtn" onclick="slideLeft()"
+                <button id="slideLeftBtn" class="child" onclick="slideLeft()"
                     style="background-color: transparent; position: absolute; left: -3em; display: none;"><img
-                        src="./assets/img/reshot-icon-arrow-chevron-left-975UQXVKZF.svg" alt="move-right"
+                        class="child" src="./assets/img/reshot-icon-arrow-chevron-left-975UQXVKZF.svg" alt="move-right"
                         style="width: 3em; height: 3em;"></button>
             </div>
         </div>
@@ -799,42 +800,60 @@
     <script>
         const productCount = localStorage.getItem("orderList") ? JSON.parse(localStorage.getItem("orderList")).totalCount : 0
 
+        const slideLeftBtn = document.getElementById("slideLeftBtn");
+        const slideRightBtn = document.getElementById("slideRightBtn");
+
         productCount != 0 ? (document.getElementById("cart").style.display = "block") : (document.getElementById("cart").style.display = "none");
 
         document.getElementById("productCount").innerHTML = productCount;
 
         const scrollableElement = document.getElementById('testimonial-carousel');
+        const scrollableElementChilds = document.querySelectorAll('.corousel-large .child');
 
-        function slideLeft() {
-            scrollableElement.scrollLeft -= 500;
+        function slideLeft(bool) {
             slideRightBtn.style.display = "flex";
-
-            console.log(scrollableElement.scrollLeft, scrollableElement.scrollWidth / 4);
-
-            if (scrollableElement.scrollLeft <= (scrollableElement.scrollWidth / 4 + 20)) {
-                // User has reached the start of the horizontal scroll
+            if (bool) {
+                scrollableElement.scrollLeft = 0;
                 slideLeftBtn.style.display = "none"
+
+            } else {
+                scrollableElement.scrollLeft -= 500;
+
+                if (scrollableElement.scrollLeft <= (scrollableElement.scrollWidth / 3)) {
+                    // User has reached the start of the horizontal scroll
+                    slideLeftBtn.style.display = "none"
+                }
             }
 
         }
 
         const slideRight = () => {
-
-            const slideLeftBtn = document.getElementById("slideLeftBtn");
-            const slideRightBtn = document.getElementById("slideRightBtn");
-
             slideLeftBtn.style.display = "flex"
             scrollableElement.scrollLeft += scrollableElement.scrollWidth / 4;
 
             var isEndReached = scrollableElement.scrollLeft + scrollableElement.clientWidth + (scrollableElement.scrollWidth / 4) + 10 >= scrollableElement.scrollWidth;
 
-            console.log(scrollableElement.scrollLeft + scrollableElement.clientWidth + (scrollableElement.scrollWidth / 4) + 5, scrollableElement.scrollWidth);
-
-
             if (isEndReached) {
                 slideRightBtn.style.display = "none"
             }
+
+            return isEndReached
         };
+
+        const autoSlide = () => {
+            slideRight() && setTimeout(() => {
+                slideLeft(true)
+            }, 3000)
+        }
+
+        slideInterval = setInterval(autoSlide, 3000)
+
+
+        scrollableElementChilds.forEach((elem) => {
+            elem.addEventListener('mouseover', () => clearInterval(slideInterval))
+            elem.addEventListener('mouseout', () => { clearInterval(slideInterval); slideInterval = setInterval(autoSlide, 3000) })
+        })
+
 
         const navbar = document.querySelector(".navbar")
         const headerAnim = () => {
