@@ -310,7 +310,7 @@ class AppDiv extends CodBellElement {
             this.data.loading = false;
         });
     }
-    showQRCode(forced) {
+    showQRCode(event, forced) {
         if(forced){
             this.data.showingQRCode =  true
         }else{
@@ -430,7 +430,7 @@ class AppDiv extends CodBellElement {
                     this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr=" + this.data.Order.ID + "&am=" + this.data.Order.Total + "&cu=INR"
                 }
                 if(this.data.Agent){
-                    this.showQRCode(true)
+                    this.showQRCode(null, true)
                 }
             }
         }).catch((error) => {
