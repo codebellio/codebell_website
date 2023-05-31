@@ -5219,8 +5219,8 @@ figcaption {
 
   .section {
     padding: 2em !important;
-    padding-top: 4.5em !important;
-    padding-bottom: 4.5em !important;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
   }
 
   .focus {
