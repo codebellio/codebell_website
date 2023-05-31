@@ -2587,7 +2587,7 @@ figcaption {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 1.875em 2em 1em;
+  padding: 2em 0em;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -2610,7 +2610,6 @@ figcaption {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  max-width: 75em;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -2620,6 +2619,7 @@ figcaption {
   -ms-flex-align: center;
   align-items: center;
   grid-column-gap: 1em;
+  padding: 0.5em 13em 0 13em;
 }
 
 .nav {
@@ -2755,7 +2755,6 @@ figcaption {
 
 .content {
   width: 100%;
-  max-width: 75em;
   margin-right: auto;
   margin-left: auto;
 }
@@ -2958,7 +2957,7 @@ figcaption {
 
 .section {
   position: relative;
-  padding: 5.5em 2em;
+  padding: 3.5rem 13em;
 }
 
 .section.post {
@@ -3476,6 +3475,8 @@ figcaption {
   grid-row-gap: 1.125em;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
+  padding: 6em 15em 6em 15em;
+  margin: 0;
 }
 
 .footer-left {
@@ -3798,7 +3799,7 @@ figcaption {
 
 .section-top {
   position: relative;
-  padding: 13em 2em 3em;
+  padding: 13em 12em 3.5rem 13em;
 }
 
 .gradient-top-a {
@@ -5148,6 +5149,7 @@ figcaption {
   }
 
   .section-top {
+    padding: 2em;
     padding-top: 12em;
     padding-bottom: 2em;
   }
@@ -5187,6 +5189,10 @@ figcaption {
     font-size: 1.55em;
   }
 
+  .nav-block {
+    padding: 0em 2em;
+  }
+
   .section-hero {
     padding-top: 8.5em;
     padding-bottom: 4.5em;
@@ -5212,8 +5218,9 @@ figcaption {
   }
 
   .section {
-    padding-top: 4.5em;
-    padding-bottom: 4.5em;
+    padding: 2em !important;
+    padding-top: 4.5em !important;
+    padding-bottom: 4.5em !important;
   }
 
   .focus {
@@ -5290,6 +5297,7 @@ figcaption {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
     text-align: center;
+    padding: 3em 2em;
   }
 
   .footer-left {
