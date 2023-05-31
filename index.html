@@ -840,18 +840,25 @@
             return isEndReached
         };
 
+        var autoSlideLeft
         const autoSlide = () => {
-            slideRight() && setTimeout(() => {
+            slideRight() && (autoSlideLeft = setTimeout(() => {
                 slideLeft(true)
-            }, 3000)
+            }, 3000))
         }
 
         slideInterval = setInterval(autoSlide, 3000)
 
 
         scrollableElementChilds.forEach((elem) => {
-            elem.addEventListener('mouseover', () => clearInterval(slideInterval))
-            elem.addEventListener('mouseout', () => { clearInterval(slideInterval); slideInterval = setInterval(autoSlide, 3000) })
+            elem.addEventListener('mouseover', () => { clearInterval(slideInterval); clearTimeout(autoSlideLeft) })
+
+            elem.addEventListener('mouseout', () => {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(autoSlide, 3000);
+
+                clearTimeout(autoSlideLeft);
+            })
         })
 
 
