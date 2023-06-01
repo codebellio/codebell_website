@@ -629,16 +629,14 @@
 
     <script src="../spectrum_assets_files/webflow.js" type="text/javascript"></script>
 
-    <script src="products.js"></script>
-
     <script>
-        function setProductCount(params) {
-            const productCount = localStorage.getItem("orderList") ? JSON.parse(localStorage.getItem("orderList")).totalCount : 0
+        // function setProductCount(params) {
+        //     const productCount = localStorage.getItem("orderList") ? JSON.parse(localStorage.getItem("orderList")).totalCount : 0
 
-            productCount != 0 ? (document.getElementById("cart").style.display = "block") : (document.getElementById("cart").style.display = "none");
+        //     productCount != 0 ? (document.getElementById("cart").style.display = "block") : (document.getElementById("cart").style.display = "none");
 
-            document.getElementById("productCount").innerHTML = productCount;
-        }; setProductCount();
+        //     document.getElementById("productCount").innerHTML = productCount;
+        // }; setProductCount();
 
         const navbar = document.querySelector(".navbar")
         const headerAnim = () => {
