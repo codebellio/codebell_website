@@ -63,6 +63,12 @@
                 height: 5em;
             }
         }
+
+        @media screen and (max-width:767px) {
+            .download h1 {
+                margin-top: 2em;
+            }
+        }
     </style>
 </head>
 
@@ -98,14 +104,15 @@
         <div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
     </div>
     <div class="section-full wf-section">
-        <div class="w-layout-grid grid-download">
+        <div class="w-layout-grid grid-download" style="grid-gap: 0;max-width: 88%;" >
             <div id="w-node-ae533ef4-8688-3fae-5f0a-665e22702679-0c2a96ad"
                 data-w-id="ae533ef4-8688-3fae-5f0a-665e22702679"
                 style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                 class="app-download-left">
                 <div class="app-download---wrapper"
                     style="will-change: transform; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(26.8254deg) rotateY(-22.4761deg) rotateZ(22deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-                    <div class="app-download---content-l1"><img src="./new_assets/scan.png" loading="eager"
+                    <div class="app-download---content-l1">
+                        <img src="./new_assets/scan.png" loading="eager"
                             sizes="(max-width: 767px) 40vw, (max-width: 1439px) 280px, (max-width: 1919px) 300px, 320px"
                             srcset="./new_assets/scan.png 500w, ./new_assets/scan.png 672w" alt=""
                             class="image-app---download">

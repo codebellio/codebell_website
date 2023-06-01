@@ -110,18 +110,32 @@
                 margin-top: 4em;
             }
 
+            .content-wide {
+                padding: 0 !important;
+            }
+
+            .content-wide .functions {
+                padding: 1.5em;
+                margin: 1.5em;
+            }
+
+            .functions-large {
+                margin: 1.5em;
+            }
+
             .content {
                 padding: 0 !important;
             }
 
             .section.hero {
+                margin-top: 1em !important;
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
 
             .content-wide {
-                padding-left: 1em;
-                padding-right: 1em;
+                padding-left: 1.25em;
+                padding-right: 1.25em;
             }
 
             #orderPopUp>div {
@@ -367,9 +381,9 @@
             <div class="w-layout-grid grid-functions">
                 <div id="w-node-a6275e1a-07c9-ad34-d127-028efe691466-ec8e05e4"
                     data-w-id="a6275e1a-07c9-ad34-d127-028efe691466"
-                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; grid-gap: 5em;"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; grid-gap: 5em; margin: 1.5em;"
                     class="functions-large">
-                    <div class="block-functions-large" style="min-width: 50%;">
+                    <div class="block-functions-large">
                         <h2 data-w-id="a6275e1a-07c9-ad34-d127-028efe691468"
                             style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                             class="heading">Why Codebell?</h2>
@@ -565,8 +579,7 @@
                 style="opacity: 0; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;"
                 class="heading">With all the features you need</h2>
             <div class="w-layout-grid grid-features">
-                <div data-w-id="a6275e1a-07c9-ad34-d127-028efe69146c"
-                    data-w-id="dcc960b3-abed-aaf9-d0c3-1b59732bf5d4"
+                <div data-w-id="a6275e1a-07c9-ad34-d127-028efe69146c" data-w-id="dcc960b3-abed-aaf9-d0c3-1b59732bf5d4"
                     style="opacity: 0; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;"
                     class="features">
                     <div class="icon-features-bg"><img src="../new_assets/features_1.svg" loading="eager" alt=""
@@ -803,7 +816,7 @@
         const navbar = document.querySelector(".navbar")
         const headerAnim = () => {
             const offsetY = window.scrollY;
-            
+
             navbar.classList.contains("active")
                 ? offsetY < 50 && navbar.classList.remove("active")
                 : offsetY > 100 && navbar.classList.add("active");
