@@ -97,12 +97,18 @@ class AppDiv extends CodBellElement {
                                     type="text" placeholder="Alex@test.com">
                                 <span class="error" :text="email_error"></span>
                             </div>
-        
+                            
                             <label for="mobile_input"> Mobile* </label>
                             <div>
                                 <input id="mobile_input" name="mobile_input" :value="Mobile" @input="setValue('Mobile', event)"
                                     type="text" placeholder="Alex">
                                 <span class="error" :text="mobile_error"></span>
+                            </div>
+                            <label for="coupon_code_input"> Coupon Code (optional) </label>
+                            <div>
+                                <input id="coupon_code_input" name="coupon_code_input" :value="coupon_code" @input="setValue('coupon_code', event)"
+                                    type="text" placeholder="Coupon Code">
+                                <span class="error" :text="coupon_code_error"></span>
                             </div>
                         </div>
                         <div if="!Agent" class="form_grid">
@@ -163,17 +169,18 @@ class AppDiv extends CodBellElement {
                                                 Sub total
                                                 <span style="float: right;" :text="'₹'+Order.Subtotal">₹00.00</span>
                                             </p>
-        
-                                            <p if="Order.Delivery" class="deliveryCharges" style="width: 100%;">
-                                                Delivery Charges
-                                                <span style="float: right;" :text="'₹'+Order.Delivery">₹00.00</span>
-                                            </p>
                                         </b>
                                         <b if="Order.Discount" style="display: flex; align-items: center; gap: 0.5em;">
                                             <p id="appliedCouponDetails"
                                                 style="width: 100%; height: 20px; align-items: center;">
                                                 Discount
                                                 <span style="float: right;" :text="'-₹'+Order.Discount">-₹00.00</span>
+                                            </p>
+                                        </b>
+                                        <b>
+                                            <p if="Order.Delivery" class="deliveryCharges" style="width: 100%;">
+                                                Delivery Charges
+                                                <span style="float: right;" :text="'₹'+Order.Delivery">₹00.00</span>
                                             </p>
                                         </b>
                                     </div>
@@ -253,9 +260,13 @@ class AppDiv extends CodBellElement {
             </loading-view>
         </div>
         <div if="Agent"
-            style="display: flex;flex-direction: row;align-items: center;margin: 0.2em 1em;border: 1px solid currentColor;border-radius: 0.5em;position: fixed;right: 0;top: 0;z-index: 600; overflow: hidden;">
+            style="display: flex;flex-direction: row;align-items: center;margin: 0.2em 1em;border: 1px solid currentColor;border-radius: 0.5em;position: fixed;right: 0;top: 0;z-index: 600; overflow: hidden;background: #f8f7f3;">
             <img :src="Agent.Photo" style="height: 45px; width: auto;" />
-            <label :text="Agent.Name" style=" line-height: 1em; margin: 1em;"></label>
+            <label :text="Agent.Name" style="margin-bottom: -2px;"></label>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16" @click="logoutAgent" style="margin: 1em;">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
         </div>
     `)
     }
@@ -264,6 +275,7 @@ class AppDiv extends CodBellElement {
     }
     logoutAgent(){
         window.history.replaceState({}, "", location.origin + location.pathname)
+        localStorage.removeItem("Agent")
         this.data.Agent = false
     }
     PaidOnline(event){
@@ -343,19 +355,56 @@ class AppDiv extends CodBellElement {
                 console.log(error)
             }
         }
+
+        var Name
+        Name = localStorage.getItem("Name")
+        if(!Name || (Agent && Agent.ID > 0)){
+            Name = ""
+        }
+
+        var Email
+        Email = localStorage.getItem("Email")
+        if(!Email || (Agent && Agent.ID > 0)){
+            Email = ""
+        }
+
+        var Mobile
+        Mobile = localStorage.getItem("Mobile")
+        if(!Mobile || (Agent && Agent.ID > 0)){
+            Mobile = ""
+        }
+
+        var Address
+        Address = localStorage.getItem("Address")
+        if(!Address || (Agent && Agent.ID > 0)){
+            Address = ""
+        }
+
+        var Pin
+        Pin = localStorage.getItem("Pin")
+        if(!Pin || (Agent && Agent.ID > 0)){
+            Pin = ""
+        }
+
+        var City
+        City = localStorage.getItem("City")
+        if(!City || (Agent && Agent.ID > 0)){
+            City = ""
+        }
+
         var Country
         Country = localStorage.getItem("Country")
-        if(!Country){
+        if(!Country || (Agent && Agent.ID > 0)){
             Country = "India"
         }
 
         return {
-            Name: localStorage.getItem("Name"),
-            Email: localStorage.getItem("Email"),
-            Mobile: localStorage.getItem("Mobile"),
-            Address: localStorage.getItem("Address"),
-            Pin: localStorage.getItem("Pin"),
-            City: localStorage.getItem("City"),
+            Name: Name,
+            Email: Email,
+            Mobile: Mobile,
+            Address: Address,
+            Pin: Pin,
+            City: City,
             Country: Country,
             Show: false,
             Order: false,
@@ -373,13 +422,14 @@ class AppDiv extends CodBellElement {
             paymentLink: "",
             showingQRCode: false,
             Agent : Agent,
+            coupon_code : "",
+            coupon_code_error : "",
         }
     }
     add_to_cart() {
 
     }
     buyNow(id) {
-        debugger
         if (this.data.Products[id]) {
             this.data.Order = false
             this.data.SelectedProducts = {}
@@ -415,6 +465,9 @@ class AppDiv extends CodBellElement {
             Mobile: this.data.Mobile,
             products: Object.values(this.data.SelectedProducts)
         }
+        if(this.data.coupon_code){
+            request_data.coupon_code = this.data.coupon_code
+        }
         if(this.data.Agent && this.data.Agent.ID > 0 ){
             request_data.AgentID = this.data.Agent.ID
         }else{
@@ -428,6 +481,10 @@ class AppDiv extends CodBellElement {
                 this.data.Order = data.Result.Order
                 if (this.data.Order && this.data.Order.Total > 0) {
                     this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr=" + this.data.Order.ID + "&am=" + this.data.Order.Total + "&cu=INR"
+                    this.data.Name = ""
+                    this.data.Email = ""
+                    this.data.Mobile = ""
+                    this.data.coupon_code = ""
                 }
                 if(this.data.Agent){
                     this.showQRCode(null, true)
@@ -452,8 +509,6 @@ class AppDiv extends CodBellElement {
                 data.data.forEach(Product => {
                     this.data.Products[Product.ProductID] = Product
                 })
-                
-        debugger
                 if(data.Result.Agent){
                     this.data.Agent = data.Result.Agent
                     localStorage.setItem("Agent" , JSON.stringify(data.Result.Agent))
@@ -548,7 +603,6 @@ class AppDiv extends CodBellElement {
         // Initialization of PaymentRequest arguments are excerpted for the sake of
         // brevity.
         // supportedMethods: ['https://tez.google.com/pay'],
-        debugger
         const details = {
             total: {
                 label: "Total",
@@ -558,7 +612,6 @@ class AppDiv extends CodBellElement {
         const payment = new PaymentRequest(methods, details, {});
         try {
             const response = await payment.show();
-            debugger
             // Process response here, including sending payment instrument
             // (e.g., credit card) information to the server.
             // paymentResponse.methodName contains the selected payment method
