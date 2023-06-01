@@ -444,8 +444,6 @@
         const headerAnim = () => {
             const offsetY = window.scrollY;
 
-            console.log(offsetY);
-
             navbar.classList.contains("active")
                 ? offsetY < 50 && navbar.classList.remove("active")
                 : offsetY > 100 && navbar.classList.add("active");
