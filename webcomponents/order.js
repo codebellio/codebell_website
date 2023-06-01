@@ -253,7 +253,7 @@ class AppDiv extends CodBellElement {
             </loading-view>
         </div>
         <div if="Agent"
-            style="display: flex;flex-direction: row;align-items: center;margin: 0.2em 1em;border: 1px solid currentColor;border-radius: 0.5em;position: fixed;right: 0;top: 0;z-index: 600;">
+            style="display: flex;flex-direction: row;align-items: center;margin: 0.2em 1em;border: 1px solid currentColor;border-radius: 0.5em;position: fixed;right: 0;top: 0;z-index: 600; overflow: hidden;">
             <img :src="Agent.Photo" style="height: 45px; width: auto;" />
             <label :text="Agent.Name" style=" line-height: 1em; margin: 1em;"></label>
         </div>
