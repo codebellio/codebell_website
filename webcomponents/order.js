@@ -480,7 +480,7 @@ class AppDiv extends CodBellElement {
             if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr=" + this.data.Order.ID + "&am=" + this.data.Order.Total + "&cu=INR"
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=Payment_for_Order_"+this.data.Order.ID+"&cu=INR&mc=5817"
                     this.data.Name = ""
                     this.data.Email = ""
                     this.data.Mobile = ""
