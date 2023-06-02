@@ -208,26 +208,6 @@ class AppDiv extends CodBellElement {
                                 <a if="!showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
                                     <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                                 </a>
-                                <button if="!showingQRCode" class="button w-inline-block" type="button"
-                                    @click="makePaymentBy(event,'GooglePay')">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment Using Google Pay </div>
-                                </button>
-                                <button if="!showingQRCode" class="button w-inline-block" type="button"
-                                    @click="makePaymentBy(event,'AmazonPay')">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment Using Amazon Pay </div>
-                                </button>
-                                <button if="!showingQRCode" class="button w-inline-block" type="button"
-                                    @click="makePaymentBy(event,'PhonePe')">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment Using PhonePe </div>
-                                </button>
-                                <button if="!showingQRCode" class="button w-inline-block" type="button"
-                                    @click="makePaymentBy(event,'Paytm')">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment Using Paytm </div>
-                                </button>
-                                <button if="!showingQRCode" class="button w-inline-block" type="button"
-                                    @click="makePaymentBy(event,'Bhim')">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment Using Bhim </div>
-                                </button>
                                 <!-- <p>QR code expire in 5:00 minutes</p> -->
                             </div>
                         </div>
@@ -480,11 +460,12 @@ class AppDiv extends CodBellElement {
             if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&tr=" + this.data.Order.ID + "&am=" + this.data.Order.Total + "&cu=INR"
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=Payment_for_Order_"+this.data.Order.ID+"&cu=INR&mc=5817"
                     this.data.Name = ""
                     this.data.Email = ""
                     this.data.Mobile = ""
                     this.data.coupon_code = ""
+                    //this.set_websocket(this.data.Order.ID)
                 }
                 if(this.data.Agent){
                     this.showQRCode(null, true)
