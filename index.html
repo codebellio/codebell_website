@@ -115,7 +115,11 @@
 
         @media (max-width:767px) {
             .section-hero {
-                margin-top: 0em;
+                min-height: 100vh;
+            }
+
+            .app-hero--wrapper {
+                width: 65%;
             }
 
             .heading-hero {
@@ -163,7 +167,7 @@
 
             #testimonial-carousel .functions {
                 min-width: 100% !important;
-                padding: 0;
+                padding: 1em 2em !important;
             }
 
             #slideRightBtn {
@@ -241,10 +245,16 @@
         }
 
         @media screen and (min-width: 1700px) {
+
+
             .section-hero {
                 padding-bottom: 0;
+                min-height: 630px;
             }
 
+            .functions.child {
+                padding: 4em !important;
+            }
 
             .nav-link {
                 font-size: 1em;
@@ -288,6 +298,10 @@
         }
 
         @media screen and (min-width: 1900px) {
+            .section-hero {
+                min-height: 700px;
+            }
+
             .nav-link {
                 font-size: 1.25em;
             }
@@ -365,7 +379,7 @@
         <div class="noise"></div>
     </div> -->
     <div data-w-id="c636bd80-a8e8-7ca5-e24f-032b659a852f" class="section section-hero wf-section"
-        style="min-height: 100vh;">
+        style="padding-top: 12em; padding-bottom: 13em;">
         <div class="content">
             <div class="w-layout-grid grid-hero hero" style="grid-gap: 5em;">
                 <div id="w-node-_3bce429c-06f2-53cc-882e-3e390d408fec-379d5480" class="block-hero"
@@ -392,13 +406,13 @@
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; flex-direction: row; font-size: 0.9em;"
                         class="block-button">
 
-                        <button class="button w-inline-block" onclick="buyNow(1)"
+                        <a class="button w-inline-block" href="/products"
                             style="min-width: 13em; border: 2px solid black;">
                             <img src="/assets/img/shopping_cart.svg" loading="eager" alt=""
                                 style="width: 1.4em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(96deg) brightness(103%) contrast(104%);">
                             <p class="text-button white" style="line-height: normal; margin-left: 0.5em;">Buy Codebell
                             </p>
-                        </button>
+                        </a>
                         <a class="button" href="/get-the-app" class="button w-inline-block"
                             style="margin: auto 0 0 auto; background-color: transparent; min-width: 13em; border: 2px solid black;">
                             <div class="text-button" style="display: flex; gap: 0.2em;">
@@ -411,32 +425,17 @@
                         </a>
                     </div>
                 </div>
-                <div id="w-node-fb81bcce-4d37-85e0-208e-77cf7c1ffc2c-379d5480"
-                    data-w-id="fb81bcce-4d37-85e0-208e-77cf7c1ffc2c"
-                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; display: flex; min-width: 100%;"
-                    class="app-hero">
-                    <div class="app-hero---wrapper desktop"
-                        style="will-change: transform; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(3.11556deg) rotateY(-2.0986deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; min-width: 100%;">
-                        <div>
-                            <img src="./assets/img/My project (1) 1 (1).png" loading="eager" alt=""
-                                class="image-app---hero" style="width: 35em; max-width: none; margin: auto;">
-                            <div class="app-hero---shadow"></div>
-                        </div>
-                    </div>
-                    <div class="app-hero---wrapper mobile" style="display: none; min-width: 100%;">
-
-                        <div style="min-width: 100%; display: flex;">
-                            <img src="./assets/img/hero-ill.png" loading="eager" alt="" class="image-app---hero"
-                                style="min-width: 18em; margin: auto;">
-                        </div>
-
+                <div id="w-node-fb81bcce-4d37-85e0-208e-77cf7c1ffc2c-379d5480" class="app-hero">
+                    <div class="app-hero--wrapper desktop" style="min-width: 50%; display: flex;">
+                        <img src="./assets/img/My project (1) 1 (1).png" loading="eager" alt=""
+                            style="width: 100%; max-width: none; margin: auto;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="section sm-nooverflow" style="padding-top: 0;">
+    <div class="section" style="padding-top: 0;">
         <div class="content">
 
             <h2 data-w-id="17a85c95-fa82-5746-71bf-c8af53109a75" class="section-heading"

@@ -2214,6 +2214,22 @@ textarea.w-select {
   }
 }
 
+@media screen and (min-width: 1700px) {
+  .section {
+    max-width: 1280px;
+    padding: 3.5rem 0em;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .section {
+    max-width: 1415px;
+    padding: 3.5rem 0em;
+    margin: auto;
+  }
+}
+
 .w-tabs {
   position: relative;
 }
@@ -2957,7 +2973,11 @@ figcaption {
 
 .section {
   position: relative;
-  padding: 3.5rem 13em;
+  padding: 3.5rem 0em;
+  margin: auto;
+  min-width: none;
+  width: 100vw;
+  max-width: 1120px !important;
 }
 
 .section.post {
