@@ -101,7 +101,7 @@ class AppDiv extends CodBellElement {
                             <label for="mobile_input"> Mobile* </label>
                             <div>
                                 <input id="mobile_input" name="mobile_input" :value="Mobile" @input="setValue('Mobile', event)"
-                                    type="text" placeholder="Alex">
+                                    type="text" placeholder="Your Mobile number">
                                 <span class="error" :text="mobile_error"></span>
                             </div>
                             <label for="coupon_code_input"> Coupon Code (optional) </label>
@@ -192,7 +192,7 @@ class AppDiv extends CodBellElement {
                                 </div>
         
                                 <p>Scan the QRcode via any UPI app to make payment of
-                                    <span :text="'₹'+order.Total"></span></span>
+                                    <span :text="'₹'+ Order.Total"></span></span>
                                 </p>
                                 <p>Page will automatically get refreshed after payment got successful</p>
                             </div>
@@ -421,6 +421,7 @@ class AppDiv extends CodBellElement {
         }
     }
     on__load() {
+        window.app = this
         window.buyNow = (product_id) => {
             this.buyNow(product_id)
         }
@@ -465,7 +466,6 @@ class AppDiv extends CodBellElement {
                     this.data.Email = ""
                     this.data.Mobile = ""
                     this.data.coupon_code = ""
-                    //this.set_websocket(this.data.Order.ID)
                 }
                 if(this.data.Agent){
                     this.showQRCode(null, true)

@@ -154,17 +154,6 @@
                     <a href="/blog" class="nav-link w-nav-link">Blog<br></a>
                     <a href="/support" class="nav-link w-nav-link">Support<br></a>
                 </nav>
-                <cart-view>
-                    <a href="/order" id="cart" class="nav-link nav-button"
-                        style="background-color: white; border-radius: 10em; display: none;">
-    
-                        <div class="text-button">
-                            <img src="./assets/img/shopping_cart.svg" alt="" style="width: 22px; height: inherit;">
-    
-                            <span id="productCount" style="color: black">0</span>
-                        </div>
-                    </a>
-                </cart-view>
                 <a href="/get-the-app" class="nav-button w-inline-block">
                     <img src="/spectrum_assets_files/6391742c49aaab268ec5c5c5_download_dark.svg" loading="eager" alt=""
                         class="icon-button">
@@ -797,12 +786,6 @@
     <script src="./spectrum_assets_files/webflow.js" type="text/javascript"></script>
 
     <script>
-        const productCount = localStorage.getItem("orderList") ? JSON.parse(localStorage.getItem("orderList")).totalCount : 0
-
-        productCount != 0 ? (document.getElementById("cart").style.display = "block") : (document.getElementById("cart").style.display = "none");
-
-        document.getElementById("productCount").innerHTML = productCount;
-
         const navbar = document.querySelector(".navbar")
         const headerAnim = () => {
             const offsetY = window.scrollY;

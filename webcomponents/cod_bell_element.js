@@ -284,6 +284,8 @@ class CodBellElement extends HTMLElement {
                                 if (binding_element.getAttribute(attribute_name)) {
                                     binding_element.removeAttribute(attribute_name)
                                 }
+                            } else if(attribute_name == "value" || attribute_name == "Value"){
+                                binding_element.value = new_value
                             } else if (binding_element.getAttribute(attribute_name) != new_value)
                                 binding_element.setAttribute(attribute_name, new_value)
                             break;
