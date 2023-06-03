@@ -111,8 +111,8 @@ class AppDiv extends CodBellElement {
                                 <span class="error" :text="coupon_code_error"></span>
                             </div>
                         </div>
-                        <div if="!Agent" class="form_grid">
-                            <label for="address_input"> Address* </label>
+                        <div if="!Agent && !somthing" class="form_grid">
+                            <label for="address_input" style="width: 154.21px;"> Address* <span :text="buyNowProductID"></span> </label>
                             <div>
                                 <textarea id="address_input" name="address_input" :text="Address"
                                     @input="setValue('Address', event)" placeholder="Your delivery address"
@@ -226,8 +226,12 @@ class AppDiv extends CodBellElement {
                     <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
                         <div style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
                             <img src="/assets/img/image122.png"/>
-                            <h3>Order Placed Successfully</h3>
-                            <p>Your order has been placed and you will receive the tracking link over SMS</p>
+                            <h3 if="!buyNowProductID">Order Placed Successfully</h3>
+                            <p if="!buyNowProductID">Your order has been placed and you will receive the tracking link over SMS</p>
+                            
+                            <h3 if="buyNowProductID">Order Placed Successfully</h3>
+                            <p if="buyNowProductID">Your order has been placed and you can scan your codebell again to activet it</p>
+
                             <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                                 <div class="text-button" style="color: #f8f8f8">Ok</div>
                             </button>
@@ -252,9 +256,13 @@ class AppDiv extends CodBellElement {
     }
     Cancel(){
         this.data.Show = false
+        this.data.buyNowProductID = 0
+        this.data.somthing = 0
+        window.history.replaceState({}, "", location.origin + location.pathname)
+
     }
     logoutAgent(){
-        window.history.replaceState({}, "", location.origin + location.pathname)
+        
         localStorage.removeItem("Agent")
         this.data.Agent = false
     }
@@ -378,7 +386,29 @@ class AppDiv extends CodBellElement {
             Country = "India"
         }
 
+        const urlParams = new URLSearchParams(location.search); 
+
+        var agent_code = urlParams.get('agent')
+        var buyNowID = urlParams.get('buyNow')
+
+        var _Name = urlParams.get('name')
+        if(_Name){
+            Name = _Name
+        }
+        var _Email = urlParams.get('email')
+        if(_Email){
+            Email = _Email
+        }
+        var _Mobile = urlParams.get('mobile')
+        if(_Mobile){
+            Mobile = _Mobile
+        }
+        debugger
         return {
+            somthing : buyNowID,
+            buyNowProductID : buyNowID,
+            agent_code: agent_code,
+            Agent : Agent,
             Name: Name,
             Email: Email,
             Mobile: Mobile,
@@ -401,7 +431,6 @@ class AppDiv extends CodBellElement {
             SelectedProducts: {},
             paymentLink: "",
             showingQRCode: false,
-            Agent : Agent,
             coupon_code : "",
             coupon_code_error : "",
         }
@@ -425,10 +454,9 @@ class AppDiv extends CodBellElement {
         window.buyNow = (product_id) => {
             this.buyNow(product_id)
         }
-        const urlParams = new URLSearchParams(location.search); 
-        var agent_code = urlParams.get('agent')
-        if(agent_code){
-            this.getAgent(agent_code)
+        
+        if(this.data.agent_code){
+            this.getAgent(this.data.agent_code)
         }else{            
             this.getProducts({})
         }
@@ -466,6 +494,7 @@ class AppDiv extends CodBellElement {
                     this.data.Email = ""
                     this.data.Mobile = ""
                     this.data.coupon_code = ""
+                    //this.set_websocket(this.data.Order.ID)
                 }
                 if(this.data.Agent){
                     this.showQRCode(null, true)
@@ -493,6 +522,9 @@ class AppDiv extends CodBellElement {
                 if(data.Result.Agent){
                     this.data.Agent = data.Result.Agent
                     localStorage.setItem("Agent" , JSON.stringify(data.Result.Agent))
+                }
+                if (this.data.Products[this.data.buyNowProductID]) {
+                    this.buyNow(this.data.buyNowProductID)
                 }
             }
         }).catch((error) => {
@@ -602,5 +634,51 @@ class AppDiv extends CodBellElement {
             console.error("Uh oh, something bad happened", err.message);
         }
     };
+    set_websocket(order_id) {
+        if(this.socket){
+            return
+        }
+        var socketProtocol = "ws://"
+        if (window.location.protocol == "https:") {
+            socketProtocol = "wss://"
+        }
+        var url = "/api/" + api
+        if (location.hostname == "localhost") {
+            url = "api.localhost/api/ws_order/"+order_id
+        } else {
+            url = "api.codebell.io/api/ws_order/"+order_id
+        }
+        url = new URL(socketProtocol + url);
+        try {
+            this.socket = new WebSocket(url.href);
+        } catch (error) {
+            console.log(error)
+            return
+        }
+        this.socket.onopen = () => {
+            this.online = true
+        };
+
+        this.socket.onclose = event => {
+            this.socket = null
+            this.online = false
+        };
+
+        this.socket.onmessage = event => {
+            var events = JSON.parse(event.data);
+            Object.keys(events).forEach(event => {
+                console.log("Received socket event")
+                console.log(event)
+                this.send("set_order_ws", { "device_token" : this.Device.DeviceToken})
+            });
+        }
+
+        this.socket.onerror = error => {
+            this.error = true
+            console.log("Socket Error: ", error);
+            this.message = "Socket Error: " + error.currentTarget.readyState  
+            this.on_ws_status_changed()          
+        };
+    }
 }
 window.customElements.define('app-div', AppDiv);
