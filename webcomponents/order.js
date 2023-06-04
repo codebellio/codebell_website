@@ -104,7 +104,7 @@ class AppDiv extends CodBellElement {
                                     type="text" placeholder="Your Mobile number">
                                 <span class="error" :text="mobile_error"></span>
                             </div>
-                            <label for="coupon_code_input"> Coupon Code (optional) </label>
+                            <label for="coupon_code_input" style="width: 165px;"> Coupon Code (optional) </label>
                             <div>
                                 <input id="coupon_code_input" name="coupon_code_input" :value="coupon_code" @input="setValue('coupon_code', event)"
                                     type="text" placeholder="Coupon Code">
@@ -112,7 +112,7 @@ class AppDiv extends CodBellElement {
                             </div>
                         </div>
                         <div if="!Agent && !somthing" class="form_grid">
-                            <label for="address_input" style="width: 154.21px;"> Address* <span :text="buyNowProductID"></span> </label>
+                            <label for="address_input" style="width: 165px;"> Address* <span :text="buyNowProductID"></span> </label>
                             <div>
                                 <textarea id="address_input" name="address_input" :text="Address"
                                     @input="setValue('Address', event)" placeholder="Your delivery address"
