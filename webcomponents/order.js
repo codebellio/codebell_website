@@ -41,13 +41,13 @@ class AppDiv extends CodBellElement {
             .orderPopUp {
                 width: fit-content;
                 margin: auto;
-                max-width: 80vw;
+                max-width: 95vw;
                 max-height: 80vh;
                 overflow: auto;
                 background-color: rgb(204 204 204 / 65%);
                 background: linear-gradient(180deg, #f8f7f3, #f8f7f3);
                 backdrop-filter: blur(5px);
-                padding: 4em;
+                padding: 3em;
                 border-radius: 1.63em;
                 display: flex;
                 flex-direction: column;
@@ -111,8 +111,8 @@ class AppDiv extends CodBellElement {
                                 <span class="error" :text="coupon_code_error"></span>
                             </div>
                         </div>
-                        <div if="!Agent && !somthing" class="form_grid">
-                            <label for="address_input" style="width: 165px;"> Address* <span :text="buyNowProductID"></span> </label>
+                        <div if="!Agent && !urlProductID" class="form_grid">
+                            <label for="address_input" style="width: 165px;"> Address*</label>
                             <div>
                                 <textarea id="address_input" name="address_input" :text="Address"
                                     @input="setValue('Address', event)" placeholder="Your delivery address"
@@ -226,11 +226,11 @@ class AppDiv extends CodBellElement {
                     <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
                         <div style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
                             <img src="/assets/img/image122.png"/>
-                            <h3 if="!buyNowProductID">Order Placed Successfully</h3>
-                            <p if="!buyNowProductID">Your order has been placed and you will receive the tracking link over SMS</p>
+                            <h3 if="!urlProductID">Order Placed Successfully</h3>
+                            <p if="!urlProductID">Your order has been placed and you will receive the tracking link over SMS</p>
                             
-                            <h3 if="buyNowProductID">Order Placed Successfully</h3>
-                            <p if="buyNowProductID">Your order has been placed and you can scan your codebell again to activet it</p>
+                            <h3 if="urlProductID">Order Placed Successfully</h3>
+                            <p if="urlProductID">Your order has been placed and you can scan your codebell again to activet it</p>
 
                             <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                                 <div class="text-button" style="color: #f8f8f8">Ok</div>
@@ -256,8 +256,8 @@ class AppDiv extends CodBellElement {
     }
     Cancel(){
         this.data.Show = false
-        this.data.buyNowProductID = 0
-        this.data.somthing = 0
+        this.data.urlOrderID = false
+        this.data.Order = false
         window.history.replaceState({}, "", location.origin + location.pathname)
 
     }
@@ -403,10 +403,13 @@ class AppDiv extends CodBellElement {
         if(_Mobile){
             Mobile = _Mobile
         }
-        debugger
+        var orderID = urlParams.get('order')
+        if(!orderID){
+            orderID = 0
+        }
         return {
-            somthing : buyNowID,
-            buyNowProductID : buyNowID,
+            urlOrderID : orderID,
+            urlProductID : buyNowID,
             agent_code: agent_code,
             Agent : Agent,
             Name: Name,
@@ -454,9 +457,14 @@ class AppDiv extends CodBellElement {
         window.buyNow = (product_id) => {
             this.buyNow(product_id)
         }
-        
         if(this.data.agent_code){
-            this.getAgent(this.data.agent_code)
+            this.getProducts({
+                agent_code : this.data.agent_code
+            })
+        }else if(this.data.urlOrderID){
+            this.getProducts({
+                uuid : this.data.urlOrderID
+            })
         }else{            
             this.getProducts({})
         }
@@ -488,28 +496,12 @@ class AppDiv extends CodBellElement {
         window.call_api("place_order", request_data).then((data) => {
             if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
-                if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=Payment_for_Order_"+this.data.Order.ID+"&cu=INR&mc=5817"
-                    this.data.Name = ""
-                    this.data.Email = ""
-                    this.data.Mobile = ""
-                    this.data.coupon_code = ""
-                    //this.set_websocket(this.data.Order.ID)
-                }
-                if(this.data.Agent){
-                    this.showQRCode(null, true)
-                }
             }
         }).catch((error) => {
             console.log(error)
         }).finally(() => {
             this.data.loading = false;
         });
-    }
-    getAgent(agent_code){
-        this.getProducts({
-            agent_code : agent_code
-        })
     }
     getProducts(request_data) {
         this.data.loading = true
@@ -523,8 +515,12 @@ class AppDiv extends CodBellElement {
                     this.data.Agent = data.Result.Agent
                     localStorage.setItem("Agent" , JSON.stringify(data.Result.Agent))
                 }
-                if (this.data.Products[this.data.buyNowProductID]) {
-                    this.buyNow(this.data.buyNowProductID)
+                if (data.Result.Order) {
+                    this.data.Order = data.Result.Order
+                    this.data.Show = true
+                }else if (this.data.Products[this.data.urlProductID]) {
+                    this.buyNow(this.data.urlProductID)
+                    this.data.urlProductID = 0
                 }
             }
         }).catch((error) => {
@@ -642,7 +638,7 @@ class AppDiv extends CodBellElement {
         if (window.location.protocol == "https:") {
             socketProtocol = "wss://"
         }
-        var url = "/api/" + api
+        var url = "/api/"
         if (location.hostname == "localhost") {
             url = "api.localhost/api/ws_order/"+order_id
         } else {
@@ -669,16 +665,37 @@ class AppDiv extends CodBellElement {
             Object.keys(events).forEach(event => {
                 console.log("Received socket event")
                 console.log(event)
-                this.send("set_order_ws", { "device_token" : this.Device.DeviceToken})
+                if(event == "Order"){
+                    this.data.Order = events.Order
+                }
             });
         }
 
         this.socket.onerror = error => {
             this.error = true
             console.log("Socket Error: ", error);
-            this.message = "Socket Error: " + error.currentTarget.readyState  
-            this.on_ws_status_changed()          
+            this.message = "Socket Error: " + error.currentTarget.readyState
         };
+    }
+    propertyChangedCallback(prop, old_value, new_value) {
+        switch (prop) {
+            case "Order":
+                if (this.data.Order && this.data.Order.Total > 0) {
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=Payment_for_Order_"+this.data.Order.ID+"&cu=INR&mc=5817"
+                    window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
+                    this.set_websocket(this.data.Order.ID)
+                    if(this.data.Agent){
+                        this.data.Name = ""
+                        this.data.Email = ""
+                        this.data.Mobile = ""
+                        this.data.coupon_code = ""
+                        this.showQRCode(null, true)
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
 window.customElements.define('app-div', AppDiv);
