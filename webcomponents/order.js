@@ -196,31 +196,34 @@ class AppDiv extends CodBellElement {
                                 </p>
                                 <p>Page will automatically get refreshed after payment got successful</p>
                             </div>
-                            <div
-                                style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
-                                <div if="showingQRCode" ref="qrcodejs"></div>
-                                <button if="!Agent" class="button w-inline-block" type="button" @click="showQRCode">
+                            <div style="display: flex; flex-direction: column; justify-content: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
+                                <div style="color: #c8c8c8; flex: 1;">.</div>
+                                <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
+                                <button if="Order.Total > 0 && !Agent" class="button w-inline-block" type="button" @click="showQRCode">
                                     <div if="!showingQRCode" class="text-button" style="color: #f8f8f8">Show QR code to make
                                         payment
                                     </div>
                                     <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Hide QR code</div>
                                 </button>
-                                <a if="!showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+                                <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
                                     <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                                 </a>
+                                <div style="color: #c8c8c8; flex: 1;">.</div>
+                                <button if="!Order.Total && !Agent" class="button w-inline-block" type="button" @click="PaidZero">
+                                    <div class="text-button" style="color: #f8f8f8">Continue</div>
+                                </button>
+                                <button if="Agent" class="button w-inline-block" type="button" @click="PaidOnline">
+                                    <div class="text-button" style="color: #f8f8f8">Paid Online</div>
+                                </button>
+                                <button if="Agent" class="button w-inline-block" type="button" @click="PaidInCash">
+                                    <div class="text-button" style="color: #f8f8f8">Paid in Cash</div>
+                                </button>
+
+                                <button class="button w-inline-block" type="button" @click="Cancel">
+                                    <div class="text-button" style="color: #f8f8f8">Cancel</div>
+                                </button>
                                 <!-- <p>QR code expire in 5:00 minutes</p> -->
                             </div>
-                        </div>
-                        <div if="Agent" style="display: flex;flex-wrap: wrap;justify-content: center;align-items: end;flex-direction: row;gap: 1em;">
-                            <button class="button w-inline-block" style="width: 13em;" type="button" @click="PaidOnline">
-                                <div class="text-button" style="color: #f8f8f8">Paid Online</div>
-                            </button>
-                            <button class="button w-inline-block" style="width: 13em;" type="button" @click="PaidInCash">
-                                <div class="text-button" style="color: #f8f8f8">Paid in Cash</div>
-                            </button>
-                            <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
-                                <div class="text-button" style="color: #f8f8f8">Cancel</div>
-                            </button>
                         </div>
                     </div>
                     <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
@@ -265,6 +268,17 @@ class AppDiv extends CodBellElement {
         
         localStorage.removeItem("Agent")
         this.data.Agent = false
+    }
+    PaidZero(event){
+        event.preventDefault()
+        event.stopPropagation()
+        var request_data = {
+            PaymentMethod : "Coupon",
+            PaymentResult : "Done",
+            PaymentStatus : "Received",
+            AgentID : this.data.Agent.ID
+        }
+        this.UpdateOrderPayment(request_data)
     }
     PaidOnline(event){
         event.preventDefault()
