@@ -261,6 +261,7 @@ class AppDiv extends CodBellElement {
         this.data.Show = false
         this.data.urlOrderID = false
         this.data.Order = false
+        this.data.urlProductID = 0
         window.history.replaceState({}, "", location.origin + location.pathname)
 
     }
@@ -534,7 +535,6 @@ class AppDiv extends CodBellElement {
                     this.data.Show = true
                 }else if (this.data.Products[this.data.urlProductID]) {
                     this.buyNow(this.data.urlProductID)
-                    this.data.urlProductID = 0
                 }
             }
         }).catch((error) => {
