@@ -405,6 +405,7 @@ class AppDiv extends CodBellElement {
 
         var agent_code = urlParams.get('agent')
         var buyNowID = urlParams.get('buyNow')
+        var codebellID = urlParams.get('codebell')
 
         var _Name = urlParams.get('name')
         if(_Name){
@@ -422,7 +423,12 @@ class AppDiv extends CodBellElement {
         if(!orderID){
             orderID = 0
         }
+        var codebell_id = urlParams.get('codebell_id')
+        if(!codebell_id){
+            codebell_id = 0
+        }
         return {
+            codebell_id : codebell_id,
             urlOrderID : orderID,
             urlProductID : buyNowID,
             agent_code: agent_code,
@@ -496,6 +502,9 @@ class AppDiv extends CodBellElement {
             Email: this.data.Email,
             Mobile: this.data.Mobile,
             products: Object.values(this.data.SelectedProducts)
+        }
+        if(this.data.codebell_id){
+            request_data.codebell_id = this.data.codebell_id
         }
         if(this.data.coupon_code){
             request_data.coupon_code = this.data.coupon_code
@@ -695,7 +704,7 @@ class AppDiv extends CodBellElement {
         switch (prop) {
             case "Order":
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=Payment_for_Order_"+this.data.Order.ID+"&cu=INR&mc=5817"
+                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=OrderID"+this.data.Order.ID+"&cu=INR&mc=5817"
                     window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
                     if(this.data.Agent){
