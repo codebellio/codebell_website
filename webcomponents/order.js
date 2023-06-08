@@ -196,7 +196,7 @@ class AppDiv extends CodBellElement {
                                 </p>
                                 <p>Page will automatically get refreshed after payment got successful</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; justify-content: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh">
+                            <div style="display: flex; flex-direction: column; justify-content: center; gap: 1em; width: 400px; max-width: 80vw;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
                                 <button if="Order.Total > 0 && !Agent" class="button w-inline-block" type="button" @click="showQRCode">
