@@ -4223,11 +4223,15 @@ figcaption {
   justify-content: end;
 }
 
-.app-focus-separate {
-  justify-content: center;
-  margin-top: 0em;
+@media screen and (max-width: 767px) {
+  .grid-focus-right .app-focus-separate, .grid-focus-left .app-focus-separate {
+    justify-content: center;
+    margin: 0em;
+  }
+  .grid-focus-left .app-focus-separate{
+    order: 1;
+  }
 }
-
 .grid-focus-right {
   grid-column-gap: 2em;
   grid-row-gap: 0em;
@@ -5273,10 +5277,11 @@ figcaption {
   .functions-large {
     padding: 3.5em;
     -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
+    flex-direction: column;
+    /* -webkit-box-direction: reverse;
     -webkit-flex-direction: column-reverse;
-    -ms-flex-direction: column-reverse;
-    flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse; */
+    /* flex-direction: column-reverse; */
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
