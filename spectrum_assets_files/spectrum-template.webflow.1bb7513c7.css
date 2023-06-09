@@ -2440,6 +2440,9 @@ p {
   color: #141717;
 }
 
+footer p {
+  color: #f5f4ef
+}
 a {
   text-decoration: underline;
 }
