@@ -2443,6 +2443,9 @@ p {
 footer p {
   color: #f5f4ef
 }
+.grid-footer p{
+  color: #141717;
+}
 a {
   text-decoration: underline;
 }
