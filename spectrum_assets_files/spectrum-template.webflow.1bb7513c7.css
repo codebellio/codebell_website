@@ -3259,6 +3259,7 @@ figcaption {
   width: calc(100% + 8vw);
   margin-right: -4vw;
   margin-left: -4vw;
+  padding: 4vw;
 }
 
 .image-functions-large {
