@@ -2437,6 +2437,7 @@ p {
   font-size: 1.125em;
   line-height: 1.6em;
   letter-spacing: 0.01em;
+  color: #141717;
 }
 
 a {
@@ -3168,7 +3169,7 @@ figcaption {
 .image-app---focus-1 {
   position: relative;
   z-index: 10;
-  max-height: 90vh;
+  /* max-height: 90vh; */
   border-radius: 1.9em;
 }
 
@@ -3250,9 +3251,14 @@ figcaption {
 
 .content-wide {
   width: 100%;
-  max-width: 82.5em;
   margin-right: auto;
   margin-left: auto;
+}
+
+.content-wide {
+  width: calc(100% + 8vw);
+  margin-right: -4vw;
+  margin-left: -4vw;
 }
 
 .image-functions-large {
@@ -4207,6 +4213,14 @@ figcaption {
   align-items: center;
   -webkit-perspective: 1800px;
   perspective: 1800px;
+}
+
+.grid-focus-left .app-focus-separate {
+  justify-content: start;
+}
+
+.grid-focus-right .app-focus-separate {
+  justify-content: end;
 }
 
 .grid-focus-right {
@@ -6483,45 +6497,7 @@ figcaption {
 
 @font-face {
   font-family: "Space Grotesk";
-  src: url("https://assets.website-files.com/638ff800599a0427a59d547f/638ffb0201a48b92e3082499_SpaceGrotesk-Bold.woff2")
+  src: url("/assets/fonts/SpaceGrotesk-VariableFont_wght.ttf")
     format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("https://assets.website-files.com/638ff800599a0427a59d547f/638ffb027fd9256f1428cabd_SpaceGrotesk-SemiBold.woff2")
-    format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("https://assets.website-files.com/638ff800599a0427a59d547f/638ffb0283fc56181a52fea5_SpaceGrotesk-Regular.woff2")
-    format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("https://assets.website-files.com/638ff800599a0427a59d547f/638ffb027fd9251ed528cabc_SpaceGrotesk-Medium.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("https://assets.website-files.com/638ff800599a0427a59d547f/638ffb02da37aa7cde781ac1_SpaceGrotesk-Light.woff2")
-    format("woff2");
-  font-weight: 300;
-  font-style: normal;
   font-display: swap;
 }
