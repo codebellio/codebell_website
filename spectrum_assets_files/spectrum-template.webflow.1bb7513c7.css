@@ -4223,6 +4223,11 @@ figcaption {
   justify-content: end;
 }
 
+.app-focus-separate {
+  justify-content: center;
+  margin-top: 0em;
+}
+
 .grid-focus-right {
   grid-column-gap: 2em;
   grid-row-gap: 0em;
