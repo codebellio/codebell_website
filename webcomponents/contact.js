@@ -7,29 +7,34 @@ class ContactView extends CodBellElement {
     }
     getContent() {
         return `
-        <form id="email-form" name="email-form" data-name="Email Form" method="get" class="form" aria-label="Email Form" @submit="submit">
-            <input type="text" ref="name" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Your Name"
-                id="name" required>
-            <input type="email" ref="email" class="text-field w-input" maxlength="256" name="email" data-name="Email"
-                placeholder="Your Email" id="email" required>
-            <input type="tel" ref="mobile" class="text-field w-input" maxlength="256" name="mobile" data-name="Mobile"
-                placeholder="Your Mobile" id="mobile" required>
-            <textarea  ref="msg" placeholder="Tell us how we can help" maxlength="5000" id="message" name="Message" data-name="field"
-                class="textarea w-input" required></textarea>
-            <input type="submit" value="Submit" data-wait="Please wait..." class="submit-button w-button">
-        </form>
-        <div class="success-message w-form-done" tabindex="-1" role="region" aria-label="Email Form success">
-            <div class="text-success">Thank you! Your submission has been received!</div>
-        </div>
-        <div class="error-message w-form-fail" tabindex="-1" role="region" aria-label="Email Form failure">
-            <div class="text-error">Oops! Something went wrong while submitting the form.</div>
-        </div>
+        <loading-view :value="loading">
+            <form if="Status != 2" id="email-form" name="email-form" data-name="Email Form" method="get" class="form" aria-label="Email Form" @submit="submit">
+                <div if="Status == 1" class="error-message w-form-fail" style="display: block;" tabindex="-1" role="region" aria-label="Email Form failure">
+                    <div class="text-error">Oops! Something went wrong while submitting the form.</div>
+                </div>
+                
+                <input type="text" ref="name" class="text-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Your Name" autocomplete="name"
+                    id="name" required>
+                <input type="email" ref="email" class="text-field w-input" maxlength="256" name="email" data-name="Email"
+                    placeholder="Your Email" id="email" required autocomplete="email">
+                <input type="tel" ref="mobile" class="text-field w-input" maxlength="256" name="mobile" data-name="Mobile" autocomplete="mobile"
+                    placeholder="Your Mobile" id="mobile" required>
+                <textarea  ref="msg" placeholder="Tell us how we can help" maxlength="5000" id="message" name="Message" data-name="field"
+                    class="textarea w-input" required></textarea>
+                <input type="submit" value="Submit" data-wait="Please wait..." class="submit-button w-button">
+            </form>
+            <div if="Status == 2" class="success-message w-form-done" style="display: block;"  tabindex="-1" role="region" aria-label="Email Form success">
+                <div class="text-success">Thank you! Your submission has been received!</div>
+            </div>
+        </loading-view>
         `
     }
     getData() {
         return {
             loading: false,
-            full_screen : false,
+            Status : 0,
+            Message : false,
+
         }
     }
     submit(event) {
@@ -47,8 +52,9 @@ class ContactView extends CodBellElement {
             Message: this.refs.msg.value
         }
         window.call_api("contact", request_data).then((data) => {
-            if (data && data.Status == 2 && data.Result.Order) {
-                
+            if (data) {
+                this.data.Status = data.Status
+                this.data.Message = data.Message
             }
         }).catch((error) => {
             console.log(error)
