@@ -5243,7 +5243,8 @@ figcaption {
   }
 
   .nav-block {
-    padding: 0em 2em;
+    padding: 0em 1em;
+    width: 100vw !important;
   }
 
   .section-hero {
