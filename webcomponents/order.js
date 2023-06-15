@@ -91,7 +91,7 @@ class AppDiv extends CodBellElement {
                                 <span class="error" :text="name_error"></span>
                             </div>
 
-                            <label for="email_input"> Email* </label>
+                            <label for="email_input"> Email </label>
                             <div>
                                 <input id="email_input" name="email_input" ref="email_input" :value="Email" @input="setValue('Email', event)"
                                     type="text" placeholder="Alex@test.com">
