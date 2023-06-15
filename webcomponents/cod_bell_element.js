@@ -280,12 +280,12 @@ class CodBellElement extends HTMLElement {
                             }
                             break;
                         default:
-                            if (!new_value) {
+                            if(attribute_name == "value" && binding_element.value != undefined ){
+                                binding_element.value = new_value
+                            } else if (!new_value) {
                                 if (binding_element.getAttribute(attribute_name)) {
                                     binding_element.removeAttribute(attribute_name)
                                 }
-                            } else if(attribute_name == "value" && binding_element.value != undefined ){
-                                binding_element.value = new_value
                             } else if (binding_element.getAttribute(attribute_name) != new_value)
                                 binding_element.setAttribute(attribute_name, new_value)
                             break;

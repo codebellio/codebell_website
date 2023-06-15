@@ -263,7 +263,12 @@ class AppDiv extends CodBellElement {
         this.data.Order = false
         this.data.urlProductID = 0
         window.history.replaceState({}, "", location.origin + location.pathname)
-
+        if(this.data.Agent){
+            this.data.Name = ""
+            this.data.Email = ""
+            this.data.Mobile = ""
+            this.data.coupon_code = ""
+        }
     }
     logoutAgent(){
         
@@ -345,7 +350,9 @@ class AppDiv extends CodBellElement {
         }
     }
     setValue(prop, event) {
-        localStorage.setItem(prop, event.target.value)
+        if(!this.data.Agent || !this.data.Agent.ID ){
+            localStorage.setItem(prop, event.target.value)
+        }        
         this.data[prop] = event.target.value
     }
     getData() {
@@ -463,14 +470,6 @@ class AppDiv extends CodBellElement {
 
     }
     buyNow(id) {
-        setTimeout(() => {
-            if(this.data.Agent){
-                this.refs.name_input.value = ""
-                this.refs.email_input.value = ""
-                this.refs.mobile_input.value = ""
-                this.refs.coupon_code_input.value = ""
-            }            
-        }, 200);
         if (this.data.Products[id]) {
             this.data.Order = false
             this.data.SelectedProducts = {}
