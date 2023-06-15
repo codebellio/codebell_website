@@ -86,27 +86,27 @@ class AppDiv extends CodBellElement {
                         <div class="form_grid">
                             <label for="name_input"> Name* </label>
                             <div>
-                                <input id="name_input" name="name_input" :value="Name" @input="setValue('Name', event)"
+                                <input id="name_input" name="name_input" ref="name_input" :value="Name" @input="setValue('Name', event)"
                                     type="text" placeholder="Alex">
                                 <span class="error" :text="name_error"></span>
                             </div>
-        
+
                             <label for="email_input"> Email* </label>
                             <div>
-                                <input id="email_input" name="email_input" :value="Email" @input="setValue('Email', event)"
+                                <input id="email_input" name="email_input" ref="email_input" :value="Email" @input="setValue('Email', event)"
                                     type="text" placeholder="Alex@test.com">
                                 <span class="error" :text="email_error"></span>
                             </div>
                             
                             <label for="mobile_input"> Mobile* </label>
                             <div>
-                                <input id="mobile_input" name="mobile_input" :value="Mobile" @input="setValue('Mobile', event)"
-                                    type="text" placeholder="Your Mobile number">
+                                <input id="mobile_input" name="mobile_input" ref="mobile_input" :value="Mobile" @input="setValue('Mobile', event)"
+                                    type="text" maxlength="10" placeholder="Your Mobile number">
                                 <span class="error" :text="mobile_error"></span>
                             </div>
                             <label for="coupon_code_input" style="width: 165px;"> Coupon Code (optional) </label>
                             <div>
-                                <input id="coupon_code_input" name="coupon_code_input" :value="coupon_code" @input="setValue('coupon_code', event)"
+                                <input id="coupon_code_input" name="coupon_code_input" ref="coupon_code_input" :value="coupon_code" @input="setValue('coupon_code', event)"
                                     type="text" placeholder="Coupon Code">
                                 <span class="error" :text="coupon_code_error"></span>
                             </div>
@@ -463,6 +463,14 @@ class AppDiv extends CodBellElement {
 
     }
     buyNow(id) {
+        setTimeout(() => {
+            if(this.data.Agent){
+                this.refs.name_input.value = ""
+                this.refs.email_input.value = ""
+                this.refs.mobile_input.value = ""
+                this.refs.coupon_code_input.value = ""
+            }            
+        }, 200);
         if (this.data.Products[id]) {
             this.data.Order = false
             this.data.SelectedProducts = {}
