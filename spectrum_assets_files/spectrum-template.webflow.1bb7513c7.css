@@ -6532,5 +6532,6 @@ figcaption {
   .flex-m-reverse{
     flex-direction: column-reverse;
     margin-top: 3em;
+    gap: 2em;
   }
 }
