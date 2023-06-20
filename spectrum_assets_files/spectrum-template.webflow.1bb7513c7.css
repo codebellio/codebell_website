@@ -6519,3 +6519,18 @@ figcaption {
     format("woff2");
   font-display: swap;
 }
+
+
+.flex-m-reverse{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .flex-m-reverse{
+    flex-direction: column-reverse;
+    margin-top: 3em;
+  }
+}
