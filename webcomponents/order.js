@@ -559,85 +559,6 @@ class AppDiv extends CodBellElement {
             this.data.loading = false;
         });
     }
-    makePaymentBy(event, method) {
-        event.preventDefault()
-        event.stopPropagation()
-        switch (method) {
-            case "GooglePay":
-                this.startPayment([{
-                    supportedMethods: ['https://tez.google.com/pay'],
-                    data: {
-                        pa: 'CODEBELL@icici',
-                        pn: 'Codebell Technologies Private Limited',
-                        mc: "5732",
-                        tn: this.data.SelectedProducts[0].Name,
-                        tr: this.data.Order.UUID,  // your custom transaction reference ID
-                        url: 'https://codebell.io/orders/' + this.data.Order.UUID,
-                        //mc: '1234', // your merchant category code
-                        // tn: 'Purchase in Merchant',
-                        // gstBrkUp: 'GST:16.90|CGST:08.45|SGST:08.45', // GST value break up
-                        // invoiceNo: 'BillRef123', // your invoice number
-                        // invoiceDate: '2019-06-11T13:21:50+05:30', // your invoice date and time
-                        gstIn: '07AAKCC6333R1Z1', // your GSTIN
-                    }
-                }
-                ])
-                break;
-            case "AmazonPay":
-                this.startPayment([
-                    {
-                        label: "Amazon Pay",
-                        method: "amazon-pay"
-                    },
-                ])
-                break;
-            case "PhonePe":
-                this.startPayment([
-                    {
-                        label: "PhonePe",
-                        method: "phonepe"
-                    },
-                ])
-                break;
-            case "Paytm":
-                this.startPayment([
-                    {
-                        label: "Paytm",
-                        method: "paytm"
-                    },
-                ])
-                break;
-            case "Bhim":
-                this.startPayment([
-                    {
-                        label: "Bhim",
-                        method: "bhim"
-                    },
-                ])
-                break;
-            case "upi":
-                this.startPayment([
-                    {
-                        label: "Upi",
-                        method: "upi"
-                    },
-                ])
-                break;
-
-            default:
-                break;
-        }
-
-        /*
-        let paymentWindow = window.open( upiwcIntent( paymentLink, type ) );
-                    timeoutIntent = setTimeout( function() {
-                        if ( ! paymentWindow.closed ) {
-                            paymentWindow.close();
-                            self.$content.find( '.upiwc-payment-intent-error' ).text( 'No specified UPI App on this device. Select other UPI option to proceed.' ).show();
-                        }  
-                    }, 2500 );
-                    */
-    }
     async startPayment(methods) {
         // Initialization of PaymentRequest arguments are excerpted for the sake of
         // brevity.
@@ -711,7 +632,7 @@ class AppDiv extends CodBellElement {
         switch (prop) {
             case "Order":
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=OrderID"+this.data.Order.ID+"&cu=INR&mc=5817"
+                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&am=" + this.data.Order.Total + "&tr=CDB"+this.data.Order.ID+"&tn=OrderFOR"+this.data.Order.ID+"&cu=INR&mc=6012"
                     window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
                     if(this.data.Agent){
