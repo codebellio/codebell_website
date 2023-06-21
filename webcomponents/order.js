@@ -632,7 +632,7 @@ class AppDiv extends CodBellElement {
         switch (prop) {
             case "Order":
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&tr=EZY"+this.data.Order.ID+"&am=" + this.data.Order.Total + "&cu=INR&mc=6012"
+                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&tr=EZV"+this.data.Order.ID+"&am=" + this.data.Order.Total + "&cu=INR&mc=6012"
                     window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
                     if(this.data.Agent){
