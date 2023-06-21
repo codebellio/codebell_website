@@ -567,7 +567,7 @@ class AppDiv extends CodBellElement {
                 this.startPayment([{
                     supportedMethods: ['https://tez.google.com/pay'],
                     data: {
-                        pa: '9958004505.eazypay@icici',
+                        pa: 'CODEBELL@icici',
                         pn: 'Codebell Technologies Private Limited',
                         mc: "5732",
                         tn: this.data.SelectedProducts[0].Name,
@@ -711,7 +711,7 @@ class AppDiv extends CodBellElement {
         switch (prop) {
             case "Order":
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=9958004505.eazypay@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=OrderID"+this.data.Order.ID+"&cu=INR&mc=5817"
+                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell Technologies Private Limited&am=" + this.data.Order.Total + ".00&tr=order_id"+this.data.Order.ID+"&tn=OrderID"+this.data.Order.ID+"&cu=INR&mc=5817"
                     window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
                     if(this.data.Agent){
