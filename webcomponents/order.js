@@ -330,6 +330,10 @@ class AppDiv extends CodBellElement {
             this.data.showingQRCode = !this.data.showingQRCode
         }
         if (this.data.showingQRCode) {
+            if(this.qrcode){
+                this.qrcode.clear()
+                delete this.qrcode
+            }
             this.qrcode = new QRCode(this.refs.qrcodejs, {
                 width: 259,
                 height: 259,
