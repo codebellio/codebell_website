@@ -212,13 +212,6 @@ class AppDiv extends CodBellElement {
                                 <button if="!Order.Total && !Agent" class="button w-inline-block" type="button" @click="PaidZero">
                                     <div class="text-button" style="color: #f8f8f8">Continue</div>
                                 </button>
-                                <button if="Agent" class="button w-inline-block" type="button" @click="PaidOnline">
-                                    <div class="text-button" style="color: #f8f8f8">Paid Online</div>
-                                </button>
-                                <button if="Agent" class="button w-inline-block" type="button" @click="PaidInCash">
-                                    <div class="text-button" style="color: #f8f8f8">Paid in Cash</div>
-                                </button>
-
                                 <button class="button w-inline-block" type="button" @click="Cancel">
                                     <div class="text-button" style="color: #f8f8f8">Cancel</div>
                                 </button>
