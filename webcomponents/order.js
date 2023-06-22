@@ -333,6 +333,7 @@ class AppDiv extends CodBellElement {
             if(this.qrcode){
                 this.qrcode.clear()
                 delete this.qrcode
+                this.refs.qrcodejs.innerHTML = ""
             }
             this.qrcode = new QRCode(this.refs.qrcodejs, {
                 width: 259,
