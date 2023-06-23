@@ -209,7 +209,7 @@ class AppDiv extends CodBellElement {
                                     <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                                 </a>
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
-                                <button if="!Order.Total && !Agent" class="button w-inline-block" type="button" @click="PaidZero">
+                                <button if="!Order.Total" class="button w-inline-block" type="button" @click="PaidZero">
                                     <div class="text-button" style="color: #f8f8f8">Continue</div>
                                 </button>
                                 <button class="button w-inline-block" type="button" @click="Cancel">
