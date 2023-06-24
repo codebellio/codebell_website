@@ -205,7 +205,7 @@ class AppDiv extends CodBellElement {
                                     </div>
                                     <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Hide QR code</div>
                                 </button>
-                                <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+                                <a if="Order.Total > 0" class="button w-inline-block" type="button" :href="paymentLink">
                                     <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
                                 </a>
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
