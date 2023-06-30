@@ -199,21 +199,23 @@ class AppDiv extends CodBellElement {
                             <div style="display: flex; flex-direction: column; justify-content: center; gap: 1em; width: 400px; max-width: 80vw;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
-                                <button if="Order.Total > 0 && !Agent" class="button w-inline-block" type="button" @click="showQRCode">
-                                    <div if="!showingQRCode" class="text-button" style="color: #f8f8f8">Show QR code to make
-                                        payment
-                                    </div>
-                                    <div if="showingQRCode" class="text-button" style="color: #f8f8f8">Hide QR code</div>
-                                </button>
-                                <a if="Order.Total > 0" class="button w-inline-block" type="button" :href="paymentLink">
-                                    <div class="text-button" style="color: #f8f8f8">Make Payment from any upi app </div>
+                                
+                                <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+                                    <span class="text-button" style="color: #f8f8f8">Make Payment from any upi app </span>
+                                </a>
+
+                                <a if="Order.Total > 0 && !Agent" class="w-inline-block" type="button" @click="showQRCode" style="text-align: center;">
+                                    <span if="!showingQRCode" class="text-button">
+                                        Show QR code to make payment
+                                    </span>
+                                    <span if="showingQRCode" class="text-button">Hide QR code</span>
                                 </a>
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <button if="!Order.Total" class="button w-inline-block" type="button" @click="PaidZero">
-                                    <div class="text-button" style="color: #f8f8f8">Continue</div>
+                                    <span class="text-button" style="color: #f8f8f8">Continue</span>
                                 </button>
                                 <button class="button w-inline-block" type="button" @click="Cancel">
-                                    <div class="text-button" style="color: #f8f8f8">Cancel</div>
+                                    <span class="text-button" style="color: #f8f8f8">Cancel</span>
                                 </button>
                                 <!-- <p>QR code expire in 5:00 minutes</p> -->
                             </div>
@@ -324,6 +326,10 @@ class AppDiv extends CodBellElement {
         });
     }
     showQRCode(event, forced) {
+        if(event){
+            event.preventDefault()
+            event.stopPropagation()
+        }
         if(forced){
             this.data.showingQRCode =  true
         }else{
