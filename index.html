@@ -344,12 +344,21 @@
                 font-size: 1.25em;
             }
         }
+        .product_card {
+            min-height: max-content;
+            min-width: max-content;
+            width: max-content;
+            scroll-snap-align: start;
+            padding: 1em 3em 3em 3em;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WX5WGMV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WX5WGMV" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navbar w-nav">
@@ -406,19 +415,27 @@
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; flex-direction: row; font-size: 0.9em;"
                         class="block-button">
 
-                        <button class="button w-inline-block" onclick="buyNow(1)"
+                        <a class="button w-inline-block" href="/virtual-video-doorbell" style="min-width: 13em; border: 2px solid black;">
+                            <div class="text-button white" style="display: flex; align-items: center;">
+                                Learn more
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.41061 4L6.01973 5.27869L11.2573 10.0102L6 14.7213L7.38101 16L14 9.99106L7.41061 4Z" fill="#fff"/>
+                                    </svg>
+                            </div>
+                        </a>
+                        <!-- <button class="button w-inline-block" onclick="buyNow(1)"
                             style="min-width: 13em; border: 2px solid black;">
                             <img src="/assets/img/shopping_cart.svg" loading="eager" alt=""
                                 style="width: 1.4em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(96deg) brightness(103%) contrast(104%);">
                             <p class="text-button white"
                                 style="line-height: normal; margin-left: 0.5em; white-space: nowrap;">Buy Codebell
                             </p>
-                        </button>
+                        </button> -->
                         <a class="button" href="/get-the-app" class="button w-inline-block"
                             style="margin: auto 0 0 auto; background-color: transparent; min-width: 13em; border: 2px solid black;">
                             <div class="text-button" style="display: flex; gap: 0.2em;">
                                 <p style="line-height: normal; margin-top: auto; white-space: nowrap;">
-                                    Get The App
+                                    Try The App
                                 </p>
                                 <img src="./assets/img/download-invoice.svg" loading="eager" alt=""
                                     style="margin-left: 0.5em;">
@@ -451,8 +468,7 @@
                 <div id="testimonial-carousel"
                     style="min-height: max-content; width: 100%; display: flex; overflow: hidden; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1.8em; max-width: 2200px; margin: auto;">
 
-                    <div style="min-height: max-content; min-width: max-content; width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions child">
+                    <a href="/virtual-video-doorbell" class="functions child product_card">
 
                         <img src="./assets/img/codebell-home.svg" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.9; margin: 0 auto;"
@@ -464,10 +480,9 @@
                             connect with
                             your visitors securely, wherever you
                             are.</p>
-                    </div>
+                    </a>
 
-                    <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
-                        class="functions child">
+                    <a class="functions child product_card" href="/vehicle">
 
                         <img src="./assets/img/car_codebell_08_06_23.png" loading="eager"
                             style="opacity: 1; transform: translate3d(0px, 15px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; aspect-ratio: 2/0.6; margin: 1.95em auto;"
@@ -478,7 +493,7 @@
                             class="paragraph">Instantly get notified if your vehicle requires attention. Codebell helps
                             people to connect with you in case of wrong
                             parking, accident, or roadside assistance.</p>
-                    </div>
+                    </a>
 
 
                     <div style=" min-width: max-content; scroll-snap-align: start; padding: 1em 3em 3em 3em;"
@@ -941,7 +956,6 @@
 
         slideInterval = setInterval(autoSlide, 3000)
 
-
         scrollableElementChilds.forEach((elem) => {
             elem.addEventListener('mouseover', () => { clearInterval(slideInterval); clearTimeout(autoSlideLeft) })
 
@@ -952,7 +966,6 @@
                 clearTimeout(autoSlideLeft);
             })
         })
-
 
         const navbar = document.querySelector(".navbar")
         const headerAnim = () => {
