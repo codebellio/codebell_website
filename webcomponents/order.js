@@ -4,25 +4,24 @@ class AppDiv extends CodBellElement {
         <style>
             label {
                 color: #4a4a4a;
-                line-height: 45px;
+                margin: 12px;
             }
-        
+
             input,
             textarea {
                 padding: 1em;
                 border-radius: 1em;
                 width: 300px;
                 border: 2px solid #2F8AB2;
-                margin-bottom: 1em !important;
                 line-height: 1.2em !important;
             }
-        
+
             .error {
                 margin-top: -1em;
                 color: red;
                 font-size: small;
             }
-        
+
             .orderPopUpOverlay {
                 display: flex;
                 z-index: 9999;
@@ -37,7 +36,7 @@ class AppDiv extends CodBellElement {
                 align-items: center;
                 justify-content: center;
             }
-        
+
             .orderPopUp {
                 width: fit-content;
                 margin: auto;
@@ -53,123 +52,167 @@ class AppDiv extends CodBellElement {
                 flex-direction: column;
                 position: relative;
             }
-        
+
             .form_grid {
                 display: grid;
                 grid-template-columns: auto auto;
                 gap: 1em;
             }
-        
+
+            .button {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                padding: 1.2em 2em;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                flex-direction: row;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
+                grid-column-gap: 0.3em;
+                border-radius: 10em;
+                background-color: #161613;
+                -webkit-transition: box-shadow 400ms cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                transition: box-shadow 400ms cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                transition: box-shadow 400ms cubic-bezier(0.165, 0.84, 0.44, 1), transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                transition: box-shadow 400ms cubic-bezier(0.165, 0.84, 0.44, 1), transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+                text-decoration: none;
+            }
+            .payment_box{
+                width: fit-content; 
+                max-width:90vw; 
+                display: flex; 
+                flex-direction: row; 
+                gap:1em; 
+                flex-wrap: wrap; 
+            }
+            p, h5, h4{
+                margin: 0.7em;
+            }
+
             @media (max-width: 740px) {
                 .orderPopUp {
                     padding: 2em 1em;
                     max-width: 90vw;
                     max-height: 97vh;
                 }
-        
+
                 .form_grid {
                     display: flex;
                     flex-direction: column;
                 }
-                .form_grid  label{
+
+                .form_grid label {
                     line-height: 1em;
                     margin-bottom: 0;
                 }
+                .payment_box{
+                    flex-direction: column
+                }
             }
         </style>
-        <div if="Show" class="orderPopUpOverlay">
+        <div if="Show" class="orderPopUpOverlay" style="font-size: 16x;">
             <loading-view :value="loading">
-                <form if="!Order" class="orderPopUp" @submit="checkout">
-                    <label style="font-weight: 400;font-size: 20px;line-height: 30px; margin-bottom: 1em;">We need your details
-                        to continue</label>
+                <form if="!Order || !Order.Reviewed" class="orderPopUp" @submit="checkout">
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-between;">
+                        <label style="font-weight: 400;font-size: 20px;line-height: 30px; margin-bottom: 1em;">
+                            We need your details to continue
+                        </label>
+                    </div>
                     <div style="display: flex; flex-wrap: wrap; gap: 1em; justify-content: center; padding-bottom: 2em;">
                         <div class="form_grid">
-                            <label for="name_input"> Name* </label>
-                            <div>
-                                <input id="name_input" name="name_input" ref="name_input" :value="Name" @input="setValue('Name', event)"
-                                    type="text" placeholder="Alex">
+                            <label for="name_input" :style="Order?'opacity: 37%;':''"> Name* </label>
+                            <div :style="Order?'opacity: 37%;':''">
+                                <input id="name_input" name="name_input" ref="name_input" :value="Name"
+                                    @input="setValue('Name', event)" type="text" placeholder="Alex" :readonly="!!Order">
                                 <span class="error" :text="name_error"></span>
                             </div>
-
-                            <label for="email_input"> Email </label>
-                            <div>
-                                <input id="email_input" name="email_input" ref="email_input" :value="Email" @input="setValue('Email', event)"
-                                    type="text" placeholder="Alex@test.com">
-                                <span class="error" :text="email_error"></span>
-                            </div>
-                            
-                            <label for="mobile_input"> Mobile* </label>
-                            <div>
-                                <input id="mobile_input" name="mobile_input" ref="mobile_input" :value="Mobile" @input="setValue('Mobile', event)"
-                                    type="text" maxlength="10" placeholder="Your Mobile number">
+                            <label for="mobile_input" :style="Order?'opacity: 37%;':''"> Mobile* </label>
+                            <div :style="Order?'opacity: 37%;':''">
+                                <input id="mobile_input" name="mobile_input" ref="mobile_input" :value="Mobile"
+                                    @input="setValue('Mobile', event)" :readonly="!!Order" type="text" maxlength="10"
+                                    placeholder="Your Mobile number">
                                 <span class="error" :text="mobile_error"></span>
                             </div>
-                            <label for="coupon_code_input" style="width: 165px;"> Coupon Code (optional) </label>
+                            <label if="by_agent" style="width: 165px;"> Agent Code *</label>
+                            <div if="by_agent">
+                                <input id="agent_code_input" name="agent_code_input" ref="agent_code_input" :value="agent_code"
+                                    @input="setValue('agent_code', event)" type="text" placeholder="Agent Code">
+                                <span class="error" :text="agent_code_error"></span>
+                            </div>
+                            <label for="coupon_code_input" style="width: 165px;"> Coupon Code </label>
                             <div>
-                                <input id="coupon_code_input" name="coupon_code_input" ref="coupon_code_input" :value="coupon_code" @input="setValue('coupon_code', event)"
-                                    type="text" placeholder="Coupon Code">
+                                <input id="coupon_code_input" name="coupon_code_input" ref="coupon_code_input"
+                                    :value="coupon_code" @input="setValue('coupon_code', event)" type="text"
+                                    placeholder="Coupon Code is optional">
                                 <span class="error" :text="coupon_code_error"></span>
                             </div>
-                        </div>
-                        <div if="!Agent && !urlProductID" class="form_grid">
-                            <label for="address_input" style="width: 165px;"> Address*</label>
-                            <div>
+                            <label if="!(by_agent || (Order && Order.CodebellID))" for="address_input" style="width: 165px;">
+                                Address*</label>
+                            <div if="!(by_agent || (Order && Order.CodebellID))">
                                 <textarea id="address_input" name="address_input" :text="Address"
                                     @input="setValue('Address', event)" placeholder="Your delivery address"
                                     style="height: 94px;"></textarea>
                                 <span class="error" :text="address_error"></span>
                             </div>
-        
-                            <label for="pincode_input"> Postal Pin Code* </label>
-                            <div>
+                            <label if="!(by_agent || (Order && Order.CodebellID))" for="pincode_input"> Postal Pin Code* </label>
+                            <div if="!(by_agent || (Order && Order.CodebellID))">
                                 <input id="pincode_input" name="pincode_input" :value="Pin" @input="setValue('Pin', event)"
                                     type="text" placeholder="pin code / postal code / area code " />
                                 <span class="error" :text="pincode_error"></span>
                             </div>
-        
-                            <label for="city_input"> City* </label>
-                            <div>
-                                <input id="city_input" name="city_input" :value="City" @input="setValue('City', event)"
-                                    type="text" placeholder="Delhi" />
-                                <span class="error" :text="city_error"></span>
-                            </div>
-        
-                            <label for="country_input"> Country* </label>
-                            <div>
-                                <input id="country_input" name="country_input" :value="Country"
-                                    @input="setValue('Country', event)" type="text" placeholder="India" />
-                                <span class="error" :text="country_error"></span>
-                            </div>
                         </div>
                     </div>
-                    <div style="display: flex;flex-wrap: wrap;justify-content: center;align-items: end;flex-direction: row;gap: 1em;">
-                        <a if="Agent" href="#" @click="logoutAgent"
-                            style="text-decoration: none;color: inherit;font-weight: 500;">Want to fill delivery address, click
-                            here ?</a>
-                        <button class="button w-inline-block" style="width: 13em;align-self: flex-end;" type="submit">
-                            <div class="text-button" style="color: #f8f8f8">Continue</div>
-                        </button>
+                    <div
+                        style="display: flex;justify-content: center;align-items: end;flex-direction: row;gap: 1em;">
                         <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                             <div class="text-button" style="color: #f8f8f8">Cancel</div>
                         </button>
+                        <button class="button w-inline-block" style="width: 13em;align-self: flex-end;" type="submit">
+                            <div class="text-button" style="color: #f8f8f8">Proceed to Pay</div>
+                        </button>
                     </div>
+                    <label for="by_agent_input" style="display: flex; align-items: center;">
+                        <input type="checkbox" name="by_agent_input" id="by_agent_input" :checked="by_agent"
+                            @input="toggle_by_agent" style="width: auto; margin: auto 0.5em !important;">
+                        Sold by Agent
+                    </label>
                 </form>
-                <div if="Order" class="orderPopUp">
-                    <div if="!Order.PaymentDoneOn" style="display: flex; flex-direction: column; gap: 1em;">
-                        <div style="width: fit-content; max-width:90vw; display: flex; flex-direction: row; gap:1em; flex-wrap: wrap; ">
-                            <div
-                                style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1em; width: 400px; max-width: 80vw; min-height: 40vh;">
+                <div if="Order && Order.Reviewed" class="orderPopUp">
+                    <div if="!Order.PaymentDoneOn" style="display: flex; flex-direction: column;">
+                        <div class="payment_box">
+                            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 400px; max-width: 80vw; min-height: 40vh;">
                                 <h4><span :text="Order.Name"></span> You are just 1 step away from geting codebell</h4>
-        
-                                <div style="margin-top: 2em; width: -webkit-fill-available;">
+
+                                <div style="width: -webkit-fill-available;">
                                     <h5>Price Details</h5>
+                                    <div for-loop="Object.values(this.data.SelectedProducts).length" style="display: flex; align-items: center; gap: 0.5em;">
+                                            <p style="width: 100%; height: 20px; align-items: center;">
+                                                <span>
+                                                    <span :text="Object.values(this.data.SelectedProducts)[index].Title"></span>
+                                                    (<span :text="'₹'+Object.values(this.data.SelectedProducts)[index].Price"></span> *
+                                                    <span :text="Object.values(this.data.SelectedProducts)[index].Count"></span>)
+                                                </span>
+                                                <span style="float: right;" :text="'₹'+Object.values(this.data.SelectedProducts)[index].Cost">-₹00.00</span>
+                                            </p>
+                                    </div>
+                                    <div if="Order.Subtotal != Order.Total" style="height: 1px; background-color: black; margin: 1em 0;"></div>
                                     <div if="Order.Subtotal != Order.Total" style="margin: 1em 0;">
-                                        <b>
-                                            <p if="Order.Subtotal" class="subtotal" style="width: 100%;">
+                                        <p if="Order.Subtotal" class="subtotal">
+                                            <b>
                                                 Sub total
                                                 <span style="float: right;" :text="'₹'+Order.Subtotal">₹00.00</span>
-                                            </p>
-                                        </b>
+                                            </b>
+                                        </p>
                                         <b if="Order.Discount" style="display: flex; align-items: center; gap: 0.5em;">
                                             <p id="appliedCouponDetails"
                                                 style="width: 100%; height: 20px; align-items: center;">
@@ -184,27 +227,29 @@ class AppDiv extends CodBellElement {
                                             </p>
                                         </b>
                                     </div>
-                                    <div style="height: 1px; background-color: black; margin: 1.5em 0;"></div>
-                                    <h6 class="finalAmount" style="width: 100%;">
+                                    <div style="height: 1px; background-color: black; margin: 1em 0;"></div>
+                                    <p class="finalAmount" style="font-weight: bold;">
                                         You Pay
                                         <strong style="float: right;" :text="'₹'+Order.Total">₹00.00</strong>
-                                    </h6>
+                                    </p>
                                 </div>
-        
+
                                 <p>Scan the QRcode via any UPI app to make payment of
                                     <span :text="'₹'+ Order.Total"></span></span>
                                 </p>
                                 <p>Page will automatically get refreshed after payment got successful</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; justify-content: center; gap: 1em; width: 400px; max-width: 80vw;">
+                            <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
-                                
-                                <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button" :href="paymentLink">
+
+                                <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button"
+                                    :href="paymentLink">
                                     <span class="text-button" style="color: #f8f8f8">Make Payment from any upi app </span>
                                 </a>
 
-                                <a if="Order.Total > 0 && !Agent" class="w-inline-block" type="button" @click="showQRCode" style="text-align: center;">
+                                <a if="Order.Total > 0 && !Agent" class="w-inline-block" type="button" @click="showQRCode"
+                                    style="text-align: center;">
                                     <span if="!showingQRCode" class="text-button">
                                         Show QR code to make payment
                                     </span>
@@ -223,19 +268,20 @@ class AppDiv extends CodBellElement {
                     </div>
                     <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
                         <div style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
-                            <img src="/assets/img/image122.png"/>
+                            <img src="/assets/img/image122.png" />
                             <h3 if="!urlProductID">Order Placed Successfully</h3>
                             <p if="!urlProductID">Your order has been placed and you will receive the tracking link over SMS</p>
-                            
+
                             <h3 if="urlProductID">Order Placed Successfully</h3>
-                            <p if="urlProductID">Your order has been placed and you can scan your codebell again to activet it</p>
+                            <p if="urlProductID">Your order has been placed and you can scan your codebell again to activet it
+                            </p>
 
                             <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                                 <div class="text-button" style="color: #f8f8f8">Ok</div>
                             </button>
                         </div>
                         <div>
-                            <img src="/assets/img/hero-ill.png"/>
+                            <img src="/assets/img/hero-ill.png" />
                         </div>
                     </div>
                 </div>
@@ -245,76 +291,89 @@ class AppDiv extends CodBellElement {
             style="display: flex;flex-direction: row;align-items: center;margin: 0.2em 1em;border: 1px solid currentColor;border-radius: 0.5em;position: fixed;right: 0;top: 0;z-index: 600; overflow: hidden;background: #f8f7f3;">
             <img :src="Agent.Photo" style="height: 45px; width: auto;" />
             <label :text="Agent.Name" style="margin-bottom: -2px;"></label>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16" @click="logoutAgent" style="margin: 1em;">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16"
+                @click="logoutAgent" style="margin: 1em;">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
             </svg>
         </div>
-    `)
+`)
     }
-    Cancel(){
+    toggle_by_agent() {
+        this.data.by_agent = !this.data.by_agent
+        if (this.data.by_agent) {
+            this.data.Address = ""
+            this.data.Pin = ""
+        } else if (this.data.Agent) {
+            this.logoutAgent()
+        }
+
+    }
+    Cancel() {
         this.data.Show = false
         this.data.urlOrderID = false
         this.data.Order = false
         this.data.urlProductID = 0
         window.history.replaceState({}, "", location.origin + location.pathname)
-        if(this.data.Agent){
+        if (this.data.Agent) {
             this.data.Name = ""
             this.data.Email = ""
             this.data.Mobile = ""
             this.data.coupon_code = ""
         }
     }
-    logoutAgent(){
-        
+    logoutAgent() {
         localStorage.removeItem("Agent")
         this.data.Agent = false
+        this.data.agent_code = ""
+        this.data.by_agent = false
     }
-    PaidZero(event){
+    PaidZero(event) {
         event.preventDefault()
         event.stopPropagation()
         var request_data = {
-            PaymentMethod : "Coupon",
-            PaymentResult : "Done",
-            PaymentStatus : "Received",
-            AgentID : this.data.Agent.ID
+            PaymentMethod: "Coupon",
+            PaymentResult: "Done",
+            PaymentStatus: "Received",
+            AgentID: this.data.Agent.ID
         }
         this.UpdateOrderPayment(request_data)
     }
-    PaidOnline(event){
-        event.preventDefault()
-        event.stopPropagation()
-        if (!this.data.Agent || !this.data.Agent.ID) {
-            return
-        }
-        var request_data = {
-            PaymentMethod : "UPI Code By Agent",
-            PaymentResult : "Done",
-            PaymentStatus : "Unverified",
-            AgentID : this.data.Agent.ID
-        }
-        this.UpdateOrderPayment(request_data)
-    }
-    PaidInCash(event){
+    PaidOnline(event) {
         event.preventDefault()
         event.stopPropagation()
         if (!this.data.Agent || !this.data.Agent.ID) {
             return
         }
         var request_data = {
-            PaymentMethod : "Paid In Cash",
-            PaymentResult : "Done",
-            PaymentStatus : "Unverified",
-            AgentID : this.data.Agent.ID
+            PaymentMethod: "UPI Code By Agent",
+            PaymentResult: "Done",
+            PaymentStatus: "Unverified",
+            AgentID: this.data.Agent.ID
         }
         this.UpdateOrderPayment(request_data)
     }
-    UpdateOrderPayment(request_data){
+    PaidInCash(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        if (!this.data.Agent || !this.data.Agent.ID) {
+            return
+        }
+        var request_data = {
+            PaymentMethod: "Paid In Cash",
+            PaymentResult: "Done",
+            PaymentStatus: "Unverified",
+            AgentID: this.data.Agent.ID
+        }
+        this.UpdateOrderPayment(request_data)
+    }
+    UpdateOrderPayment(request_data) {
         if (!this.data.Order || !this.data.Order.ID || this.data.loading) {
             return
         }
         request_data.OrderID = this.data.Order.ID
-        this.data.loading = true        
+        this.data.loading = true
         window.call_api("update_order_payment", request_data).then((data) => {
             if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
@@ -326,17 +385,17 @@ class AppDiv extends CodBellElement {
         });
     }
     showQRCode(event, forced) {
-        if(event){
+        if (event) {
             event.preventDefault()
             event.stopPropagation()
         }
-        if(forced){
-            this.data.showingQRCode =  true
-        }else{
+        if (forced) {
+            this.data.showingQRCode = true
+        } else {
             this.data.showingQRCode = !this.data.showingQRCode
         }
         if (this.data.showingQRCode) {
-            if(this.qrcode){
+            if (this.qrcode) {
                 this.qrcode.clear()
                 delete this.qrcode
                 this.refs.qrcodejs.innerHTML = ""
@@ -350,96 +409,76 @@ class AppDiv extends CodBellElement {
         }
     }
     setValue(prop, event) {
-        if(!this.data.Agent || !this.data.Agent.ID ){
+        if (!this.data.Agent || !this.data.Agent.ID) {
             localStorage.setItem(prop, event.target.value)
-        }        
+        }
         this.data[prop] = event.target.value
     }
     getData() {
+        const urlParams = new URLSearchParams(location.search);
+        var orderID = urlParams.get('order')
+        if (!orderID) {
+            orderID = 0
+        }
+        var by_agent = false
+        var agent_code = urlParams.get('agent')
         var Agent = false
         var agent_string = localStorage.getItem("Agent")
-        if(agent_string){
+        if (agent_string) {
             try {
                 Agent = JSON.parse(agent_string)
+                agent_code = Agent.Code
+                by_agent = true
             } catch (error) {
                 console.log(error)
             }
         }
 
-        var Name
+        var Name = ""
         Name = localStorage.getItem("Name")
-        if(!Name || (Agent && Agent.ID > 0)){
+        if (!Name || (Agent && Agent.ID > 0)) {
             Name = ""
         }
 
         var Email
         Email = localStorage.getItem("Email")
-        if(!Email || (Agent && Agent.ID > 0)){
+        if (!Email || (Agent && Agent.ID > 0)) {
             Email = ""
         }
 
         var Mobile
         Mobile = localStorage.getItem("Mobile")
-        if(!Mobile || (Agent && Agent.ID > 0)){
+        if (!Mobile || (Agent && Agent.ID > 0)) {
             Mobile = ""
         }
 
         var Address
         Address = localStorage.getItem("Address")
-        if(!Address || (Agent && Agent.ID > 0)){
+        if (!Address || (Agent && Agent.ID > 0)) {
             Address = ""
         }
 
         var Pin
         Pin = localStorage.getItem("Pin")
-        if(!Pin || (Agent && Agent.ID > 0)){
+        if (!Pin || (Agent && Agent.ID > 0)) {
             Pin = ""
         }
 
         var City
         City = localStorage.getItem("City")
-        if(!City || (Agent && Agent.ID > 0)){
+        if (!City || (Agent && Agent.ID > 0)) {
             City = ""
         }
 
         var Country
         Country = localStorage.getItem("Country")
-        if(!Country || (Agent && Agent.ID > 0)){
+        if (!Country || (Agent && Agent.ID > 0)) {
             Country = "India"
         }
-
-        const urlParams = new URLSearchParams(location.search); 
-
-        var agent_code = urlParams.get('agent')
-        var buyNowID = urlParams.get('buyNow')
-        var codebellID = urlParams.get('codebell')
-
-        var _Name = urlParams.get('name')
-        if(_Name){
-            Name = _Name
-        }
-        var _Email = urlParams.get('email')
-        if(_Email){
-            Email = _Email
-        }
-        var _Mobile = urlParams.get('mobile')
-        if(_Mobile){
-            Mobile = _Mobile
-        }
-        var orderID = urlParams.get('order')
-        if(!orderID){
-            orderID = 0
-        }
-        var codebell_id = urlParams.get('codebell_id')
-        if(!codebell_id){
-            codebell_id = 0
-        }
         return {
-            codebell_id : codebell_id,
-            urlOrderID : orderID,
-            urlProductID : buyNowID,
+            urlOrderID: orderID,
             agent_code: agent_code,
-            Agent : Agent,
+            Agent: Agent,
             Name: Name,
             Email: Email,
             Mobile: Mobile,
@@ -462,8 +501,10 @@ class AppDiv extends CodBellElement {
             SelectedProducts: {},
             paymentLink: "",
             showingQRCode: false,
-            coupon_code : "",
-            coupon_code_error : "",
+            coupon_code: "",
+            coupon_code_error: "",
+            by_agent: by_agent,
+
         }
     }
     add_to_cart() {
@@ -472,9 +513,12 @@ class AppDiv extends CodBellElement {
     buyNow(id) {
         if (this.data.Products[id]) {
             this.data.Order = false
-            this.data.SelectedProducts = {}
-            this.data.SelectedProducts[id] = this.data.Products[id]
-            this.data.SelectedProducts[id].Count = 1
+            if(!this.data.SelectedProducts[id]){
+                this.data.SelectedProducts = {}
+                this.data.SelectedProducts[id] = this.data.Products[id]
+                this.data.SelectedProducts[id].Count = 1
+                this.data.SelectedProducts[id].Cost = this.data.SelectedProducts[id].Price * this.data.SelectedProducts[id].Count
+            }
             this.data.Show = true
         } else {
             window.show_error("Invalid Product")
@@ -485,17 +529,14 @@ class AppDiv extends CodBellElement {
         window.buyNow = (product_id) => {
             this.buyNow(product_id)
         }
-        if(this.data.agent_code){
-            this.getProducts({
-                agent_code : this.data.agent_code
-            })
-        }else if(this.data.urlOrderID){
-            this.getProducts({
-                uuid : this.data.urlOrderID
-            })
-        }else{            
-            this.getProducts({})
+        var request = {}
+        if (this.data.agent_code) {
+            request.agent_code = this.data.agent_code
         }
+        if (this.data.urlOrderID) {
+            request.uuid = this.data.urlOrderID
+        }
+        this.getProducts(request)
     }
     checkout(event) {
         event.preventDefault()
@@ -503,30 +544,38 @@ class AppDiv extends CodBellElement {
         if (this.data.loading) {
             return
         }
+        this.data.showingQRCode = false
         this.data.loading = true
         var request_data = {
             Name: this.data.Name,
             Email: this.data.Email,
             Mobile: this.data.Mobile,
+            Reviewed: true,
             products: Object.values(this.data.SelectedProducts)
         }
-        if(this.data.codebell_id){
-            request_data.codebell_id = this.data.codebell_id
-        }
-        if(this.data.coupon_code){
+        if (this.data.coupon_code) {
             request_data.coupon_code = this.data.coupon_code
         }
-        if(this.data.Agent && this.data.Agent.ID > 0 ){
+        if (this.data.agent_code) {
+            request_data.agent_code = this.data.agent_code
+        }
+        if (this.data.Agent && this.data.Agent.ID > 0) {
             request_data.AgentID = this.data.Agent.ID
-        }else{
+        } else {
             request_data.Address = this.data.Address
             request_data.Pin = this.data.Pin
             request_data.City = this.data.City
             request_data.Country = this.data.Country
-        } 
+        }
         window.call_api("place_order", request_data).then((data) => {
             if (data && data.Status == 2 && data.Result.Order) {
                 this.data.Order = data.Result.Order
+            }
+            if (data.Result.Agent) {
+                this.data.Agent = data.Result.Agent
+                this.data.agent_code = this.data.Agent.Code
+                this.data.by_agent = true
+                localStorage.setItem("Agent", JSON.stringify(data.Result.Agent))
             }
         }).catch((error) => {
             console.log(error)
@@ -542,15 +591,20 @@ class AppDiv extends CodBellElement {
                 data.data.forEach(Product => {
                     this.data.Products[Product.ProductID] = Product
                 })
-                if(data.Result.Agent){
+                if (data.Result.Agent) {
                     this.data.Agent = data.Result.Agent
-                    localStorage.setItem("Agent" , JSON.stringify(data.Result.Agent))
+                    this.data.agent_code = this.data.Agent.Code
+                    this.data.by_agent = true
+                    localStorage.setItem("Agent", JSON.stringify(data.Result.Agent))
                 }
                 if (data.Result.Order) {
                     this.data.Order = data.Result.Order
+                    if (data.Result.OrderProducts) {
+                        data.Result.OrderProducts.forEach(Product => {
+                            this.data.SelectedProducts[Product.ProductID] = Product
+                        })
+                    }
                     this.data.Show = true
-                }else if (this.data.Products[this.data.urlProductID]) {
-                    this.buyNow(this.data.urlProductID)
                 }
             }
         }).catch((error) => {
@@ -582,7 +636,7 @@ class AppDiv extends CodBellElement {
         }
     };
     set_websocket(order_id) {
-        if(this.socket){
+        if (this.socket) {
             return
         }
         var socketProtocol = "ws://"
@@ -591,9 +645,9 @@ class AppDiv extends CodBellElement {
         }
         var url = "/api/"
         if (location.hostname == "localhost") {
-            url = "api.localhost/api/ws_order/"+order_id
+            url = "api.localhost/api/ws_order/" + order_id
         } else {
-            url = "api.codebell.io/api/ws_order/"+order_id
+            url = "api.codebell.io/api/ws_order/" + order_id
         }
         url = new URL(socketProtocol + url);
         try {
@@ -616,7 +670,7 @@ class AppDiv extends CodBellElement {
             Object.keys(events).forEach(event => {
                 console.log("Received socket event")
                 console.log(event)
-                if(event == "Order"){
+                if (event == "Order") {
                     this.data.Order = events.Order
                 }
             });
@@ -632,10 +686,11 @@ class AppDiv extends CodBellElement {
         switch (prop) {
             case "Order":
                 if (this.data.Order && this.data.Order.Total > 0) {
-                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&tr=EZY"+this.data.Order.ID+"&am=" + this.data.Order.Total + "&cu=INR&mc=6012"
-                    window.history.replaceState({}, "", location.origin + location.pathname+ "?order="+this.data.Order.UUID)
+                    this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&tr=EZY" + this.data.Order.ID + "&am=" +
+                        this.data.Order.Total + "&cu=INR&mc=6012"
+                    window.history.replaceState({}, "", location.origin + location.pathname + "?order=" + this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
-                    if(this.data.Agent){
+                    if (this.data.Agent) {
                         this.data.Name = ""
                         this.data.Email = ""
                         this.data.Mobile = ""

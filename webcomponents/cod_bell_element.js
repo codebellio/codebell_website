@@ -85,7 +85,7 @@ class CodBellElement extends HTMLElement {
                 const shadowRoot = this.attachShadow({ mode: "open" });
                 shadowRoot.innerHTML = this.getContent();
                 ref_matches = shadowRoot.querySelectorAll("[ref]");
-                this.includePageStyle()
+                //this.includePageStyle()
             } else {
                 this.innerHTML = this.getContent();
                 ref_matches = this.querySelectorAll("[ref]");
