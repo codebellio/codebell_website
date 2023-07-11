@@ -269,13 +269,9 @@ class AppDiv extends CodBellElement {
                     <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
                         <div style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
                             <img src="/assets/img/image122.png" />
-                            <h3 if="!urlProductID">Order Placed Successfully</h3>
-                            <p if="!urlProductID">Your order has been placed and you will receive the tracking link over SMS</p>
-
-                            <h3 if="urlProductID">Order Placed Successfully</h3>
-                            <p if="urlProductID">Your order has been placed and you can scan your codebell again to activet it
-                            </p>
-
+                            <h3>Order Placed Successfully</h3>
+                            <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activet it</p>
+                            <p if="!Order.CodebellID">Your order has been placed and you will receive the tracking link over SMS</p>
                             <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                                 <div class="text-button" style="color: #f8f8f8">Ok</div>
                             </button>
