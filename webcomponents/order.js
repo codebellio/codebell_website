@@ -205,10 +205,10 @@ class AppDiv extends CodBellElement {
                     <div if="!Order.PaymentDoneOn" style="display: flex; flex-direction: column;">
                         <div class="payment_box">
                             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 400px; max-width: 80vw; min-height: 40vh;">
-                                <h4><span :text="Order.Name"></span> You are just 1 step away from geting codebell</h4>
-
-                                <div style="width: -webkit-fill-available;">
-                                    <h5>Price Details</h5>
+                                <h2>Almost There...</h2>
+                                <p style="font-size: 14px;"><span :text="Order.Name"></span> You are just 1 step away from geting codebell</p>
+                                <div style="width: -webkit-fill-available; font-size: 14px; font-weight:500;">
+                                    <h4>Price Details</h4>
                                     <div for-loop="Object.values(this.data.SelectedProducts).length" style="display: flex; align-items: center; gap: 0.5em;">
                                         <p style="width: 100%; height: 20px; align-items: center;">
                                             <span>
@@ -242,16 +242,15 @@ class AppDiv extends CodBellElement {
                                         </b>
                                     </div>
                                     <div style="height: 1px; background-color: black; margin: 1em 0;"></div>
-                                    <p class="finalAmount" style="font-weight: bold;">
+                                    <p class="finalAmount" style="font-weight: bold; font-weight:700;">
                                         You Pay
                                         <strong style="float: right;" :text="'₹'+Order.Total">₹00.00</strong>
                                     </p>
                                 </div>
-
                                 <p>Scan the QRcode via any UPI app to make payment of
                                     <span :text="'₹'+ Order.Total"></span></span>
                                 </p>
-                                <p>Page will automatically get refreshed after payment got successful</p>
+                                <p style="font-size: 16px;">Page will automatically get refreshed after payment got successful</p>
                             </div>
                             <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
