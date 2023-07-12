@@ -366,7 +366,6 @@ class AppDiv extends CodBellElement {
         window.history.replaceState({}, "", location.origin + location.pathname)
         if (this.data.Agent) {
             this.data.Name = ""
-            this.data.Email = ""
             this.data.Mobile = ""
             this.data.coupon_code = ""
         }
@@ -474,12 +473,6 @@ class AppDiv extends CodBellElement {
             Name = ""
         }
 
-        var Email
-        Email = localStorage.getItem("Email")
-        if (!Email || (Agent && Agent.ID > 0)) {
-            Email = ""
-        }
-
         var Mobile
         Mobile = localStorage.getItem("Mobile")
         if (!Mobile || (Agent && Agent.ID > 0)) {
@@ -514,7 +507,6 @@ class AppDiv extends CodBellElement {
             agent_code: agent_code,
             Agent: Agent,
             Name: Name,
-            Email: Email,
             Mobile: Mobile,
             Address: Address,
             Pin: Pin,
@@ -524,7 +516,6 @@ class AppDiv extends CodBellElement {
             Order: false,
             loading: false,
             name_error: "",
-            email_error: "",
             mobile_error: "",
             agent_code_error: "",
             address_error: "",
@@ -581,12 +572,18 @@ class AppDiv extends CodBellElement {
         }
         this.data.showingQRCode = false
         this.data.loading = true
-        var request_data = {
-            Name: this.data.Name,
-            Email: this.data.Email,
-            Mobile: this.data.Mobile,
-            Reviewed: true,
-            products: Object.values(this.data.SelectedProducts)
+        if (this.data.Order && this.data.Order.ID > 0) {
+            var request_data = {
+                uuid: this.data.Order.UUID,
+                Reviewed: true,
+            }
+        }else{
+            var request_data = {
+                Name: this.data.Name,
+                Mobile: this.data.Mobile,
+                Reviewed: true,
+                products: Object.values(this.data.SelectedProducts)
+            }
         }
         if (this.data.coupon_code) {
             request_data.coupon_code = this.data.coupon_code
@@ -726,7 +723,6 @@ class AppDiv extends CodBellElement {
                     window.history.replaceState({}, "", location.origin + location.pathname + "?order=" + this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
                     this.data.Name = this.data.Order.Name
-                    this.data.Email = this.data.Order.Email
                     this.data.Mobile = this.data.Order.Mobile
                     this.data.coupon_code = this.data.Order.CouponCode
                     if (this.data.Agent) {
