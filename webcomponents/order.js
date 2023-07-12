@@ -90,8 +90,7 @@ class AppDiv extends CodBellElement {
             }
 
             .payment_box {
-                width: fit-content;
-                max-width: 90vw;
+                width: min-content;
                 display: flex;
                 flex-direction: row;
                 gap: 1em;
@@ -590,10 +589,9 @@ class AppDiv extends CodBellElement {
         }
         if (this.data.agent_code) {
             request_data.agent_code = this.data.agent_code
-        }
-        if (this.data.Agent && this.data.Agent.ID > 0) {
+        }else if (this.data.Agent && this.data.Agent.ID > 0) {
             request_data.AgentID = this.data.Agent.ID
-        } else {
+        } else if(!this.data.Order || !this.data.Order.ID) {
             request_data.Address = this.data.Address
             request_data.Pin = this.data.Pin
             request_data.City = this.data.City
