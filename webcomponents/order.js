@@ -247,12 +247,9 @@ class AppDiv extends CodBellElement {
                                         <strong style="float: right;" :text="'₹'+Order.Total">₹00.00</strong>
                                     </p>
                                 </div>
-                                <p>Scan the QRcode via any UPI app to make payment of
-                                    <span :text="'₹'+ Order.Total"></span></span>
-                                </p>
                                 <p style="font-size: 16px;">Page will automatically get refreshed after payment got successful</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw;">
+                            <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw; font-size: 16x;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
 
@@ -270,10 +267,10 @@ class AppDiv extends CodBellElement {
                                 </a>
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <button if="!Order.Total" class="button w-inline-block" type="button" @click="PaidZero">
-                                    <span class="text-button" style="color: #f8f8f8">Continue</span>
+                                    <span class="text-button" style="color: #f8f8f8; font-size: 16x;">Continue</span>
                                 </button>
                                 <button class="button w-inline-block" type="button" @click="Cancel">
-                                    <span class="text-button" style="color: #f8f8f8">Cancel</span>
+                                    <span class="text-button" style="color: #f8f8f8; font-size: 16x;">Cancel</span>
                                 </button>
                                 <!-- <p>QR code expire in 5:00 minutes</p> -->
                             </div>
