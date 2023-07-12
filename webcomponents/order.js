@@ -3,7 +3,6 @@ class AppDiv extends CodBellElement {
         return (`
         <style>
             label {
-                color: #4a4a4a;
                 margin: 12px;
             }
 
@@ -23,6 +22,8 @@ class AppDiv extends CodBellElement {
             }
 
             .orderPopUpOverlay {
+                color: #292424 !important;
+                font-size: 20px;
                 display: flex;
                 z-index: 9999;
                 position: fixed;
@@ -87,16 +88,30 @@ class AppDiv extends CodBellElement {
                 transition: box-shadow 400ms cubic-bezier(0.165, 0.84, 0.44, 1), transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
                 text-decoration: none;
             }
-            .payment_box{
-                width: fit-content; 
-                max-width:90vw; 
-                display: flex; 
-                flex-direction: row; 
-                gap:1em; 
-                flex-wrap: wrap; 
+
+            .payment_box {
+                width: fit-content;
+                max-width: 90vw;
+                display: flex;
+                flex-direction: row;
+                gap: 1em;
+                flex-wrap: wrap;
             }
-            p, h5, h4{
+
+            p, h5, h4 {
                 margin: 0.7em;
+            }
+
+            .vertical_bar {
+                width: 7px;
+                height: 110px;
+                flex-shrink: 0;
+            }
+            li{
+                height: 67px;
+                display: flex;
+                align-items: center;
+                gap: 1em;
             }
 
             @media (max-width: 740px) {
@@ -115,7 +130,8 @@ class AppDiv extends CodBellElement {
                     line-height: 1em;
                     margin-bottom: 0;
                 }
-                .payment_box{
+
+                .payment_box {
                     flex-direction: column
                 }
             }
@@ -172,8 +188,7 @@ class AppDiv extends CodBellElement {
                             </div>
                         </div>
                     </div>
-                    <div
-                        style="display: flex;justify-content: center;align-items: end;flex-direction: row;gap: 1em;">
+                    <div style="display: flex;justify-content: center;align-items: end;flex-direction: row;gap: 1em;">
                         <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
                             <div class="text-button" style="color: #f8f8f8">Cancel</div>
                         </button>
@@ -196,14 +211,14 @@ class AppDiv extends CodBellElement {
                                 <div style="width: -webkit-fill-available;">
                                     <h5>Price Details</h5>
                                     <div for-loop="Object.values(this.data.SelectedProducts).length" style="display: flex; align-items: center; gap: 0.5em;">
-                                            <p style="width: 100%; height: 20px; align-items: center;">
-                                                <span>
-                                                    <span :text="Object.values(this.data.SelectedProducts)[index].Title"></span>
-                                                    (<span :text="'₹'+Object.values(this.data.SelectedProducts)[index].Price"></span> *
-                                                    <span :text="Object.values(this.data.SelectedProducts)[index].Count"></span>)
-                                                </span>
-                                                <span style="float: right;" :text="'₹'+Object.values(this.data.SelectedProducts)[index].Cost">-₹00.00</span>
-                                            </p>
+                                        <p style="width: 100%; height: 20px; align-items: center;">
+                                            <span>
+                                                <span :text="Object.values(this.data.SelectedProducts)[index].Title"></span>
+                                                (<span :text="'₹'+Object.values(this.data.SelectedProducts)[index].Price"></span> *
+                                                <span :text="Object.values(this.data.SelectedProducts)[index].Count"></span>)
+                                            </span>
+                                            <span style="float: right;" :text="'₹'+Object.values(this.data.SelectedProducts)[index].Cost">-₹00.00</span>
+                                        </p>
                                     </div>
                                     <div if="Order.Subtotal != Order.Total" style="height: 1px; background-color: black; margin: 1em 0;"></div>
                                     <div if="Order.Subtotal != Order.Total" style="margin: 1em 0;">
@@ -266,18 +281,55 @@ class AppDiv extends CodBellElement {
                             </div>
                         </div>
                     </div>
-                    <div if="Order.PaymentDoneOn" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 2em;">
-                        <div style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
-                            <img src="/assets/img/image122.png" />
-                            <h3>Order Placed Successfully</h3>
-                            <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activet it</p>
-                            <p if="!Order.CodebellID">Your order has been placed and you will receive the tracking link over SMS</p>
-                            <button class="button w-inline-block" style="width: 13em;" type="button" @click="Cancel">
-                                <div class="text-button" style="color: #f8f8f8">Ok</div>
-                            </button>
-                        </div>
-                        <div>
-                            <img src="/assets/img/hero-ill.png" />
+                    <div if="Order.PaymentDoneOn" style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
+                        <h1>Purchase Successful!</h1>
+                        <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activet it
+                        </p>
+                        <div if="!Order.CodebellID">
+                            <p style="margin-left: 0;margin-top: -1em;">Your device is on it's way to you.</p>
+                            <div style="display: flex;flex-wrap: wrap;">
+                                <div style="flex: 1;display: flex;align-items: center;">
+                                    <div class="vertical_bar" :style="'background: linear-gradient(180deg, #78E16F '+gradient_after+'%, #C0C0C0 34.52%);'"></div>
+                                    <ul style="list-style: none;padding: 0;margin-inline-start: -19px;">
+                                        <li>
+                                            <img if="Order.PaymentDoneOn" src="/assets/img/image_done.png"/>
+                                            <img else src="/assets/img/image_not_done.png"/>
+                                            <span :style="Order.PaymentDoneOn?'font-weight: bold;':''">Payment confirmed</span>
+                                        </li>
+                                        <li>
+                                            <img if="Order.DispatchedOn"  src="/assets/img/image_done.png"/>
+                                            <img else src="/assets/img/image_not_done.png"/>
+                                            <span :style="Order.DispatchedOn?'font-weight: bold;':''">Product Dispatched</span>
+                                        </li>
+                                        <li>
+                                            <img if="Order.DeliveredOn" src="/assets/img/image_done.png"/>
+                                            <img else src="/assets/img/image_not_done.png"/>
+                                            <span :style="Order.DeliveredOn?'font-weight: bold;':''">Product Delivered</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1;">
+                                    <p>
+                                        Your order has been placed and you will receive the tracking link over SMS
+                                        <br /><br />
+                                        <a download="download" :href="'/invoice/'+Order.UUID"
+                                            style="font-size: 16px; color: #2F8AB2; display: flex; align-items: center;">
+                                            Download Invoice
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M4.5 15C4.0875 15 3.73438 14.8531 3.44063 14.5594C3.14688 14.2656 3 13.9125 3 13.5V11.25H4.5V13.5H13.5V11.25H15V13.5C15 13.9125 14.8531 14.2656 14.5594 14.5594C14.2656 14.8531 13.9125 15 13.5 15H4.5ZM9 12L5.25 8.25L6.3 7.1625L8.25 9.1125V3H9.75V9.1125L11.7 7.1625L12.75 8.25L9 12Z"
+                                                    fill="#2F8AB2" />
+                                            </svg>
+                                        </a>
+                                        <br /><br />
+                                        <button class="button w-inline-block" style="width: 13em;" type="button"
+                                            @click="Cancel">
+                                            <div class="text-button" style="color: #f8f8f8">Ok</div>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -332,20 +384,6 @@ class AppDiv extends CodBellElement {
             PaymentMethod: "Coupon",
             PaymentResult: "Done",
             PaymentStatus: "Received",
-            AgentID: this.data.Agent.ID
-        }
-        this.UpdateOrderPayment(request_data)
-    }
-    PaidOnline(event) {
-        event.preventDefault()
-        event.stopPropagation()
-        if (!this.data.Agent || !this.data.Agent.ID) {
-            return
-        }
-        var request_data = {
-            PaymentMethod: "UPI Code By Agent",
-            PaymentResult: "Done",
-            PaymentStatus: "Unverified",
             AgentID: this.data.Agent.ID
         }
         this.UpdateOrderPayment(request_data)
@@ -500,6 +538,7 @@ class AppDiv extends CodBellElement {
             coupon_code: "",
             coupon_code_error: "",
             by_agent: by_agent,
+            gradient_after : 0,
 
         }
     }
@@ -509,7 +548,7 @@ class AppDiv extends CodBellElement {
     buyNow(id) {
         if (this.data.Products[id]) {
             this.data.Order = false
-            if(!this.data.SelectedProducts[id]){
+            if (!this.data.SelectedProducts[id]) {
                 this.data.SelectedProducts = {}
                 this.data.SelectedProducts[id] = this.data.Products[id]
                 this.data.SelectedProducts[id].Count = 1
@@ -686,12 +725,21 @@ class AppDiv extends CodBellElement {
                         this.data.Order.Total + "&cu=INR&mc=6012"
                     window.history.replaceState({}, "", location.origin + location.pathname + "?order=" + this.data.Order.UUID)
                     this.set_websocket(this.data.Order.ID)
+                    this.data.Name = this.data.Order.Name
+                    this.data.Email = this.data.Order.Email
+                    this.data.Mobile = this.data.Order.Mobile
+                    this.data.coupon_code = this.data.Order.CouponCode
                     if (this.data.Agent) {
-                        this.data.Name = ""
-                        this.data.Email = ""
-                        this.data.Mobile = ""
-                        this.data.coupon_code = ""
                         this.showQRCode(null, true)
+                    }
+                    if(this.data.Order.DeliveredOn){
+                        this.data.gradient_after = 0
+                    }else if(this.data.Order.DispatchedOn){
+                        this.data.gradient_after = 34.52
+                    }else if(this.data.Order.PaymentDoneOn){
+                        this.data.gradient_after = 69.04
+                    }else {
+                        this.data.gradient_after = -30
                     }
                 }
                 break;
