@@ -149,13 +149,6 @@ class AppDiv extends CodBellElement {
                                     @input="setValue('agent_code', event)" type="text" placeholder="Agent Code">
                                 <span class="error" :text="agent_code_error"></span>
                             </div>
-                            <label for="coupon_code_input" style="width: 165px;"> Coupon Code </label>
-                            <div>
-                                <input id="coupon_code_input" name="coupon_code_input" ref="coupon_code_input"
-                                    :value="coupon_code" @input="setValue('coupon_code', event)" type="text"
-                                    placeholder="Coupon Code is optional">
-                                <span class="error" :text="coupon_code_error"></span>
-                            </div>
                             <label if="!(by_agent || (Order && Order.CodebellID))" for="address_input" style="width: 165px;">
                                 Address*</label>
                             <div if="!(by_agent || (Order && Order.CodebellID))">
@@ -169,6 +162,13 @@ class AppDiv extends CodBellElement {
                                 <input id="pincode_input" name="pincode_input" :value="Pin" @input="setValue('Pin', event)"
                                     type="text" placeholder="pin code / postal code / area code " />
                                 <span class="error" :text="pincode_error"></span>
+                            </div>
+                            <label for="coupon_code_input" style="width: 165px;"> Coupon Code </label>
+                            <div>
+                                <input id="coupon_code_input" name="coupon_code_input" ref="coupon_code_input"
+                                    :value="coupon_code" @input="setValue('coupon_code', event)" type="text"
+                                    placeholder="Coupon Code is optional">
+                                <span class="error" :text="coupon_code_error"></span>
                             </div>
                         </div>
                     </div>
@@ -681,7 +681,7 @@ class AppDiv extends CodBellElement {
     propertyChangedCallback(prop, old_value, new_value) {
         switch (prop) {
             case "Order":
-                if (this.data.Order && this.data.Order.Total > 0) {
+                if (this.data.Order && this.data.Order.ID > 0) {
                     this.data.paymentLink = "upi://pay?pa=CODEBELL@icici&pn=Codebell&tr=EZY" + this.data.Order.ID + "&am=" +
                         this.data.Order.Total + "&cu=INR&mc=6012"
                     window.history.replaceState({}, "", location.origin + location.pathname + "?order=" + this.data.Order.UUID)
