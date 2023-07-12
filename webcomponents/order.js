@@ -23,7 +23,7 @@ class AppDiv extends CodBellElement {
 
             .orderPopUpOverlay {
                 color: #292424 !important;
-                font-size: 20px;
+                font-size: 16px;
                 display: flex;
                 z-index: 9999;
                 position: fixed;
@@ -276,7 +276,7 @@ class AppDiv extends CodBellElement {
                             </div>
                         </div>
                     </div>
-                    <div if="Order.PaymentDoneOn" style="display: flex;flex-direction: column;align-items: start;gap: 1em;">
+                    <div if="Order.PaymentDoneOn" style="display: flex;flex-direction: column;align-items: start;gap: 1em;font-size: 16px;">
                         <h1>Purchase Successful!</h1>
                         <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activet it
                         </p>
