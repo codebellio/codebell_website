@@ -90,15 +90,16 @@ class AppDiv extends CodBellElement {
             }
 
             .payment_box {
-                width: min-content;
+                width: fit-content;
                 display: flex;
                 flex-direction: row;
                 gap: 1em;
                 flex-wrap: wrap;
             }
 
-            p, h5, h4 {
+            p, h2, h5, h4 {
                 margin: 0.7em;
+                width: -webkit-fill-available;
             }
 
             .vertical_bar {
@@ -131,7 +132,8 @@ class AppDiv extends CodBellElement {
                 }
 
                 .payment_box {
-                    flex-direction: column
+                    flex-direction: column;
+                    width: min-content;
                 }
             }
         </style>
@@ -252,14 +254,19 @@ class AppDiv extends CodBellElement {
                             <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw; font-size: 16x;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
                                 <div if="showingQRCode" ref="qrcodejs" style="margin: auto;"></div>
-
+                                <img src="/assets/img/upi_options.png"/>
                                 <a if="Order.Total > 0 && !showingQRCode" class="button w-inline-block" type="button"
-                                    :href="paymentLink">
-                                    <span class="text-button" style="color: #f8f8f8">Make Payment from any upi app </span>
+                                    :href="paymentLink" style="display: flex;flex-direction: column;">
+                                    <span class="text-button" style="color: #f8f8f8;display: flex;align-items: center;">
+                                    Make Payment 
+                                    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.5 13.8164L9.45 12.7289L12.1125 10.0664H3V8.56641H12.1125L9.45 5.90391L10.5 4.81641L15 9.31641L10.5 13.8164Z" fill="white"/>
+                                    </svg>
+                                    </span>
                                 </a>
 
                                 <a if="Order.Total > 0 && !Agent" class="w-inline-block" type="button" @click="showQRCode"
-                                    style="text-align: center;">
+                                    style="text-align: center;color: inherit;text-decoration: none;" href="#">
                                     <span if="!showingQRCode" class="text-button">
                                         Show QR code to make payment
                                     </span>
@@ -284,7 +291,7 @@ class AppDiv extends CodBellElement {
                             <p style="margin-left: 0;margin-top: -1em;">Your device is on it's way to you.</p>
                             <div style="display: flex;flex-wrap: wrap;">
                                 <div style="flex: 1;display: flex;align-items: center;">
-                                    <div class="vertical_bar" :style="'background: linear-gradient(180deg, #78E16F '+gradient_after+'%, #C0C0C0 34.52%);'"></div>
+                                    <div class="vertical_bar" :style="'background: linear-gradient(180deg, #78E16F 0%, #C0C0C0 '+gradient_after+'%);'"></div>
                                     <ul style="list-style: none;padding: 0;margin-inline-start: -19px;">
                                         <li>
                                             <img if="Order.PaymentDoneOn" src="/assets/img/image_done.png"/>
@@ -719,17 +726,17 @@ class AppDiv extends CodBellElement {
                     this.data.Name = this.data.Order.Name
                     this.data.Mobile = this.data.Order.Mobile
                     this.data.coupon_code = this.data.Order.CouponCode
-                    if (this.data.Agent) {
+                    if (this.data.Agent || window.screen.width > 900) {
                         this.showQRCode(null, true)
                     }
                     if(this.data.Order.DeliveredOn){
-                        this.data.gradient_after = 0
+                        this.data.gradient_after = 200
                     }else if(this.data.Order.DispatchedOn){
-                        this.data.gradient_after = 34.52
+                        this.data.gradient_after = 100
                     }else if(this.data.Order.PaymentDoneOn){
-                        this.data.gradient_after = 69.04
+                        this.data.gradient_after = 34.52
                     }else {
-                        this.data.gradient_after = -30
+                        this.data.gradient_after = 0
                     }
                 }
                 break;
