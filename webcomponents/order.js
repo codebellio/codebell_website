@@ -36,6 +36,7 @@ class AppDiv extends CodBellElement {
                 background: linear-gradient(132deg, #cacacad4, #c8c8c8);
                 align-items: center;
                 justify-content: center;
+                z-index: 3000000000 !important;
             }
 
             .orderPopUp {
@@ -249,7 +250,7 @@ class AppDiv extends CodBellElement {
                                         <strong style="float: right;" :text="'₹'+Order.Total">₹00.00</strong>
                                     </p>
                                 </div>
-                                <p style="font-size: 16px;">Page will automatically get refreshed after payment got successful</p>
+                                <p style="font-size: 16px;">Page will automatically get refreshed after successful payment</p>
                             </div>
                             <div style="display: flex; flex-direction: column; justify-content: center; width: 400px; max-width: 80vw; font-size: 16x;">
                                 <div style="color: #c8c8c8; flex: 1;">.</div>
@@ -285,7 +286,7 @@ class AppDiv extends CodBellElement {
                     </div>
                     <div if="Order.PaymentDoneOn" style="display: flex;flex-direction: column;align-items: start;gap: 1em;font-size: 16px;">
                         <h1>Purchase Successful!</h1>
-                        <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activet it
+                        <p if="Order.CodebellID">Your order has been placed and you can scan your codebell again to activate it
                         </p>
                         <div if="!Order.CodebellID">
                             <p style="margin-left: 0;margin-top: -1em;">Your device is on it's way to you.</p>
